@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+
+<head>
+  <title>JSON-Editor Interactive Demo v2</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <!-- ACE Editor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/mode-javascript.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/mode-json.js"></script>
+
+  <!-- Split-Grid -->
+  <script src="https://unpkg.com/split-grid/dist/split-grid.js"></script>
+
+  <!-- LZString compression library - Used to create direct links to the demo - NOT REQUIRED for JSON Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+
+  <!-- JSON Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
+
+  <link rel="stylesheet" href="css/jsoneditor_demo.min.css" />
+<style type="text/css">
+<!--
+
+-->
+</style>
+</head>
+
+<body>
+
+<main>
+
+  <h1><span>JSON-Editor</span>Interactive Demo v2.0</h1>
+
+  <input id="tab1" type="radio" name="tabs" class="nav" checked>
+  <label for="tab1" class="nav">Output</label>
+
+  <input id="tab2" type="radio" name="tabs" class="nav">
+  <label for="tab2" class="nav">Input</label>
+
+  <input id="tab3" type="radio" name="tabs" class="nav">
+  <label for="tab3" class="nav">Config</label>
+
+  <section id="content1">
+
+    <div id="json-editor-form"></div>
+
+  </section>
+
+  <section id="content2">
+    <h3>JSON Schema</h3>
+    <div id="schema">
+{
+  "title": "Output",
+  "type": "object",
+  "theme": "bootstrap4",
+  "required": ["test"],
+  "properties": {
+    "test": {
+      "title": "String test field",
+      "type": "string",
+      "default": "hello"
+    }
+  }
+}
+    </div>
+    <button id="restore-schema">Restore default schema</button>
+    <label for="external-schema">
+      <span>Load Schema: </span>
+      <select id="external-schema">
+        <option value=""></option>
+        <option value="basic_person.json">Basic person</option>
+        <option value="meta_schema.json">Meta Schema</option>
+      </select>
+    </label>
+
+    <h3>JavaScript</h3>
+    <div id="editor">
+// The JSONEditor instance is available in the variable "jsoneditor"
+console.log('jsoneditor',jsoneditor);
+    </div>
+    <button id="execute-code">Execute code</button> <button id="restore-code">Restore default code</button>
+
+  </section>
+
+  <section id="content3">
+    <p>
+      Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+    </p>
+    <p>
+      Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
+    </p>
+  </section>
+
+</main>
+
+ <div class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <p>&nbsp;</p>
+  </div>
+</div>
+<script type="text/javascript">
+
+  // Global scope variables
+  var jsoneditor = null;
+  var globalTest = "i am GLOBAL"; // Dummy test var
+</script>
+<script type="text/javascript" src="js/jsoneditor_demo.min.js"></script>
+</body>
+</html>
