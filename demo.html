@@ -254,6 +254,11 @@ h1:first-child span {
 }
     </div>
     <button id="restore-schema">Restore default schema</button>
+    <select id="external-schema">
+      <option value=""></option>
+      <option value="basic_person.json">Basic person</option>
+      <option value="meta_schema.json">Meta Schema</option>
+    </select>
 
     <h3>JavaScript</h3>
     <div id="editor">
@@ -324,8 +329,6 @@ jsoneditor = new JSONEditor(document.querySelector('#json-editor-form'),{
     modalClose.addEventListener("click", toggleModal);
     window.addEventListener("click", windowOnClick);
 
-
-
     var aceTheme = 'ace/theme/github';
 
     // Setup ACE editor for editing Schema
@@ -375,6 +378,18 @@ jsoneditor = new JSONEditor(document.querySelector('#json-editor-form'),{
       }
     }.bind(aceSchemaEditor));
 
+
+    document.querySelector('#external-schema').addEventListener('change', function(e) {
+      var file = this.options[this.selectedIndex].value;
+      if (file) {
+        loadJSON(file, function(response) {
+          aceSchemaEditor.setValue(response);
+          aceSchemaEditor.session.getSelection().clearSelection();
+        });
+      }
+
+    });
+
     // Set restore to default for ACE Editor
     var setRestoreButton = function(sel, ed) {
       document.querySelector(sel).addEventListener('click', function(def, e) {
@@ -395,6 +410,20 @@ jsoneditor = new JSONEditor(document.querySelector('#json-editor-form'),{
       try { JSON.parse(code); }
       catch(e) { return 'Invalid Schema: ' + e.message.charAt(12).toUpperCase() + e.message.slice(13); }
       return false;
+    }
+
+
+    // Load external JSON file
+    var loadJSON = function(file, callback) {
+      var xobj = new XMLHttpRequest();
+      xobj.overrideMimeType("application/json");
+      xobj.open('GET', file, true);
+      xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+          callback(xobj.responseText);
+        }
+      };
+      xobj.send(null);
     }
 
     // Insert script tag into page
