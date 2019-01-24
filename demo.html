@@ -1,0 +1,455 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+
+<head>
+  <title>JSON-Editor Interactive Demo v2</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <!-- ACE Editor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/mode-javascript.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/mode-json.js"></script>
+
+  <!-- Split-Grid -->
+  <script src="https://unpkg.com/split-grid/dist/split-grid.js"></script>
+
+  <!-- LZString compression library - Used to create direct links to the demo - NOT REQUIRED for JSON Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+
+  <!-- JSON Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
+
+<style type="text/css">
+<!--
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  font: 14px/1.5 'Open Sans',sans-serif;
+  color: #345;
+  background: #f0f2f4;
+}
+
+p:not(:last-child) {
+  margin: 0 0 20px;
+}
+
+main {
+  max-width: 1280px;
+  overflow: auto;
+  width: 100%;
+  padding: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #abc;
+}
+
+input.nav {
+  display: none;
+}
+
+label.nav {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #abc;
+  border: 1px solid rgba(0,0,0,.1);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+label.nav:before {
+  font-family: Arial;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label.nav[for*='1']:before {
+  content: '\1F5B5';
+}
+
+label.nav[for*='2']:before {
+  content: '\2328';
+}
+
+label.nav[for*='3']:before {
+  content: '\2699';
+}
+
+label.nav[for*='4']:before {
+  content: '\f171';
+}
+
+label.nav:hover {
+  color: #789;
+  cursor: pointer;
+}
+
+input.nav:checked + label.nav {
+  color: #0af;
+  border: 1px solid #abc;
+  border-top: 2px solid #0af;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+#editor {
+  width: 100%;
+  min-height: 100px;
+  height: 300px;
+  border: 1px solid #ddd;
+  resize: vertical;
+  margin-bottom: 5px;
+}
+#schema {
+  width: 100%;
+  min-height: 100px;
+  height: 300px;
+  border: 1px solid #ddd;
+  resize: vertical;
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width: 550px) {
+  label.nav {
+    font-size: 0;
+  }
+
+  label.nav:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 400px) {
+  label.nav {
+    padding: 15px;
+  }
+}
+h1:first-child {
+  font-size: 160%;
+}
+h1:first-child span {
+  font-size: 60%;
+  display: block;
+  line-height: 50%;
+}
+
+/* Modal Popup */
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s linear 0s, transform 0.25s linear;
+  z-index: 99998;
+}
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem 1.5rem;
+  width: 90%;
+  border-radius: 0.5rem;
+  z-index: 99999;
+}
+.close-button {
+  float: right;
+  width: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: lightgray;
+}
+.close-button:hover {
+  background-color: darkgray;
+}
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+
+-->
+</style>
+</head>
+
+<body>
+
+<!--<h1><span>JSON-Editor</span> Interactive Demo v2.0</h1>  -->
+<main>
+
+  <h1><span>JSON-Editor</span>Interactive Demo v2.0</h1>
+
+  <input id="tab1" type="radio" name="tabs" class="nav" checked>
+  <label for="tab1" class="nav">Output</label>
+
+  <input id="tab2" type="radio" name="tabs" class="nav">
+  <label for="tab2" class="nav">Input</label>
+
+  <input id="tab3" type="radio" name="tabs" class="nav">
+  <label for="tab3" class="nav">Config</label>
+
+  <section id="content1">
+
+    <div id="json-editor-form"></div>
+
+  </section>
+
+  <section id="content2">
+    <h3>JSON Schema</h3>
+    <div id="schema">
+{
+  "title": "Output",
+  "type": "object",
+  "theme": "bootstrap4",
+  "required": ["test"],
+  "properties": {
+    "test": {
+      "title": "String test field",
+      "type": "string",
+      "default": "hello"
+    }
+  }
+}
+    </div>
+    <button id="restore-schema">Restore default schema</button>
+
+    <h3>JavaScript</h3>
+    <div id="editor">
+// The schema from the "JSON Schema" field is available in the variable "schema"
+//alert(JSON.stringify(schema));
+//alert(globalTest);
+var startval = {};
+//alert(jsoneditor);
+
+if (jsoneditor) jsoneditor.destroy();
+jsoneditor = new JSONEditor(document.querySelector('#json-editor-form'),{
+    schema: schema,
+    startval: startval
+});
+    </div>
+    <button id="execute-code">Execute code</button> <button id="restore-code">Restore default code</button>
+
+    <p>
+      Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
+    </p>
+    <p>
+      Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+    </p>
+  </section>
+
+  <section id="content3">
+    <p>
+      Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+    </p>
+    <p>
+      Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
+    </p>
+  </section>
+
+</main>
+
+ <div class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <p>&nbsp;</p>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  // Global scope variables
+  var jsoneditor = null;
+  var globalTest = "i am GLOBAL"; // Dummy test var
+
+  (function() {
+
+    var globalTest = "i am LOCAL"; // Dummy test var
+
+
+    // Error Modal box
+    var modal = document.querySelector(".modal");
+    var modalContent = modal.querySelector("p");
+    var modalClose = modal.querySelector(".close-button");
+
+    var toggleModal = function() {
+      modal.classList.toggle("show-modal");
+    }
+
+    var windowOnClick = function(e) {
+      if (e.target === modal) toggleModal();
+    }
+
+    modalClose.addEventListener("click", toggleModal);
+    window.addEventListener("click", windowOnClick);
+
+
+
+    var aceTheme = 'ace/theme/github';
+
+    // Setup ACE editor for editing Schema
+    aceSchemaEditor = ace.edit("schema");
+    aceSchemaEditor.setOptions({
+      theme: aceTheme,
+    });
+    aceSchemaEditor.session.setOptions({
+      mode: 'ace/mode/json',
+      tabSize: 2,
+      useSoftTabs: true
+    });
+
+    // Setup ACE editor for editing Schema start values
+    aceStartvalEditor = ace.edit("schema");
+    aceStartvalEditor.setOptions({
+      theme: aceTheme,
+    });
+    aceStartvalEditor.session.setOptions({
+      mode: 'ace/mode/json',
+      tabSize: 2,
+      useSoftTabs: true
+    });
+
+    // Setup ACE editor for editing JavaScript
+    aceCodeEditor = ace.edit("editor");
+    aceCodeEditor.setOptions({
+      theme: aceTheme,
+    });
+    aceCodeEditor.session.setOptions({
+      mode: 'ace/mode/javascript',
+      tabSize: 2,
+      wrap: true,
+      useSoftTabs: true,
+      useWrapMode: true,
+      indentedSoftWrap: true
+    });
+
+
+    // Show error if JSON schema is invalid
+    aceSchemaEditor.on("blur", function() {
+      var res = isInvalidJson(this.getValue());
+      if (res) {
+        modalContent.innerText = res;
+        toggleModal();
+        console.log(res);
+      }
+    }.bind(aceSchemaEditor));
+
+    // Set restore to default for ACE Editor
+    var setRestoreButton = function(sel, ed) {
+      document.querySelector(sel).addEventListener('click', function(def, e) {
+        e.preventDefault();
+        this.setValue(def);
+        this.session.getSelection().clearSelection();
+      }.bind(ed, ed.getValue()));
+    }
+
+    // Set buttom event to restore initial value of ACE editor content.
+    setRestoreButton('#restore-code', aceCodeEditor);
+
+    // Set buttom event to restore initial value of ACE editor content.
+    setRestoreButton('#restore-schema', aceSchemaEditor);
+
+    // Tests if JSON schema is invalid. Returns errormsg if invalid
+    var isInvalidJson = function(code) {
+      try { JSON.parse(code); }
+      catch(e) { return 'Invalid Schema: ' + e.message.charAt(12).toUpperCase() + e.message.slice(13); }
+      return false;
+    }
+
+    // Insert script tag into page
+    var insertScriptTag = function(code, ident) {
+      var scriptTag;
+
+      // Remove existing script tag with id=<ident>
+      if (scriptTag = document.querySelector('script#' + ident)) {
+        scriptTag.parentNode.removeChild(scriptTag);
+      }
+
+      // Create script tag with id=<ident> and add it to page
+      scriptTag = document.createElement('script');
+      scriptTag.id = ident;
+      scriptTag.appendChild(document.createTextNode(code));
+      document.body.appendChild(scriptTag);
+    }
+
+    // Evaluate code without inserting it on page
+    var evaluateCode = function(code, strict) {
+      if (strict) {
+        "use strict";
+        code = '"use strict";' + code;
+      }
+      try {
+        new Function(code)();
+      }
+      catch(e) {
+        modalContent.innerText = e.message;
+        toggleModal();
+        console.log(e.message);
+      }
+    }
+
+    var executeCodeButton = document.querySelector('#execute-code');
+    executeCodeButton.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Get content of ACE editor schema and JavaScript;
+      var code = 'var schema=' + aceSchemaEditor.getValue() + ';' + aceCodeEditor.getValue();
+
+      // Create script tag with id="json-editor-demo" and add it to page
+      //insertScriptTag(code, 'json-editor-demo');
+
+      // Evaluate code without inserting it on page
+      evaluateCode(code);
+      var tab1 = document.querySelector('#tab1').checked = 1;
+
+    });
+
+    var code = 'var schema=' + aceSchemaEditor.getValue() + ';' + aceCodeEditor.getValue();
+    // Create initial form
+    evaluateCode(code);
+    //insertScriptTag(code, 'json-editor-demo');
+  })();
+</script>
+</body>
+</html>
