@@ -1,0 +1,51 @@
+{
+  "name": "@pmk65/jedemov2",
+  "title": "JSONEditor Interactive Demo v2",
+  "description": "JSON Schema based editor demo",
+  "version": "0.0.2",
+  "main": "dist/jsoneditor.js",
+  "author": {
+    "name": "Peter Klein",
+    "email": "pmk@io.dk",
+    "url": "https://github.com/pmk65/jedemov2"
+  },
+  "bugs": {
+    "url": "https://github.com/pmk65/jedemov2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmk65/jedemov2.git"
+  },
+  "keywords": [
+    "json",
+    "schema",
+    "jsonschema",
+    "editor"
+  ],
+  "scripts": {
+    "prepare": "grunt",
+    "build": "npm install && grunt",
+    "start": "grunt watch",
+    "version": "grunt string-replace",
+    "prepublishOnly": "grunt string-replace",
+    "postversion": "git push && git push --tags && npm publish ./ --access public"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "ace-builds": "^1.3.3",
+    "grunt": "^1.0.2",
+    "grunt-contrib-concat": "~1.0.0",
+    "grunt-contrib-connect": "~2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-jshint": "~1.0.0",
+    "grunt-contrib-uglify": "~1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-string-replace": "^1.3.1",
+    "standard": "^11.0.1"
+  },
+  "dependencies": {}
+}
