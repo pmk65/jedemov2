@@ -1,0 +1,33 @@
+
+#boolean_options label,
+#ext_lib label {
+  display: block;
+  margin-bottom: .2rem;
+  cursor: pointer;
+  transition: background-color .1s;
+}
+#boolean_options label:hover,
+#ext_lib label:hover {
+  /*display: inline-block;*/
+  background-color: #eee;
+}
+#boolean_options label input,
+#ext_lib label input {
+  margin-right: .25rem;
+  cursor: pointer;
+  transition: all .1s;
+}
+#boolean_options label:hover input,
+#ext_lib label:hover input {
+  margin-right: .35rem;
+}
+details {
+  margin-bottom: .35rem;
+}
+details div:first-of-type {
+  border: 1px solid #eee;
+}
+summary {
+  font-weight: bold;
+  cursor: pointer;
+}

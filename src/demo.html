@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>JSON-Editor Interactive Demo v2</title>
+  <title>JSON-Editor Interactive Playground</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <!-- ACE Editor -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
@@ -13,14 +13,14 @@
   <!-- Split-Grid -->
   <script src="https://unpkg.com/split-grid/dist/split-grid.js"></script>
 
-  <!-- LZString compression library - Used to create direct links to the demo - NOT REQUIRED for JSON Editor -->
+  <!-- LZString compression library - Used to create direct links to the demo -->
   <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
 
   <!-- JSON Editor -->
   <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
 
   <link rel="stylesheet" href="css/jsoneditor_demo.min.css" />
-<style type="text/css">
+<style>
 <!--
 
 -->
@@ -31,7 +31,7 @@
 
 <main>
 
-  <h1><span>JSON-Editor</span>Interactive Demo v2.0</h1>
+  <h1><span>JSON-Editor</span>Interactive Playground</h1>
 
   <input id="tab1" type="radio" name="tabs" class="nav" checked>
   <label for="tab1" class="nav">Output</label>
@@ -42,8 +42,10 @@
   <input id="tab3" type="radio" name="tabs" class="nav">
   <label for="tab3" class="nav">Config</label>
 
-  <section id="content1">
+  <button id="direct_link">Direct Link</button>
 
+  <section id="content1">
+    <h3>Json Editor generated form</h3>
     <div id="json-editor-form"></div>
 
   </section>
@@ -69,7 +71,7 @@
     <label for="external-schema">
       <span>Load Schema: </span>
       <select id="external-schema">
-        <option value=""></option>
+        <option value="">Default</option>
         <option value="basic_person.json">Basic person</option>
         <option value="meta_schema.json">Meta Schema</option>
       </select>
@@ -85,12 +87,176 @@ console.log('jsoneditor',jsoneditor);
   </section>
 
   <section id="content3">
-    <p>
-      Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
-    </p>
-    <p>
-      Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
-    </p>
+    <h3>Options</h3>
+    <div id="json-editor-confg">
+      <details open>
+        <summary>CSS Framework</summary>
+        <select id="theme" class="form-control browser-default">
+          <option value="barebones">Barebones</option>
+          <option value="html">HTML</option>
+          <option value="jqueryui">jQuery UI</option>
+          <option value="bootstrap2">Bootstrap 2</option>
+          <option value="bootstrap3">Bootstrap 3</option>
+          <option value="bootstrap4">Bootstrap 4</option>
+          <option value="foundation3">Foundation 3</option>
+          <option value="foundation4">Foundation 4</option>
+          <option value="foundation5">Foundation 5</option>
+          <option value="foundation6">Foundation 6</option>
+          <option value="materialize">Materialize</option>
+        </select>
+      </details>
+
+      <details open>
+        <summary>Icon Library</summary>
+        <select id="iconlib" class="form-control browser-default">
+          <option value="">None</option>
+          <option value="jqueryui">jQuery UI</option>
+          <option value="bootstrap2">Bootstrap 2 Glyphicons</option>
+          <option value="bootstrap3">Bootstrap 3 Glyphicons</option>
+          <option value="foundation2">Foundicons 2</option>
+          <option value="foundation3">Foundicons 3</option>
+          <option value="fontawesome3">FontAwesome 3</option>
+          <option value="fontawesome4">FontAwesome 4</option>
+          <option value="fontawesome5">FontAwesome 5</option>
+          <option value="materialicons">Material Icons</option>
+        </select>
+      </details>
+      <details open>
+        <summary>Object Layout</summary>
+        <select id="object_layout" data-json-editor-special class="form-control browser-default">
+          <option value="normal">normal</option>
+          <option value="grid">grid</option>
+        </select>
+      </details>
+
+      <details open>
+        <summary>Boolean options</summary>
+        <div id="boolean_options">
+          <label>
+            <input type="checkbox" value="required_by_default">
+            <span>Object properties required by default</span>
+          </label>
+          <label>
+            <input type="checkbox" value="display_required_only">
+            <span>Only show required properties by default</span>
+          </label>
+          <label>
+            <input type="checkbox" value="no_additional_properties">
+            <span>No additional object properties</span>
+          </label>
+          <label>
+            <input type="checkbox" value="ajax">
+            <span>Allow loading schemas via Ajax</span>
+          </label>
+          <label>
+            <input type="checkbox" value="disable_edit_json">
+            <span>Disable "Edit JSON" buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" value="disable_collapse">
+            <span>Disable collapse buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" value="disable_properties">
+            <span>Disable properties buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" value="disable_array_add">
+            <span>Disable array add buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" value="disable_array_reorder">
+            <span>Disable array move buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" value="disable_array_delete">
+            <span>Disable array delete buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" value="enable_array_copy">
+            <span>Add copy buttons to arrays</span>
+          </label>
+          <label>
+            <input type="checkbox" value="array_controls_top">
+            <span>Array controls will be displayed at top of list</span>
+          </label>
+          <label>
+            <input type="checkbox" value="disable_array_delete_all_rows">
+            <span>Disable array delete all rows buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" value="disable_array_delete_last_row">
+            <span>Disable array delete last row buttons</span>
+          </label>
+        </div>
+      </details>
+
+      <details>
+        <summary>Show Errors</summary>
+        <select id="show_errors" class="form-control browser-default">
+          <option value="interaction">On Interaction</option>
+          <option value="change">On Field Change</option>
+          <option value="always">Always</option>
+          <option value="never">Never</option>
+        </select>
+      </details>
+
+      <details>
+        <summary>Template Engine</summary>
+        <select id="template" class="form-control browser-default">
+          <option value="default">Default</option>
+          <option value="ejs">Ejs</option>
+          <option value="handlebars">Handlebars</option>
+          <option value="hogan">Hogan</option>
+          <option value="markup">Markup</option>
+          <option value="mustache">Mustache</option>
+          <option value="swig">Swig</option>
+          <option value="underscore">Underscore</option>
+        </select>
+      </details>
+
+      <details>
+        <summary>Include External Libraries</summary>
+        <div id="ext_lib">
+          <label>
+            <input type="checkbox" value="ace_editor">
+            <span>Ace Editor</span>
+          </label>
+          <label>
+            <input type="checkbox" value="sceditor">
+            <span>SCEditor</span>
+          </label>
+          <label>
+            <input type="checkbox" value="simplemde">
+            <span>SimpleMDE</span>
+          </label>
+          <label>
+            <input type="checkbox" value="select2">
+            <span>Select2</span>
+          </label>
+          <label>
+            <input type="checkbox" value="selectize">
+            <span>Selectize</span>
+          </label>
+          <label>
+            <input type="checkbox" value="flatpickr">
+            <span>Flatpickr</span>
+          </label>
+          <label>
+            <input type="checkbox" value="signature_pad">
+            <span>Signature Pad</span>
+          </label>
+          <label>
+            <input type="checkbox" value="mathjs">
+            <span>Math.js</span>
+          </label>
+          <label>
+            <input type="checkbox" value="cleavejs">
+            <span>Cleave.js</span>
+          </label>
+        </div>
+      </details>
+      </div>
   </section>
 
 </main>
@@ -101,12 +267,12 @@ console.log('jsoneditor',jsoneditor);
     <p>&nbsp;</p>
   </div>
 </div>
-<script type="text/javascript">
+<script>
 
   // Global scope variables
   var jsoneditor = null;
   var globalTest = "i am GLOBAL"; // Dummy test var
 </script>
-<script type="text/javascript" src="js/jsoneditor_demo.min.js"></script>
+<script src="js/jsoneditor_demo.js"></script>
 </body>
 </html>
