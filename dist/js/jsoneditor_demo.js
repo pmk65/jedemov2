@@ -451,8 +451,9 @@
     var code = getCode(aceSchemaEditor.getValue(), aceStartvalEditor.getValue()) + aceCodeEditor.getValue();
     //evaluateCode(code); // Evaluate method
     //insertScriptTag(code, 'json-editor-demo');  // Inject method
+    jeIframe.document.open();
     jeIframe.document.write(createIframeContent(code)); // Iframe method
-
+    jeIframe.document.close();
 
   })();
 
