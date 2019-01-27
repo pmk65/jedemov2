@@ -100,6 +100,7 @@ input.nav:checked + label.nav {
   display: block;
 }
 
+#direct_link_reset,
 #direct_link {
   float: right;
 }
@@ -113,7 +114,6 @@ input.nav:checked + label.nav {
   min-height: 100px;
   height: 300px;
   border: 1px solid #ddd;
-  resize: vertical;
   margin-bottom: 5px;
 }
 #schema {
@@ -121,8 +121,35 @@ input.nav:checked + label.nav {
   min-height: 100px;
   height: 300px;
   border: 1px solid #ddd;
-  resize: vertical;
   margin-bottom: 5px;
+}
+#startval {
+  width: 100%;
+  min-height: 100px;
+  height: 300px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+.split-parent:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+#split-panel1, #split-panel2 {
+  float: left;
+}
+.split-gutter {
+    float: left;
+    background-color: #eee;
+    margin-top: 27px;
+    cursor: ew-resize;
+    transition: .2s;
+}
+.split-gutter:hover {
+    background-color: #888;
 }
 
 @media screen and (max-width: 550px) {

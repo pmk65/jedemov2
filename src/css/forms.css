@@ -9,7 +9,7 @@
 #boolean_options label:hover,
 #ext_lib label:hover {
   /*display: inline-block;*/
-  background-color: #eee;
+  background-color: #eaeaea;
 }
 #boolean_options label input,
 #ext_lib label input {
@@ -25,9 +25,41 @@ details {
   margin-bottom: .35rem;
 }
 details div:first-of-type {
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
 }
 summary {
   font-weight: bold;
   cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
+#iframe-wrapper {
+    position: fixed;
+    height:100%;
+    left:0;
+    right:0;
+}
+#iframe-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: #fff;
+/*    overflow: hidden;*/
+    /* Ratio formular height/width. ie. h9/w16=0.5625 = padding-top: 56.25%;  */
+    /*padding-top: 100%;*/
+}
+#iframe-container iframe {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+

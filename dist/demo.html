@@ -10,14 +10,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/mode-javascript.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/mode-json.js"></script>
 
-  <!-- Split-Grid -->
-  <script src="https://unpkg.com/split-grid/dist/split-grid.js"></script>
-
-  <!-- LZString compression library - Used to create direct links to the demo -->
+  <!-- LZString compression library - Used to create direct links to the page -->
   <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
 
   <!-- JSON Editor -->
   <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
+
+  <!-- Split.js - https://github.com/nathancahill/split/ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.10/split.min.js"></script>
+
 
   <link rel="stylesheet" href="css/jsoneditor_demo.min.css" />
 <style>
@@ -42,18 +43,27 @@
   <input id="tab3" type="radio" name="tabs" class="nav">
   <label for="tab3" class="nav">Config</label>
 
+  <button id="direct_link_reset">&#8634;</button>
   <button id="direct_link">Direct Link</button>
 
   <section id="content1">
     <h3>Json Editor generated form</h3>
     <div id="json-editor-form"></div>
+    <div id="iframe-wrapper">
+      <div id="iframe-container">
+        <iframe></iframe>
+      </div>
+    </div>
 
   </section>
 
   <section id="content2">
-    <h3>JSON Schema</h3>
-    <div id="schema">
-{
+
+  <div class="split-parent">
+    <div id="split-panel1">
+
+    <h3>JSON&nbsp;Schema</h3>
+    <div id="schema">{
   "title": "Output",
   "type": "object",
   "theme": "bootstrap4",
@@ -65,11 +75,10 @@
       "default": "hello"
     }
   }
-}
-    </div>
+}</div>
     <button id="restore-schema">Restore default schema</button>
     <label for="external-schema">
-      <span>Load Schema: </span>
+      <span>Load&nbsp;Schema: </span>
       <select id="external-schema">
         <option value="">Default</option>
         <option value="basic_person.json">Basic person</option>
@@ -77,11 +86,20 @@
       </select>
     </label>
 
-    <h3>JavaScript</h3>
-    <div id="editor">
-// The JSONEditor instance is available in the variable "jsoneditor"
-console.log('jsoneditor',jsoneditor);
     </div>
+    <div id="split-panel2">
+
+    <h3>Start&nbsp;Value</h3>
+    <div id="startval">{
+    "test": "hello world"
+}</div>
+    <button id="restore-startval">Restore default startval</button>
+    </div>
+  </div>
+
+    <h3>JavaScript</h3>
+    <div id="editor">// The JSONEditor instance is available in the variable "jsoneditor"
+console.log('jsoneditor',jsoneditor);</div>
     <button id="execute-code">Execute code</button> <button id="restore-code">Restore default code</button>
 
   </section>
@@ -91,7 +109,7 @@ console.log('jsoneditor',jsoneditor);
     <div id="json-editor-confg">
       <details open>
         <summary>CSS Framework</summary>
-        <select id="theme" class="form-control browser-default">
+        <select id="theme">
           <option value="barebones">Barebones</option>
           <option value="html">HTML</option>
           <option value="jqueryui">jQuery UI</option>
@@ -108,7 +126,7 @@ console.log('jsoneditor',jsoneditor);
 
       <details open>
         <summary>Icon Library</summary>
-        <select id="iconlib" class="form-control browser-default">
+        <select id="iconlib">
           <option value="">None</option>
           <option value="jqueryui">jQuery UI</option>
           <option value="bootstrap2">Bootstrap 2 Glyphicons</option>
@@ -123,7 +141,7 @@ console.log('jsoneditor',jsoneditor);
       </details>
       <details open>
         <summary>Object Layout</summary>
-        <select id="object_layout" data-json-editor-special class="form-control browser-default">
+        <select id="object_layout">
           <option value="normal">normal</option>
           <option value="grid">grid</option>
         </select>
@@ -133,59 +151,59 @@ console.log('jsoneditor',jsoneditor);
         <summary>Boolean options</summary>
         <div id="boolean_options">
           <label>
-            <input type="checkbox" value="required_by_default">
+            <input type="checkbox" id="required_by_default" value="required_by_default">
             <span>Object properties required by default</span>
           </label>
           <label>
-            <input type="checkbox" value="display_required_only">
+            <input type="checkbox" id="display_required_only" value="display_required_only">
             <span>Only show required properties by default</span>
           </label>
           <label>
-            <input type="checkbox" value="no_additional_properties">
+            <input type="checkbox" id="display_required_only" value="display_required_only">
             <span>No additional object properties</span>
           </label>
           <label>
-            <input type="checkbox" value="ajax">
+            <input type="checkbox" id="ajax" value="ajax">
             <span>Allow loading schemas via Ajax</span>
           </label>
           <label>
-            <input type="checkbox" value="disable_edit_json">
+            <input type="checkbox" id="disable_edit_json" value="disable_edit_json">
             <span>Disable "Edit JSON" buttons</span>
           </label>
           <label>
-            <input type="checkbox" value="disable_collapse">
+            <input type="checkbox" id="disable_collapse" value="disable_collapse">
             <span>Disable collapse buttons</span>
           </label>
           <label>
-            <input type="checkbox" value="disable_properties">
+            <input type="checkbox" id="disable_properties" value="disable_properties">
             <span>Disable properties buttons</span>
           </label>
           <label>
-            <input type="checkbox" value="disable_array_add">
+            <input type="checkbox" id="disable_array_add" value="disable_array_add">
             <span>Disable array add buttons</span>
           </label>
           <label>
-            <input type="checkbox" value="disable_array_reorder">
+            <input type="checkbox" id="disable_array_reorder" value="disable_array_reorder">
             <span>Disable array move buttons</span>
           </label>
           <label>
-            <input type="checkbox" value="disable_array_delete">
+            <input type="checkbox" id="disable_array_delete" value="disable_array_delete">
             <span>Disable array delete buttons</span>
           </label>
           <label>
-            <input type="checkbox" value="enable_array_copy">
+            <input type="checkbox" id="enable_array_copy" value="enable_array_copy">
             <span>Add copy buttons to arrays</span>
           </label>
           <label>
-            <input type="checkbox" value="array_controls_top">
+            <input type="checkbox" id="array_controls_top" value="array_controls_top">
             <span>Array controls will be displayed at top of list</span>
           </label>
           <label>
-            <input type="checkbox" value="disable_array_delete_all_rows">
+            <input type="checkbox" id="disable_array_delete_all_rows" value="disable_array_delete_all_rows">
             <span>Disable array delete all rows buttons</span>
           </label>
           <label>
-            <input type="checkbox" value="disable_array_delete_last_row">
+            <input type="checkbox" id="disable_array_delete_last_row" value="disable_array_delete_last_row">
             <span>Disable array delete last row buttons</span>
           </label>
         </div>
@@ -193,7 +211,7 @@ console.log('jsoneditor',jsoneditor);
 
       <details>
         <summary>Show Errors</summary>
-        <select id="show_errors" class="form-control browser-default">
+        <select id="show_errors">
           <option value="interaction">On Interaction</option>
           <option value="change">On Field Change</option>
           <option value="always">Always</option>
@@ -203,7 +221,7 @@ console.log('jsoneditor',jsoneditor);
 
       <details>
         <summary>Template Engine</summary>
-        <select id="template" class="form-control browser-default">
+        <select id="template">
           <option value="default">Default</option>
           <option value="ejs">Ejs</option>
           <option value="handlebars">Handlebars</option>
@@ -219,39 +237,39 @@ console.log('jsoneditor',jsoneditor);
         <summary>Include External Libraries</summary>
         <div id="ext_lib">
           <label>
-            <input type="checkbox" value="ace_editor">
+            <input type="checkbox" id="lib_aceeditor" value="lib_aceeditor">
             <span>Ace Editor</span>
           </label>
           <label>
-            <input type="checkbox" value="sceditor">
+            <input type="checkbox" id="lib_sceditor" value="lib_sceditor">
             <span>SCEditor</span>
           </label>
           <label>
-            <input type="checkbox" value="simplemde">
+            <input type="checkbox" id="lib_simplemde" value="lib_simplemde">
             <span>SimpleMDE</span>
           </label>
           <label>
-            <input type="checkbox" value="select2">
+            <input type="checkbox" id="lib_select2" value="lib_select2">
             <span>Select2</span>
           </label>
           <label>
-            <input type="checkbox" value="selectize">
+            <input type="checkbox" id="lib_selectize" value="lib_selectize">
             <span>Selectize</span>
           </label>
           <label>
-            <input type="checkbox" value="flatpickr">
+            <input type="checkbox" id="lib_flatpickr" value="lib_flatpickr">
             <span>Flatpickr</span>
           </label>
           <label>
-            <input type="checkbox" value="signature_pad">
+            <input type="checkbox" id="lib_signaturepad" value="lib_signaturepad">
             <span>Signature Pad</span>
           </label>
           <label>
-            <input type="checkbox" value="mathjs">
+            <input type="checkbox" id="lib_mathjs" value="lib_mathjs">
             <span>Math.js</span>
           </label>
           <label>
-            <input type="checkbox" value="cleavejs">
+            <input type="checkbox" id="lib_cleavejs" value="lib_cleavejs">
             <span>Cleave.js</span>
           </label>
         </div>
@@ -272,6 +290,18 @@ console.log('jsoneditor',jsoneditor);
   // Global scope variables
   var jsoneditor = null;
   var globalTest = "i am GLOBAL"; // Dummy test var
+
+window.Split(['#split-panel1', '#split-panel2'], {
+    sizes: [55, 45],
+    minSize: 200,
+    gutter: function (index, direction) {
+        var gutter = document.createElement('div');
+        gutter.className = 'split-gutter';
+        gutter.style.height = '296px';
+        return gutter;
+    },
+    gutterSize: 4
+});
 </script>
 <script src="js/jsoneditor_demo.js"></script>
 </body>
