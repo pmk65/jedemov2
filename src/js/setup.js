@@ -95,7 +95,7 @@
 
     // Create Direct Link URL
     var updateDirectLink = function(e) {
-      var url = window.location.protocol + '//' + window.location.pathname;
+      var url = window.location.toString().replace(window.location.search, "");
       if (e.target == jeDirectLink) {
         url += '?schema=' + window.LZString.compressToBase64(JSON.stringify(aceSchemaEditor.getValue()));
 //        url += '&value=' +  window.LZString.compressToBase64(JSON.stringify(window.jsoneditor.getValue()));
