@@ -443,21 +443,22 @@
     var loadExampleFiles = function() {
       var example = this.options[this.selectedIndex].value;
       if (example) {
-        loadFile('examples/schema/' + example + '.json', 'application/json', function(response) {
+        console.log('examples/schema/' + example + '.json');
+        loadFile('../examples/schema/' + example + '.json', 'application/json', function(response) {
           aceSchemaEditor.setValue(response);
           aceSchemaEditor.session.getSelection().clearSelection();
         });
-        loadFile('examples/startval/' + example + '.json', 'application/json', function(response) {
+        loadFile('../examples/startval/' + example + '.json', 'application/json', function(response) {
           aceStartvalEditor.setValue(response);
           aceStartvalEditor.session.getSelection().clearSelection();
         });
-        loadFile('examples/javascript/' + example + '.js', 'application/javascript', function(response) {
+        loadFile('../examples/javascript/' + example + '.js', 'application/javascript', function(response) {
           aceCodeEditor.setValue(response);
           aceCodeEditor.session.getSelection().clearSelection();
         });
       }
     };
-
+                     console.log('loc',window.location);
     // Change event handler - for Options selectboxes
     var getSelectValue = function() {
       var key = this.id, val = this.value;
