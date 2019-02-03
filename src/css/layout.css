@@ -52,7 +52,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     display:none;
   }
   .content-row.active {
-    display: block;
+    display: flex;
   }
   .inner-row {
     background-color: var(--bg2-color);
@@ -62,6 +62,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     transform: translate(-50%,0);
     padding: 1rem 2rem;
     box-shadow: 2px 0 5px rgba(0,0,0,.2);
+    flex-grow: 1;
   }
   .header-row .inner-row {
     background-color: var(--header-color);
@@ -106,10 +107,10 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     content: "\2328";
   }
   nav.tabs button .icon3:after {
-    content: "\2699";
+    content: "\1F58A";
   }
   nav.tabs button .icon4:after {
-    content: "Q";
+    content: "\2699";
   }
 
   /* Nav links */
@@ -210,17 +211,22 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   }
   .slidedown-menu:after {
     position: absolute;
-    bottom: -40px;
-    width: 40px;
-    height: 40px;
+    bottom: -30px;
+    width: 30px;
+    height: 30px;
     right:17px;
     content: "\2630";
-    line-height: 40px;
+    line-height: 30px;
     text-align: center;
     background: #ccc;
+    opacity: .5;
+    transition: opacity 0.4s ease-in-out;
   }
   .slidedown-menu:hover {
     transform: translateY(0);
+  }
+  .slidedown-menu:hover:after {
+    opacity: 1;
   }
   .box {
     padding: 20px;

@@ -1,0 +1,226 @@
+{
+"title": "datetime editor examples",
+"id": "test",
+"type": "object",
+"format": "grid",
+"options": {
+  "disable_edit_json": false,
+  "disable_properties": false
+  },
+"properties": {
+  "sdate": {
+    "type": "string",
+    "format": "date",
+    "title": "Date (String)",
+    "description": "Standard date field",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter date"
+        }
+      }
+    },
+  "stime": {
+    "type": "string",
+    "format": "time",
+    "title": "Time (String)",
+    "description": "Standard time field",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter time"
+        }
+      }
+    },
+  "sdatetime": {
+    "type": "string",
+    "format": "datetime-local",
+    "title": "Datetime (String)",
+    "description": "Standard datetime-local field",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "YYYY-MM-DD HH:SS"
+        }
+      }
+    },
+  "fsdate": {
+    "type": "string",
+    "format": "date",
+    "title": "Date (String)",
+    "description": "Standard date field with flatpickr",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter date"
+        },
+      "flatpickr": {
+        "inlineHideInput": true,
+        "wrap": true,
+        "allowInput": true
+        }
+      }
+    },
+  "fstime": {
+    "type": "string",
+    "format": "time",
+    "title": "Time (String)",
+    "description": "Standard time field with flatpickr",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter time"
+        },
+      "flatpickr": {
+        "wrap": true,
+        "showClearButton": false,
+        "inlineHideInput": true,
+        "defaultHour": 7,
+        "defaultMinute": 19,
+        "enableSeconds": true,
+        "hourIncrement": 2,
+        "minuteIncrement": 3,
+        "time_24hr": true,
+        "allowInput": true
+        }
+      }
+    },
+  "fsdatetime": {
+    "type": "string",
+    "format": "datetime-local",
+    "title": "Datetime (String)",
+    "description": "Standard datetime-local field with flatpickr",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter datetime"
+        },
+      "flatpickr": {
+        "wrap": true,
+        "time_24hr": true,
+        "allowInput": true
+        }
+      }
+    },
+  "idate": {
+    "type": "integer",
+    "format": "date",
+    "title": "Date (Integer)",
+    "description": "Integer date field",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter date"
+        }
+      }
+    },
+  "itime": {
+    "type": "integer",
+    "format": "time",
+    "title": "Time (Integer)",
+    "description": "Integer time field",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter time"
+        }
+      }
+    },
+  "idatetime": {
+    "type": "integer",
+    "format": "datetime-local",
+    "title": "Datetime (Integer)",
+    "description": "Integer datetime-local field",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter datetime"
+        }
+      }
+    },
+  "fidate": {
+    "type": "integer",
+    "format": "date",
+    "title": "Date (Integer)",
+    "description": "Integer date field with flatpickr",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter date"
+        },
+      "flatpickr": {
+        "wrap": true,
+        "time_24hr": true,
+        "allowInput": true
+        }
+      }
+    },
+  "fitime": {
+    "type": "integer",
+    "format": "time",
+    "title": "Time (Integer)",
+    "description": "Integer time field with flatpickr",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter time"
+        },
+      "flatpickr": {
+        "wrap": true,
+        "time_24hr": true,
+        "allowInput": true
+        }
+      }
+    },
+  "fidatetime": {
+    "type": "integer",
+    "format": "datetime-local",
+    "title": "Datetime (Integer)",
+    "description": "Integer datetime-local field with flatpickr",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter datetime"
+        },
+      "flatpickr": {
+        "wrap": true,
+        "time_24hr": true,
+        "allowInput": true
+        }
+      }
+    },
+  "fisdatetime": {
+    "type": "string",
+    "format": "datetime-local",
+    "title": "Datetime (String)",
+    "description": "Standard datetime-local field with inline flatpickr",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter datetime"
+        },
+      "flatpickr": {
+        "inline": true,
+        "time_24hr": true
+        }
+      }
+    },
+  "fisdate": {
+    "type": "string",
+    "format": "date",
+    "title": "Date (String)",
+    "description": "Standard date field with inline flatpickr and hidden input",
+    "options": {
+      "grid_columns": 4,
+      "inputAttributes": {
+        "placeholder": "Enter datetime"
+        },
+      "flatpickr": {
+        "inlineHideInput": true,
+        "inline": true,
+        "time_24hr": true
+        }
+      }
+    }
+  }
+}
