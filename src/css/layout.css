@@ -10,6 +10,8 @@
   /*
 https://aykevl.nl/2014/09/fix-jumping-scrollbar
 https://codepen.io/elstgav/pen/myEJNv
+https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shifting-its-position-when-scrollbar-appears
+
   */
   body, html {
     width: 100%;
