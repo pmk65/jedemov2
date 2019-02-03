@@ -43,6 +43,15 @@
         <button id="execute-code">Generate Form</button>
         <button id="direct_link"><i class="icon icon3"></i>Direct link</button>
         <button id="direct_link_reset"><i class="icon icon4"></i>Reset form</button>
+        <label for="external-schema">
+          <span>Load&nbsp;Example: </span>
+          <select id="external-schema">
+            <option value="">Default</option>
+            <option value="basic_person.json">Basic person</option>
+            <option value="meta_schema.json">Meta Schema</option>
+            <option value="datetime.json">Datetime</option>
+          </select>
+        </label>
       </nav>
 
       <nav class="tabs">
@@ -66,15 +75,6 @@
         <div class="slidedown-menu">
           <div class="box">
             <button id="restore-schema">Restore default schema</button>
-            <label for="external-schema">
-              <span>Load&nbsp;Schema: </span>
-              <select id="external-schema">
-                <option value="">Default</option>
-                <option value="basic_person.json">Basic person</option>
-                <option value="meta_schema.json">Meta Schema</option>
-                <option value="datetime.json">Datetime</option>  
-              </select>
-            </label>
           </div>
         </div>
 <div id="schema">{

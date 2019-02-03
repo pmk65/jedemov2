@@ -232,19 +232,6 @@
         toggleModal();
     };
 
-    // Load external JSON file
-    var loadJSON = function(file, callback) {
-      var xobj = new XMLHttpRequest();
-      xobj.overrideMimeType("application/json");
-      xobj.open('GET', file, true);
-      xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4 && xobj.status == "200") {
-          callback(xobj.responseText);
-        }
-      };
-      xobj.send(null);
-    };
-
     // Fullscreen Drag'n'Drop upload handlers
     function showDropZone() {
       jeDropZone.style.display = "block";
@@ -438,13 +425,35 @@
               '</body></html>';
     };
 
+    // Load external JSON file
+    var loadFile = function(file, mimeType, callback) {
+      var xobj = new XMLHttpRequest();
+      xobj.overrideMimeType(mimeType);
+      xobj.open('GET', file, true);
+      xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == '200') {
+          callback(xobj.responseText);
+        }
+      };
+      xobj.send(null);
+    };
+
     // Change event handler - Load selected JSON Schema into editor
-    var loadJSONFile = function() {
-      var file = this.options[this.selectedIndex].value;
-      if (file) {
-        loadJSON(file, function(response) {
+    // Does not work locally due to CORS policy
+    var loadExampleFiles = function() {
+      var example = this.options[this.selectedIndex].value;
+      if (example) {
+        loadFile('/examples/schema/' + example + '.json', 'application/json', function(response) {
           aceSchemaEditor.setValue(response);
           aceSchemaEditor.session.getSelection().clearSelection();
+        });
+        loadFile('/examples/startval/' + example + '.json', 'application/json', function(response) {
+          aceStartvalEditor.setValue(response);
+          aceStartvalEditor.session.getSelection().clearSelection();
+        });
+        loadFile('/examples/javascript/' + example + '.js', 'application/javascript', function(response) {
+          aceCodeEditor.setValue(response);
+          aceCodeEditor.session.getSelection().clearSelection();
         });
       }
     };
@@ -556,7 +565,11 @@
     jeTabs.addEventListener('click', tabsHandler);
 
     // Set button event for loading external schemas
-    jeSchemaLoad.addEventListener('change', loadJSONFile);
+    if (window.location.protocol != 'file:') jeSchemaLoad.addEventListener('change', loadExampleFiles);
+    else {
+      jeSchemaLoad.disabled = true;
+      jeSchemaLoad.title = 'Not available locally due to CORS policy';
+    }
 
     // Set button event for generating form
     jeExec.addEventListener('click', generateForm);

@@ -117,6 +117,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   nav.links {
     float: right;
     margin-right: 1rem;
+    color: #ddd;
   }
   nav.tabs:after,
   nav.links:after {
