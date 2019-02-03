@@ -1,0 +1,74 @@
+/* Enable the external library "Cleave.js" */  
+{
+  "title":"Cleave.js editor examples",
+  "id":"test",
+  "type":"object",
+  "format":"grid",
+  "options":{
+    "disable_edit_json":false,
+    "disable_properties":false
+  },
+  "properties":{
+    "creditcard":{
+      "type":"string",
+      "title":"Credit Card",
+      "description":" ",
+      "options":{
+        "grid_columns":6,
+        "inputAttributes":{
+          "placeholder":"enter credit card number"
+        },
+        "cleave":{
+          "creditCard":true,
+          "onCreditCardTypeChanged":"creditCardTypeChangedHandler"
+        }
+      }
+    },
+    "phone":{
+      "type":"string",
+      "title":"Phone number",
+      "description":"Phone number formatting (danish) + prefix",
+      "options":{
+        "grid_columns":6,
+        "cleave":{
+          "phone":true,
+          "phoneRegionCode":"dk",
+          "prefix":"+45 ",
+          "noImmediatePrefix":false
+        }
+      }
+    },
+    "prefix":{
+      "type":"string",
+      "title":"Prefix",
+      "description":"Prefix",
+      "options":{
+        "grid_columns":6,
+        "cleave":{
+          "prefix":"JE-"
+        }
+      }
+    },
+    "blocks":{
+      "type":"string",
+      "title":"Serial number",
+      "description":"Blocks, uppercase formatting",
+      "options":{
+        "grid_columns":6,
+        "inputAttributes":{
+          "placeholder":"Enter serial number"
+        },
+        "cleave":{
+          "blocks":[
+            3,
+            5,
+            5
+          ],
+          "uppercase":true,
+          "delimiter":"-",
+          "delimiterLazyShow":true
+        }
+      }
+    }
+  }
+}

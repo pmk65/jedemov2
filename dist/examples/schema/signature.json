@@ -1,0 +1,14 @@
+/* Enable the external library "SignaturePad" */   
+{
+  "type":"object",
+  "title":"Document",
+  "properties":{
+    "signature":{
+      "type":"signature",
+      "title":"Signature",
+      "options":{
+        "canvas_height":500
+      }
+    }
+  }
+}

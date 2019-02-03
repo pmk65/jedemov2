@@ -1,0 +1,17 @@
+/* Enable the external library "SCEditor" */  
+{
+  "type":"object",
+  "title":"Blog Post",
+  "properties":{
+    "title":{
+      "type":"string"
+    },
+    "body":{
+      "type":"string",
+      "format":"html",
+      "options":{
+        "wysiwyg":true
+      }
+    }
+  }
+}
