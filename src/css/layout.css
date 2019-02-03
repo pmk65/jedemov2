@@ -1,0 +1,225 @@
+  :root {
+    --bg1-color: #f8f8f8;
+    --bg2-color: #ffffff;
+    --text-color: #000000;
+    --tab-bgcolor1: #f1f1f1;
+    --tab-bgcolor2: #cccccc;
+    --tab-bordercolor: #ddd;
+    --header-color: #02577a;
+  }
+  /*
+https://aykevl.nl/2014/09/fix-jumping-scrollbar
+https://codepen.io/elstgav/pen/myEJNv
+  */
+  body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg1-color);
+  }
+  h1 {
+    color: #E1F6FF;
+    font-size: 160%;
+    text-shadow: 1px 1px 1px rgba(255,255,255,.5), -1px -1px rgba(0,0,0,.5);
+  }
+  h1 span {
+    font-size: 60%;
+    margin-bottom: .1rem;
+    display: block;
+  }
+  .row-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font: normal 1rem/1 Arial;
+  }
+  .header-row {
+    background-color: var(--header-color);
+    border-bottom: 1px solid var(--tab-bordercolor);
+  }
+  .content-row {
+    flex-grow: 1;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    display:none;
+  }
+  .content-row.active {
+    display: block;
+  }
+  .inner-row {
+    background-color: var(--bg2-color);
+    position: relative;
+    max-width: 1200px;
+    left:50%;
+    transform: translate(-50%,0);
+    padding: 1rem 2rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,.2);
+  }
+  .header-row .inner-row {
+    background-color: var(--header-color);
+    box-shadow: none;
+  }
+  /* Tabs menu */
+  nav.tabs {
+    float: left;
+  }
+  nav.tabs button {
+    background-color: var(--tab-bgcolor1);
+    border: 1px solid var(--tab-bordercolor);
+    margin: 0 2px -1px 0;
+    outline: none;
+    cursor: pointer;
+    padding: .8rem 1.3rem;
+    float: left;
+    transition: 0.1s;
+    border-radius: .3rem .3rem 0 0;
+  }
+  nav.tabs button:focus,
+  nav.tabs button:hover {
+    background-color: var(--tab-bgcolor2);
+    text-shadow: 1px 0 0 rgba(0,0,0,.5);
+  }
+  nav.tabs button.active,
+  nav.tabs button.active:hover {
+    background-color: var(--bg2-color);
+    border-bottom: 1px solid transparent;
+    text-shadow: 1px 0 0 rgba(0,0,0,.5);
+  }
+  nav.tabs button .icon {
+    width: 1em;
+    height: 1em;
+    margin-right: .2em;
+    font: normal 1em/1 Arial;
+  }
+  nav.tabs button .icon1:after {
+    content: "\1F5B5";
+  }
+  nav.tabs button .icon2:after {
+    content: "\2328";
+  }
+  nav.tabs button .icon3:after {
+    content: "\2699";
+  }
+  nav.tabs button .icon4:after {
+    content: "Q";
+  }
+
+  /* Nav links */
+  nav.links {
+    float: right;
+    margin-right: 1rem;
+  }
+  nav.tabs:after,
+  nav.links:after {
+    content: '.';
+    visibility: hidden;
+    display: block;
+    clear:both;
+    height: 0;
+  }
+
+  /* Modal Popup */
+  .modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s linear 0s, transform 0.25s linear;
+    z-index: 99998;
+  }
+  .modal.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+  }
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem 1.5rem;
+    width: 90%;
+    border-radius: 0.5rem;
+    z-index: 99999;
+  }
+  .close-button {
+    float: right;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray;
+  }
+  .close-button:hover {
+    background-color: darkgray;
+  }
+
+  /* Fullscreen drag'n'drop upload */
+  #dropzone {
+    box-sizing: border-box;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+    background: rgba(96, 167, 220, 0.8);
+    border: 11px dashed #60a7dc;
+  }
+  #dropzone > div {
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    min-height: 100px;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    color: #ddd;
+    padding: 1em;
+    font-size: xx-large;
+    text-align: center;
+  }
+
+  /* Slide down menu */
+  .slidedown-menu {
+    position: absolute;
+    right: 0px;
+    background: #ccc;
+    width: 200px;
+    height: 100px;
+    transform: translateY(-100px);
+    transition: transform 0.4s ease-in-out;
+    z-index: 999;
+  }
+  .slidedown-menu:after {
+    position: absolute;
+    bottom: -40px;
+    width: 40px;
+    height: 40px;
+    right:17px;
+    content: "\2630";
+    line-height: 40px;
+    text-align: center;
+    background: #ccc;
+  }
+  .slidedown-menu:hover {
+    transform: translateY(0);
+  }
+  .box {
+    padding: 20px;
+  }
