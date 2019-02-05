@@ -461,6 +461,10 @@
     var loadExampleFiles = function() {
       var example = this.options[this.selectedIndex].value;
       if (example) {
+        aceSchemaEditor.setValue('');
+        aceStartvalEditor.setValue('');
+        aceCodeEditor.setValue('');
+        
         loadFile('examples/schema/' + example + '.json', 'application/json', function(response) {
           aceSchemaEditor.setValue(response);
           aceSchemaEditor.session.getSelection().clearSelection();
