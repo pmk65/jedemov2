@@ -441,7 +441,7 @@
     var loadFile = function(file, mimeType, callback) {
       var xobj = new XMLHttpRequest();
       xobj.overrideMimeType(mimeType);
-      xobj.open('GET', file, false);
+      xobj.open('GET', file, true);
       xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == '200') {
           callback(xobj.responseText);
