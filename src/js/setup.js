@@ -138,6 +138,9 @@
         },
         lib_mathjs: {
           js: 'https://cdn.jsdelivr.net/npm/mathjs@latest/dist/math.min.js'
+        },
+        lib_jquery: {
+          js: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js'
         }
       }
     };
@@ -375,7 +378,8 @@
 
     // Build codeblock to create JSON-Editor instance
     var getCode = function(schema, startval) {
-      return 'if (jsoneditor) jsoneditor.destroy();jsoneditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{schema: ' + schema + ', startval: ' + startval + '});';
+      var opt = 'schema:' + schema + (startval.trim() ? ', startval:' + startval : '');
+      return 'if (jsoneditor) jsoneditor.destroy();jsoneditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
     };
 
     // Filter out duplicates from array
@@ -424,7 +428,7 @@
               buildEditorOptions(options) +
               '</head><body>' +
               '<div class="inner-row"><div id="json-editor-form"></div></div>' +
-              '<script>var jsoneditor, schema, startval;' +
+              '<script>var jsoneditor;' +
               'try{' +
               code +
                //';for (var i=0;i<399;i++) {document.write(i+"<br>");};' +  // Iframe scrollbar testing
@@ -437,7 +441,7 @@
     var loadFile = function(file, mimeType, callback) {
       var xobj = new XMLHttpRequest();
       xobj.overrideMimeType(mimeType);
-      xobj.open('GET', file, true);
+      xobj.open('GET', file, false);
       xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == '200') {
           callback(xobj.responseText);
@@ -464,7 +468,7 @@
         aceSchemaEditor.setValue('');
         aceStartvalEditor.setValue('');
         aceCodeEditor.setValue('');
-        
+
         loadFile('examples/schema/' + example + '.json', 'application/json', function(response) {
           aceSchemaEditor.setValue(response);
           aceSchemaEditor.session.getSelection().clearSelection();
@@ -477,7 +481,9 @@
           aceCodeEditor.setValue(response);
           aceCodeEditor.session.getSelection().clearSelection();
         });
-
+        loadFile('examples/config/' + example + '.json', 'application/json', function(response) {
+          console.log('load config',response);
+        });
         eventFire(document.querySelector('nav.tabs button:nth-of-type(2)'), 'click');
       }
     };
