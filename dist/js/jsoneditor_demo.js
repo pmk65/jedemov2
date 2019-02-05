@@ -424,7 +424,7 @@
               buildEditorOptions(options) +
               '</head><body>' +
               '<div class="inner-row"><div id="json-editor-form"></div></div>' +
-              '<script>var jsoneditor;' +
+              '<script>var jsoneditor, schema, startval;' +
               'try{' +
               code +
                //';for (var i=0;i<399;i++) {document.write(i+"<br>");};' +  // Iframe scrollbar testing
@@ -445,7 +445,7 @@
       };
       xobj.send(null);
     };
-    
+
     // Trigger event on element
     var eventFire = function(el, etype){
       if (el.fireEvent) el.fireEvent('on' + etype);
