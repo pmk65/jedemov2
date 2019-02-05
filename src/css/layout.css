@@ -6,6 +6,7 @@
     --tab-bgcolor2: #cccccc;
     --tab-bordercolor: #ddd;
     --header-color: #02577a;
+    --select-color: #024C69;
   }
   /*
 https://aykevl.nl/2014/09/fix-jumping-scrollbar
@@ -13,6 +14,10 @@ https://codepen.io/elstgav/pen/myEJNv
 https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shifting-its-position-when-scrollbar-appears
 
   */
+  * {
+    box-sizing: border-box;
+  }
+
   body, html {
     width: 100%;
     height: 100%;
@@ -21,15 +26,29 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     background-color: var(--bg1-color);
   }
   h1 {
-    color: #E1F6FF;
     font-size: 160%;
-    text-shadow: 1px 1px 1px rgba(255,255,255,.5), -1px -1px rgba(0,0,0,.5);
+    display: inline-block;
+    background: #C7EEFF linear-gradient(to right, rgba(34,34,34,0) 0%,rgba(255,255,255,1) 50%,rgba(34,34,34,0) 100%) no-repeat;
+    background-size: 10rem;
+    color: transparent;
+    background-clip: text;
+    background-position: -12rem;
+    padding-bottom: .05rem;
+  }
+  h1:hover {
+    background-position: 24rem;
+    transition: 1s;
+  }
+  h1 a {
+    text-decoration: none;
+    color: transparent;
   }
   h1 span {
     font-size: 60%;
     margin-bottom: .1rem;
     display: block;
   }
+
   .row-container {
     display: flex;
     flex-wrap: nowrap;
@@ -94,23 +113,29 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     border-bottom: 1px solid transparent;
     text-shadow: 1px 0 0 rgba(0,0,0,.5);
   }
-  nav.tabs button .icon {
+  button .icon {
     width: 1em;
     height: 1em;
     margin-right: .2em;
-    font: normal 1em/1 Arial;
+    font: normal 1.2em/1.2 Arial;
   }
-  nav.tabs button .icon1:after {
+  button .icon1:after {
     content: "\1F5B5";
   }
-  nav.tabs button .icon2:after {
+  button .icon2:after {
     content: "\2328";
   }
-  nav.tabs button .icon3:after {
+  button .icon3:after {
     content: "\1F58A";
   }
-  nav.tabs button .icon4:after {
+  button .icon4:after {
     content: "\2699";
+  }
+  button .icon5:after {
+    content: "\1F517";
+  }
+  button .icon6:after {
+    content: "\1F501";
   }
 
   /* Nav links */
@@ -216,7 +241,8 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     width: 30px;
     height: 30px;
     right:17px;
-    content: "\2630";
+    font-family: "json-editor-demo";
+    content: "\f0c9";
     line-height: 30px;
     text-align: center;
     background: #ccc;
@@ -231,4 +257,84 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   }
   .box {
     padding: 20px;
+  }
+
+  .slideleft-panel {
+    position: fixed;
+    background-color: #ddd;
+    top: 0;
+    width: 20.5rem;
+    left: -20rem;
+    border-right: 1px solid var(--bg1-color);
+    height: 100%;
+    transition: .4s ease-in-out;
+    font: normal Arial;
+   }
+  .slideleft-panel:hover {
+    transform: translate(20rem,0);
+  }
+  .slideleft-panel:before {
+    background-color: inherit;
+    position:absolute;
+    font-family: "json-editor-demo";
+    content: "\f0c9";
+    width: 2rem;
+    height: 2rem;
+    right: -2rem;
+    top: .5rem;
+    line-height: 30px;
+    text-align: center;
+    border-radius:0 5px 5px 0;
+  }
+  .slideleft-panel > div {
+    margin: 1rem .5rem;
+    font-size: .8rem;
+  }
+
+  #busy-overlay {
+    display:none;
+    background:rgba(0, 120, 199, 0.5);
+    position: absolute;
+    cursor: wait;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+  }
+  #busy-overlay.active {
+    display: block;
+  }
+  #busy-overlay.active > div .spinner {
+    animation: spin 1s infinite linear;
+  }
+  #busy-overlay > div {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size: 20vmin;
+    pointer-events: none;
+  }
+
+  @keyframes spin {
+    100% {
+      transform:rotate(1turn);
+    }
+
+  }
+  .links button {
+    outline: none;
+    border: 1px solid #444;
+    padding: .3rem .5rem;
+    border-radius: .3rem;
+    background-color: var(--tab-bgcolor1);
+  }
+  .links button:hover {
+    background-color: var(--tab-bgcolor2);
+  }
+  .links button:hover i {
+    color: #000CEB;
+  }
+  #direct_link {
+
   }

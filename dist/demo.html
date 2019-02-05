@@ -19,7 +19,6 @@
   <!-- Split.js - https://github.com/nathancahill/split/ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.10/split.min.js"></script>
 
-
   <link rel="stylesheet" href="css/jsoneditor_demo.min.css" />
   <style>
   /* https://stackoverflow.com/questions/325273/make-iframe-to-fit-100-of-containers-remaining-height */
@@ -38,11 +37,12 @@
 
   <div class="header-row">
     <div class="inner-row">
-      <h1><span>JSON-Editor</span>Interactive Playground</h1>
+      <h1><a href="https://github.com/json-editor/json-editor#json-editor" target="_blank" title="JSON-Editor"><span>JSON-Editor</span>Interactive Playground</a></h1>
+      <br>
       <nav class="links">
-        <button id="execute-code">Generate Form</button>
-        <button id="direct_link"><i class="icon icon3"></i>Direct link</button>
-        <button id="direct_link_reset"><i class="icon icon4"></i>Reset form</button>
+        <button id="execute-code"><i class="icon-cog-alt"></i>Generate Form</button>
+        <button id="direct_link"><i class="icon-link"></i>Direct link</button>
+        <button id="direct_link_reset"><i class="icon-unlink"></i>Reset form</button>
         <label for="external-schema">
           <span>Load&nbsp;Example: </span>
           <select id="external-schema">
@@ -52,16 +52,16 @@
             <option value="datetime">Datetime</option>
             <option value="cleave">Cleave</option>
             <option value="signature">SignaturePad</option>
-            <option value="sceditor">SCEditor</option>     
+            <option value="sceditor">SCEditor</option>
           </select>
         </label>
       </nav>
 
       <nav class="tabs">
-        <button data-content="#content1"><i class="icon icon1"></i>Form</button>
-        <button data-content="#content2" class="active"><i class="icon icon2"></i>Schema</button>
-        <button data-content="#content3"><i class="icon icon3"></i>JavaScript</button>
-        <button data-content="#content4"><i class="icon icon4"></i>Options</button>
+        <button data-content="#content1"><i class="icon-laptop"></i>Form</button>
+        <button data-content="#content2" class="active"><i class="icon-keyboard"></i>Schema</button>
+        <button data-content="#content3"><i class="icon-wrench"></i>JavaScript</button>
+<!--        <button data-content="#content4"><i class="icon icon4"></i>Options</button>  -->
       </nav>
     </div>
   </div>
@@ -132,11 +132,14 @@
   <section id="content4" class="content-row">
     <div class="inner-row">
       <h2>Header 2</h2>
+    </div>
+  </section>
 
-      <div id="json-editor-confg">
-        <details open>
-          <summary>CSS Framework</summary>
+  <div class="slideleft-panel">
+      <div id="json-editor-config">
+          <h2>JSON-Editor Options</h2>
           <div>
+            <label for="theme">CSS Framework</label>
             <div class="select">
               <select id="theme">
                 <option value="barebones">Barebones</option>
@@ -153,11 +156,9 @@
               </select>
             </div>
           </div>
-        </details>
 
-        <details open>
-          <summary>Icon Library</summary>
           <div>
+            <label for="iconlib">Icon Library</label>
             <div class="select">
               <select id="iconlib">
                 <option value="">None</option>
@@ -173,10 +174,9 @@
               </select>
             </div>
           </div>
-        </details>
-        <details open>
-          <summary>Object Layout</summary>
+
           <div>
+            <label for="object_layout">Object Layout</label>
             <div class="select">
               <select id="object_layout">
                 <option value="normal">normal</option>
@@ -184,7 +184,34 @@
               </select>
             </div>
           </div>
-        </details>
+
+          <div>
+            <label for="template">Template Engine</label>
+            <div class="select">
+              <select id="template">
+                <option value="default">Default</option>
+                <option value="ejs">Ejs</option>
+                <option value="handlebars">Handlebars</option>
+                <option value="hogan">Hogan</option>
+                <option value="markup">Markup</option>
+                <option value="mustache">Mustache</option>
+                <option value="swig">Swig</option>
+                <option value="underscore">Underscore</option>
+              </select>
+            </div>
+          </div>
+
+           <div>
+            <label for="show_errors">Show Errors</label>
+            <div class="select">
+              <select id="show_errors">
+                <option value="interaction">On Interaction</option>
+                <option value="change">On Field Change</option>
+                <option value="always">Always</option>
+                <option value="never">Never</option>
+              </select>
+            </div>
+          </div>
 
         <details open>
           <summary>Boolean options</summary>
@@ -245,38 +272,6 @@
         </details>
 
         <details>
-          <summary>Show Errors</summary>
-          <div>
-            <div class="select">
-              <select id="show_errors">
-                <option value="interaction">On Interaction</option>
-                <option value="change">On Field Change</option>
-                <option value="always">Always</option>
-                <option value="never">Never</option>
-              </select>
-            </div>
-          </div>
-        </details>
-
-        <details>
-          <summary>Template Engine</summary>
-          <div>
-            <div class="select">
-              <select id="template">
-                <option value="default">Default</option>
-                <option value="ejs">Ejs</option>
-                <option value="handlebars">Handlebars</option>
-                <option value="hogan">Hogan</option>
-                <option value="markup">Markup</option>
-                <option value="mustache">Mustache</option>
-                <option value="swig">Swig</option>
-                <option value="underscore">Underscore</option>
-              </select>
-            </div>
-          </div>
-        </details>
-
-        <details>
           <summary>Include External Libraries</summary>
           <div id="ext_lib">
             <label>
@@ -318,8 +313,7 @@
           </div>
         </details>
       </div>
-    </div>
-  </section>
+  </div>
 
    <div class="modal">
     <div class="modal-content">
@@ -332,6 +326,7 @@
     <div>Drag'n'drop JSON schema to upload</div>
   </div>
 
+  <div id="busy-overlay"><div><div class="spinner"><i class="icon-spinner"></i></div></div></div>
 </main>
 <script>
 window.Split(['#split-panel1', '#split-panel2'], {

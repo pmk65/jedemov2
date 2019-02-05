@@ -71,19 +71,19 @@
       },
       template: {
         ejs: {
-          js: 'https://cdn.jsdelivr.net/npm/ejs@2.6.1/lib/ejs.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/ejs@latest/lib/ejs.min.js'
         },
         handlebars: {
-          js: 'https://cdn.jsdelivr.net/npm/handlebars@4.0.12/lib/index.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/handlebars@latest/lib/index.min.js'
         },
         hogan: {
-          js: 'https://cdn.jsdelivr.net/npm/hogan-updated@3.1.0/hogan.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/hogan-updated@latest/hogan.min.js'
         },
         markup: {
-          js: 'https://cdn.jsdelivr.net/npm/markup-js@1.5.21/src/markup.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/markup-js@latest/src/markup.min.js'
         },
         mustache: {
-          js: 'https://cdn.jsdelivr.net/npm/mustache@3.0.1/mustache.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/mustache@latest/mustache.min.js'
         },
         swig: {
           js: 'https://cdnjs.cloudflare.com/ajax/libs/swig/1.4.1/swig.min.js'
@@ -94,18 +94,21 @@
       },
       ext_lib: {
         lib_aceeditor: {
-          js: 'https://cdn.jsdelivr.net/npm/ace-editor-builds@1.2.4/src-min-noconflict/ace.js'
+          js: 'https://cdn.jsdelivr.net/npm/ace-editor-builds@latest/src-min-noconflict/ace.js'
         },
         lib_cleavejs: {
-          js: 'https://cdn.jsdelivr.net/npm/cleave.js@1.4.7/dist/cleave.min.js'
+          js: [
+          'https://cdn.jsdelivr.net/npm/cleave.js@latest/dist/cleave.min.js',
+          'https://cdn.jsdelivr.net/npm/cleave.js@latest/dist/addons/cleave-phone.i18n.min.js'
+          ]
         },
         lib_sceditor: {
-          css: 'https://cdn.jsdelivr.net/npm/sceditor@2.1.3/minified/themes/default.min.css',
+          css: 'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/themes/default.min.css',
           js: [
-            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
-            'https://cdn.jsdelivr.net/npm/sceditor@2.1.3/minified/sceditor.min.js',
-            'https://cdn.jsdelivr.net/npm/sceditor@2.1.3/minified/formats/bbcode.js',
-            'https://cdn.jsdelivr.net/npm/sceditor@2.1.3/minified/formats/xhtml.js'
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/sceditor.min.js',
+            'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/formats/bbcode.js',
+            'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/formats/xhtml.js'
           ]
         },
         lib_simplemde: {
@@ -115,32 +118,33 @@
         lib_select2: {
           css: 'https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/css/select2.min.css',
           js: [
-            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
             'https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/js/select2.min.js'
           ]
         },
         lib_selectize: {
           css: [
-            'https://cdn.jsdelivr.net/npm/selectize@0.12.6/dist/css/selectize.min.css',
-            'https://cdn.jsdelivr.net/npm/selectize@0.12.6/dist/css/selectize.default.min.css'
+            'https://cdn.jsdelivr.net/npm/selectize@latest/dist/css/selectize.min.css',
+            'https://cdn.jsdelivr.net/npm/selectize@latest/dist/css/selectize.default.min.css'
           ],
-          js: 'https://cdn.jsdelivr.net/npm/selectize@0.12.6/dist/js/standalone/selectize.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/selectize@latest/dist/js/standalone/selectize.min.js'
         },
         lib_flatpickr: {
           css: 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
           js: 'https://cdn.jsdelivr.net/npm/flatpickr'
         },
         lib_signaturepad: {
-          js: 'https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/signature_pad@latest/dist/signature_pad.min.js'
         },
         lib_mathjs: {
-          js: 'https://cdn.jsdelivr.net/npm/mathjs@5.3.1/dist/math.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/mathjs@latest/dist/math.min.js'
         }
       }
     };
 
     // Theme to use in ACE editor instances
-    var aceTheme = 'ace/theme/github';
+    //var aceTheme = 'ace/theme/github';
+    var aceTheme = 'ace/theme/vibrant_ink';
 
     // ACE Editor placeholders
     var jeEditSchema = document.querySelector('#schema');
@@ -184,6 +188,7 @@
 
     var jeDropZone = document.querySelector('#dropzone'); // Drag'n'Drop upload zone
 
+    var jeBusyOverlay = document.querySelector('#busy-overlay'); // Busy overlay
 
     /* Helper functions */
 
@@ -206,10 +211,13 @@
 
      // Show JSON error in modal box
      var showModalError = function() {
-      var res = isInvalidJson(this.getValue());
-      if (res) {
-        jeModalContent.innerText = res;
-        toggleModal();
+      var val = this.getValue();
+      if (val.trim()) {
+        var res = isInvalidJson(val);
+        if (res) {
+          jeModalContent.innerText = res;
+          toggleModal();
+        }
       }
     };
 
@@ -303,7 +311,7 @@
     // if "data-json-editor-special" is set on tag, it will not be included
     var getJsonEditorOptions = function() {
       var options = {},
-          cfg = document.querySelector('#json-editor-confg'),
+          cfg = document.querySelector('#json-editor-config'),
           exclude = ':not([data-json-editor-special])',
           els = cfg.querySelectorAll('input[type="checkbox"]' + exclude + ',select' + exclude);
       Array.from(els).forEach(function(el) {
@@ -457,7 +465,7 @@
         });
       }
     };
-                     console.log('loc',window.location);
+
     // Change event handler - for Options selectboxes
     var getSelectValue = function() {
       var key = this.id, val = this.value;
@@ -491,9 +499,27 @@
       }.bind(ed, ed.getValue()));
     };
 
+    // "OnReady" event for Iframe
+    var iframeOnReady = function(a, b) {
+      return "loading" === a.readyState ? a.addEventListener("DOMContentLoaded", b) : b();
+    };
+
+    // Callback for when iframe is ready
+    var iframeReady = function() {
+      // console.log('Not busy');
+      jeBusyOverlay.classList.remove('active');
+      eventFire(document.querySelector('nav.tabs button'), 'click');
+    };
+
     // Click event handler - Creates the form from the JSON schema
     var generateForm = function(e) {
       e.preventDefault();
+
+      window.requestAnimationFrame(function() {
+        // console.log('Busy');
+        jeBusyOverlay.classList.add('active');
+        iframeOnReady(jeIframe, iframeReady);
+      });
 
       // Get content of ACE editor schema, startval and JavaScript;
       var code = getCode(aceSchemaEditor.getValue(), aceStartvalEditor.getValue()) + aceCodeEditor.getValue();
@@ -502,15 +528,9 @@
       jeIframe.document.write(createIframeContent(code)); // Iframe method
       jeIframe.document.close();
 
-      eventFire(document.querySelector('nav.tabs button'), 'click');
    };
 
     /* Setup */
-
-    // Onload event for Iframe
-    jeIframe.addEventListener('load', function() {
-      console.log('jeIframe.window.JSONEditor.defaults', jeIframe.window.JSONEditor.defaults);
-    });
 
     // Add modal box events
     jeModalClose.addEventListener("click", toggleModal);
@@ -568,6 +588,7 @@
     if (window.location.protocol != 'file:') jeSchemaLoad.addEventListener('change', loadExampleFiles);
     else {
       jeSchemaLoad.disabled = true;
+      jeSchemaLoad.style.cursor = 'not-allowed';
       jeSchemaLoad.title = 'Not available locally due to CORS policy';
     }
 
@@ -598,6 +619,19 @@
       jeDropZone.addEventListener('dragleave', hideDropZone);
       jeDropZone.addEventListener('drop', handleDrop);
     }
+
+
+    var jeCfg = document.querySelector('#json-editor-config');
+
+    jeCfg.addEventListener('click', function(e) {
+      if (e.target.nodeName == 'SUMMARY') {
+        var details = this.querySelectorAll('details');
+        for (var i=0;i<details.length;i++) {
+          if (details[i] != e.target.parentNode) details[i].removeAttribute('open');
+        }
+      }
+    });
+
 
     // Update fields from query parameters
     updateFromUrl();
