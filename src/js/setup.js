@@ -445,6 +445,16 @@
       };
       xobj.send(null);
     };
+    
+    // Trigger event on element
+    var eventFire = function(el, etype){
+      if (el.fireEvent) el.fireEvent('on' + etype);
+      else {
+        var evObj = document.createEvent('Events');
+        evObj.initEvent(etype, true, false);
+        el.dispatchEvent(evObj);
+      }
+    };
 
     // Change event handler - Load selected JSON Schema into editor
     // Does not work locally due to CORS policy
@@ -463,6 +473,8 @@
           aceCodeEditor.setValue(response);
           aceCodeEditor.session.getSelection().clearSelection();
         });
+
+        eventFire(document.querySelector('nav.tabs button:nth-of-type(2)'), 'click');
       }
     };
 
@@ -477,16 +489,6 @@
       if (e.target.type == 'checkbox') {
         console.log('Boolean option "' + e.target.value + '" changed to "' + e.target.checked.toString() + '"');
         //jeIframe.window.JSONEditor.defaults[e.target.value] = e.target.checked;
-      }
-    };
-
-    // Trigger event on element
-    var eventFire = function(el, etype){
-      if (el.fireEvent) el.fireEvent('on' + etype);
-      else {
-        var evObj = document.createEvent('Events');
-        evObj.initEvent(etype, true, false);
-        el.dispatchEvent(evObj);
       }
     };
 
@@ -508,7 +510,7 @@
     var iframeReady = function() {
       // console.log('Not busy');
       jeBusyOverlay.classList.remove('active');
-      eventFire(document.querySelector('nav.tabs button'), 'click');
+      eventFire(document.querySelector('nav.tabs button:nth-of-type(1)'), 'click');
     };
 
     // Click event handler - Creates the form from the JSON schema
