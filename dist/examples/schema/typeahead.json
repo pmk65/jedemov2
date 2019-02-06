@@ -1,0 +1,10 @@
+{
+  "title": "Typeahead/Bloodhound example",
+  "type": "object",
+  "properties": {
+    "roadname": {
+      "type": "string",
+      "title": "Roadname"
+    }
+  }
+}

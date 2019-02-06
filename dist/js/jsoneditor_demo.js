@@ -381,6 +381,28 @@
       }
     };
 
+    // Include CSS and JavaScript files listed in comments using special keywords
+    var buildCommentIncludes = function(code) {
+      var res = '',
+          match,
+          includeJS = /\s*\/\/\s*includeJS\((['"])([^"']*)\1\)/g,
+          includeCSS = /\s*\/\/\s*includeCSS\((['"])([^"']*)\1\)/g;
+
+      match = includeJS.exec(code);
+      while (match != null) {
+        if (match[2].trim()) res += '<script src="' + match[2] + '"></script>';
+        match = includeJS.exec(code);
+      }
+
+      match = includeCSS.exec(code);
+      while (match != null) {
+        if (match[2].trim()) res += '<link rel="stylesheet" href="' + match[2] + '" />';
+        match = includeCSS.exec(code);
+      }
+      return res;
+    };
+
+
     // Build codeblock to create JSON-Editor instance
     var getCode = function(schema, startval) {
       var opt = 'schema:' + schema + (startval.trim() ? ', startval:' + startval : '');
@@ -429,6 +451,7 @@
               'body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#f8f8f8 !important;}' +
               '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +
               '</style><script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>' +
+              buildCommentIncludes(code) + 
               buildExtFiles(options) +
               buildEditorOptions(options) +
               '</head><body>' +
