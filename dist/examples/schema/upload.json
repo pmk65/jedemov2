@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "title": "Image",
+  "properties": {
+    "upload_default": {
+      "type": "string",
+      "format": "url",
+      "options": {
+        "upload": true
+      },
+      "links": [
+        {
+          "href": "{{self}}"
+        }
+      ]
+    },
+    "upload_custom_link": {
+      "type": "string",
+      "format": "url",
+      "options": {
+        "upload": true
+      },
+      "links": [
+        {
+          "href": "{{self}}",
+          "rel": "view"
+        }
+      ]
+    },
+    "upload_readonly": {
+      "readonly": true,
+      "type": "string",
+      "format": "url",
+      "options": {
+        "upload": true
+      },
+      "links": [
+        {
+          "href": "{{self}}"
+        }
+      ]
+    },
+    "upload_fail": {
+      "type": "string",
+      "format": "url",
+      "options": {
+        "upload": true
+      },
+      "links": [
+        {
+          "href": "{{self}}"
+        }
+      ]
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

@@ -5,6 +5,10 @@
 <head>
   <title>Json-Editor Interactive Playground</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Favicon -->
+    <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACbElEQVQ4jbWTz0sqcRTFT/WGFj6KguohuolWqVSEhI5IDTkh4kA/XH0dGCHMTdhPqJ1gRFjBrEyIQohAaNEioloE/QFBtMnd6x+IkCAiks5bZDH0erR6B87m3ns+cOFe4D+oHYAAsAFgv+aNWq39u7AiSdK+w+G49vl89+Pj4y+Li4svpmneJ5PJ65aWln0Ayj/DjY2Nx263uyLLMgcHB6mqKjVNoxCCW1tbLJVKFYfDcfwVpEOSpJLH46nIssyhoSGGQiH29vbS6/UyHo8zlUqxWCyyUChUmpqaSgA6rADD6XTeBINBhkIhJhIJGoZR7u7udvX09Lg0TSsvLCwwm81yZ2eHkUjkBoBhBeR9Pl8lHA5zcnKSZ2dnnJmZCb83VVUNZzIZrq2tcWVlhfPz8xUAeSvgaHR0tBqLxVgsFnl6espYLNb63hwZGWldX1+naZqcnp7m3NxcFcCRFXCi63o1kUjw8PCQBwcHfwHy+TxzuRyFENR1vQrgxArYjcfjD+l0mnt7e9ze3ubExMTHCkKIcKFQoGEYjEQiDAaDDwB2rYCU3++/zWQyNE2TuVyOuq6XvV6vKxqNupLJZFkIQUVRKMsy7Xb7LYCUFWC32WznS0tLj5ubm1xeXubU1BT9fj/7+/s5PDzMQCDAvr4+dnZ2PjY0NJwDsH++hWhbW9tVNpt9Wl1dpa7r1DSNiqJwYGCAbrebTqfzSZKkKwDRz+F3jdlstktN0+5mZ2efhRCvgUDgtaur67m5ufmurq7uEsDYV8EfeLssFwAVb89zAeB3zRe1mgrAA+BXLfOhegA/8fZt9m/cUZutB4A/Qyb7hzbvy7sAAAAASUVORK5CYII=" rel="icon" type="image/x-icon" />
+
   <!-- ACE Editor -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/mode-javascript.js"></script>
@@ -12,9 +16,6 @@
 
   <!-- LZString compression library - Used to create direct links to the page -->
   <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
-
-  <!-- JSON Editor -->
-  <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
 
   <!-- Split.js - https://github.com/nathancahill/split/ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.10/split.min.js"></script>
@@ -47,14 +48,18 @@
           <span>Load&nbsp;Example: </span>
           <select id="external-schema">
             <option value="">Default</option>
-            <option value="basic_person">Basic person</option>
-            <option value="meta_schema">Meta Schema</option>
+            <option value="basic">Basic</option>
+            <option value="advanced">Advanced</option>
             <option value="datetime">Datetime</option>
             <option value="cleave">Cleave</option>
             <option value="signature">SignaturePad</option>
             <option value="sceditor">SCEditor</option>
             <option value="selectize">Selectize</option>
-            <option value="typeahead">Typeahead Autocomplete</option> 
+            <option value="starrating">Star Rating</option>
+            <option value="upload">Upload</option>
+            <option value="base64">Base64 (Muiltple Upload) </option>
+            <option value="typeahead">Typeahead Autocomplete</option>
+            <option value="meta_schema">Meta Schema</option>
           </select>
         </label>
       </nav>

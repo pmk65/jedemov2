@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "title": "Car",
+  "properties": {
+    "pictures": {
+      "type": "array",
+      "title": "Pictures",
+      "items": {
+        "type": "object",
+        "title": "Image",
+        "format": "grid",
+        "properties": {
+          "file": {
+            "type": "string",
+            "title": "file",
+            "media": {
+              "binaryEncoding": "base64",
+              "type": "img/png"
+            },
+            "options": {
+              "grid_columns": 6,
+              "multiple": true
+            }
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "options": {
+              "grid_columns": 6
+            }
+          }
+        }
+      }
+    }
+  }
+}
