@@ -478,11 +478,21 @@
           aceStartvalEditor.session.getSelection().clearSelection();
         });
         loadFile('examples/javascript/' + example + '.js', 'application/javascript', function(response) {
+          console.log('load javascript', response);
           aceCodeEditor.setValue(response);
           aceCodeEditor.session.getSelection().clearSelection();
         });
         loadFile('examples/config/' + example + '.json', 'application/json', function(response) {
           console.log('load config',response);
+          for (var i in response) {
+            if (response.hasOwnProperty(i)) {
+              var el = document.querySelector('#' + response[i]);
+              if (el) {
+                if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = response[i];
+                else if (el.nodeName == 'SELECT') el.value = response[i];
+              }
+            }
+          }
         });
         eventFire(document.querySelector('nav.tabs button:nth-of-type(2)'), 'click');
       }
