@@ -478,17 +478,17 @@
           aceStartvalEditor.session.getSelection().clearSelection();
         });
         loadFile('examples/javascript/' + example + '.js', 'application/javascript', function(response) {
-          console.log('load javascript', response, typeof response);
+          console.log('load javascript', response);
           aceCodeEditor.setValue(response);
           aceCodeEditor.session.getSelection().clearSelection();
+          aceCodeEditor.resize();
         });
         loadFile('examples/config/' + example + '.json', 'application/json', function(response) {
           var cfg = JSON.parse(response);
-          console.log('load config',cfg);
-          for (var i in response) {
+          for (var i in cfg) {
             if (cfg.hasOwnProperty(i)) {
-              console.log('id',cfg[i]);
-              var el = document.querySelector('#' + cfg[i]);
+              var el = document.querySelector('#json-editor-config #' + cfg[i]);
+              console.log('el',el);
               if (el) {
                 if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[i];
                 else if (el.nodeName == 'SELECT') el.value = cfg[i];
