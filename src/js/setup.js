@@ -234,6 +234,10 @@
         }
         e.target.classList.add('active');
         document.querySelector(e.target.dataset.content).classList.add('active');
+
+        aceSchemaEditor.resize();
+        aceStartvalEditor.resize();
+        aceCodeEditor.resize();
       }
     };
 
@@ -465,9 +469,6 @@
     var loadExampleFiles = function() {
       var example = this.options[this.selectedIndex].value;
       if (example) {
-        aceSchemaEditor.setValue('');
-        aceStartvalEditor.setValue('');
-        aceCodeEditor.setValue('');
 
         loadFile('examples/schema/' + example + '.json', 'application/json', function(response) {
           aceSchemaEditor.setValue(response);
@@ -478,17 +479,14 @@
           aceStartvalEditor.session.getSelection().clearSelection();
         });
         loadFile('examples/javascript/' + example + '.js', 'application/javascript', function(response) {
-          console.log('load javascript', response);
-          aceCodeEditor.setValue(response);
-          aceCodeEditor.setValue(aceCodeEditor.getValue());    
-          aceCodeEditor.session.getSelection().clearSelection();
+           aceCodeEditor.setValue(response);
+           aceCodeEditor.session.getSelection().clearSelection();
         });
         loadFile('examples/config/' + example + '.json', 'application/json', function(response) {
           var cfg = JSON.parse(response);
           for (var id in cfg) {
             if (cfg.hasOwnProperty(id)) {
               var el = document.querySelector('#json-editor-config #' + id);
-              console.log('el',cfg[id],el);
               if (el) {
                 if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[id];
                 else if (el.nodeName == 'SELECT') el.value = cfg[id];
