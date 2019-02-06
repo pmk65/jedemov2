@@ -127,7 +127,10 @@
             'https://cdn.jsdelivr.net/npm/selectize@latest/dist/css/selectize.min.css',
             'https://cdn.jsdelivr.net/npm/selectize@latest/dist/css/selectize.default.min.css'
           ],
-          js: 'https://cdn.jsdelivr.net/npm/selectize@latest/dist/js/standalone/selectize.min.js'
+          js: [
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/selectize@latest/dist/js/standalone/selectize.min.js'
+          ]
         },
         lib_flatpickr: {
           css: 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
