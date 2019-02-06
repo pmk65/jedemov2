@@ -485,12 +485,13 @@
         });
         loadFile('examples/config/' + example + '.json', 'application/json', function(response) {
           console.log('load config',response);
+          var cfg = JSON.parse(response);
           for (var i in response) {
-            if (response.hasOwnProperty(i)) {
-              var el = document.querySelector('#' + response[i]);
+            if (cfg.hasOwnProperty(i)) {
+              var el = document.querySelector('#' + cfg[i]);
               if (el) {
-                if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = response[i];
-                else if (el.nodeName == 'SELECT') el.value = response[i];
+                if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[i];
+                else if (el.nodeName == 'SELECT') el.value = cfg[i];
               }
             }
           }
