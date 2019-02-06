@@ -4,6 +4,15 @@
   "type": "object",
   "format": "grid",
   "properties": {
+      "_header": {
+      "type": "string",
+      "format": "hidden",
+      "description": "<h3>String based Starrating editor</h3><p><ul><li>If \"displayValue\" is set to true, the seleced option will be displayed below the stars.</li></ul></p>",
+      "options": {
+        "compact": true,
+        "grid_columns": 12
+      }
+    },
     "starrating": {
       "type": "string",
       "format": "starrating",
