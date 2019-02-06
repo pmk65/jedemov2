@@ -8,6 +8,15 @@
     "disable_properties":false
   },
   "properties":{
+      "_header": {
+      "type": "string",
+      "format": "hidden",
+      "description": "<h3>Example showing how to use Cleave.js to format your &lt;input/&gt; content when you are typing.</h3><p>For documentation on the Cleave.js options, look at <a href=\"https://github.com/nosir/cleave.js\" target=\"_blank\" title=\"Cleave.js Github\">Cleave.js</a> Github page. You can also find a lot of examples in this <a href=\"https://jsfiddle.net/nosir/aLnhdf3z/\" target=\"_blank\" title=\"Cleave.js JSFiddle\">JSFiddle</a> page.</p>",
+      "options": {
+        "compact": true,
+        "grid_columns": 12
+      }
+    },
     "creditcard":{
       "type":"string",
       "title":"Credit Card",
