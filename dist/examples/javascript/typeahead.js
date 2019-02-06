@@ -1,6 +1,6 @@
 // includeJS("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
 // includeJS("https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.bundle.min.js")
-// includeCSS("https://raw.githubusercontent.com/bassjobsen/typeahead.js-bootstrap-css/master/typeaheadjs.css")
+// includeCSS("https://pmk65.github.io/jedemov2/dist/examples/bloodhound.css")
 
 // Initialize the Typeahead/Bloodhound engine
 // (See Typeahead/Bloodhound documentation for more info)
