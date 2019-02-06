@@ -451,7 +451,7 @@
               'body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#f8f8f8 !important;}' +
               '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +
               '</style><script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>' +
-              buildCommentIncludes(code) + 
+              buildCommentIncludes(code) +
               buildExtFiles(options) +
               buildEditorOptions(options) +
               '</head><body>' +
@@ -494,6 +494,12 @@
       var example = this.options[this.selectedIndex].value;
       if (example) {
 
+        eventFire(document.querySelector('nav.tabs button:nth-of-type(2)'), 'click');
+
+        aceSchemaEditor.setValue('');
+        aceStartvalEditor.setValue('');
+        aceCodeEditor.setValue('');
+
         loadFile('examples/schema/' + example + '.json', 'application/json', function(response) {
           aceSchemaEditor.setValue(response);
           aceSchemaEditor.session.getSelection().clearSelection();
@@ -518,7 +524,7 @@
             }
           }
         });
-        eventFire(document.querySelector('nav.tabs button:nth-of-type(2)'), 'click');
+
       }
     };
 
