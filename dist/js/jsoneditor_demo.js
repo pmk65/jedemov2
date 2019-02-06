@@ -479,15 +479,15 @@
         });
         loadFile('examples/javascript/' + example + '.js', 'application/javascript', function(response) {
           console.log('load javascript', response, typeof response);
-          if (!response) response = '';
           aceCodeEditor.setValue(response);
           aceCodeEditor.session.getSelection().clearSelection();
         });
         loadFile('examples/config/' + example + '.json', 'application/json', function(response) {
-          console.log('load config',response);
           var cfg = JSON.parse(response);
+          console.log('load config',cfg);
           for (var i in response) {
             if (cfg.hasOwnProperty(i)) {
+              console.log('id',cfg[i]);
               var el = document.querySelector('#' + cfg[i]);
               if (el) {
                 if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[i];
