@@ -480,18 +480,18 @@
         loadFile('examples/javascript/' + example + '.js', 'application/javascript', function(response) {
           console.log('load javascript', response);
           aceCodeEditor.setValue(response);
+          aceCodeEditor.setValue(aceCodeEditor.getValue());    
           aceCodeEditor.session.getSelection().clearSelection();
-          aceCodeEditor.resize();
         });
         loadFile('examples/config/' + example + '.json', 'application/json', function(response) {
           var cfg = JSON.parse(response);
-          for (var i in cfg) {
-            if (cfg.hasOwnProperty(i)) {
-              var el = document.querySelector('#json-editor-config #' + cfg[i]);
-              console.log('el',el);
+          for (var id in cfg) {
+            if (cfg.hasOwnProperty(id)) {
+              var el = document.querySelector('#json-editor-config #' + id);
+              console.log('el',cfg[id],el);
               if (el) {
-                if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[i];
-                else if (el.nodeName == 'SELECT') el.value = cfg[i];
+                if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[id];
+                else if (el.nodeName == 'SELECT') el.value = cfg[id];
               }
             }
           }
