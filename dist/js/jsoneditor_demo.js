@@ -478,7 +478,8 @@
           aceStartvalEditor.session.getSelection().clearSelection();
         });
         loadFile('examples/javascript/' + example + '.js', 'application/javascript', function(response) {
-          console.log('load javascript', response);
+          console.log('load javascript', response, typeof response);
+          if (!response) response = '';
           aceCodeEditor.setValue(response);
           aceCodeEditor.session.getSelection().clearSelection();
         });
