@@ -235,6 +235,7 @@
         e.target.classList.add('active');
         document.querySelector(e.target.dataset.content).classList.add('active');
 
+        // Required for ACE editor to update the content after "display: hidden"
         aceSchemaEditor.resize();
         aceStartvalEditor.resize();
         aceCodeEditor.resize();
