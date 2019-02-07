@@ -48,14 +48,14 @@
         <label for="external-schema">
           <span>Load&nbsp;Example: </span>
           <select id="external-schema">
+            <option value="" disabled>Select example</option>
             <optgroup label="General Examples">
-              <option value="" disabled>Select example</option>
               <option value="basic">Basic Usage</option>
               <option value="advanced">Advanced Usage (Ajax)</option>
-              <option value="basic_person"> - Basic Person (Ajax schema)</option>
-              <option value="person"> - Person (Ajax schema)</option>
+              <option value="basic_person" class="sub">Basic Person (Ajax schema)</option>
+              <option value="person" class="sub">Person (Ajax schema)</option>
               <option value="advanced2">Advanced (Accident Details)</option>
-              <option value="recursive">Recursive [fails]</option>
+              <option value="recursive" class="fails">Recursive [fails]</option>
             </optgroup>
             <optgroup label="Editor Examples">
               <option value="datetime">Datetime</option>
@@ -65,7 +65,7 @@
               <option value="select2">Select2</option>
               <option value="selectize">Selectize</option>
               <option value="starrating">Star Rating</option>
-              <option value="upload">Upload [fails]</option>
+              <option value="upload" class="fails">Upload [fails]</option>
               <option value="base64">Base64 (Multiple Upload) </option>
             </optgroup>
               <optgroup label="JavaScript Addon Examples">

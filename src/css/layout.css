@@ -338,7 +338,9 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   #external-schema select option.sub {
     color: #644;
   }
-
+  #external-schema select option.fails {
+    color: #AF121F;
+  }
   #direct_link {
 
   }
