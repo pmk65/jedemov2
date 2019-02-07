@@ -206,8 +206,6 @@
     var jeUrlReset = document.querySelector('#direct_link_reset'); // Clear query params from url
     var jeTabs = document.querySelector('nav.tabs'); // Tabs (Wrapper, not single buttons)
 
-    var jeDropZone = document.querySelector('#dropzone'); // Drag'n'Drop upload zone
-
     var jeBusyOverlay = document.querySelector('#busy-overlay'); // Busy overlay
 
     /* Helper functions */
@@ -264,45 +262,6 @@
         jeModalContent.innerText = err;
         toggleModal();
     };
-
-    // Fullscreen Drag'n'Drop upload handlers
-    function showDropZone() {
-      jeDropZone.style.display = "block";
-    }
-    function hideDropZone() {
-      jeDropZone.style.display = "none";
-    }
-    function allowDrag(e) {
-      var dt = e.dataTransfer;
-      e.dataTransfer.dropEffect = dt.types && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('Files')) ? 'copy' : 'none';
-      e.preventDefault();
-    }
-    function handleDrop(e) {
-      e.preventDefault();
-      hideDropZone();
-      var file = e.dataTransfer.files[0];
-      if (file.type != 'application/json' || file.size === 0) {
-        jeModalContent.innerText = 'Error: File uploaded is not a .JSON file';
-        toggleModal();
-        return;
-      }
-
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var response = e.target.result;
-        var err = isInvalidJson(response);
-        if (err) {
-          jeModalContent.innerText = err;
-          toggleModal();
-        }
-        else {
-          aceSchemaEditor.setValue(response);
-          aceSchemaEditor.session.getSelection().clearSelection();
-        }
-      };
-      reader.readAsText(file);
-    }
-
 
     // Convert URL GET parameters into object or return value if key is supplied
     var getUrlParams = function(key) {
@@ -444,8 +403,8 @@
           if (map.css) cssFiles = cssFiles.concat(typeof map.css == 'string' ? [map.css] : map.css);
         }
       }
-      if (cssFiles.length) extFiles += '<link rel="stylesheet" href="' + uniqueArray(cssFiles).join('" /><\/link><link rel="stylesheet" href="') + '" /><\/link>';
-      if (jsFiles.length) extFiles += '<script src="' + uniqueArray(jsFiles).join('" /><\/script><script src="') + '" /><\/script>';
+      if (cssFiles.length) extFiles += '<link rel="stylesheet" href="' + uniqueArray(cssFiles).join('" /><\/link><link rel="stylesheet" href="') + '"><\/link>';
+      if (jsFiles.length) extFiles += '<script src="' + uniqueArray(jsFiles).join('" /><\/script><script src="') + '"><\/script>';
       return extFiles;
     };
 
@@ -464,7 +423,7 @@
     var createIframeContent = function(code) {
       var options = getJsonEditorOptions();
       return  '<!DOCTYPE HTML>' +
-              '<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
+              '<html lang="en"><head><title>JSON-Editor Form</title><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
               '<style>body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#f8f8f8 !important;}' +
               '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
               'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +
@@ -688,17 +647,6 @@
     // Set event handler for boolean checkboxes
     jeBool.addEventListener('click', getCheckboxValue);
     jeExtlib.addEventListener('click', getCheckboxValue);
-
-    // Set Drag'n'Drop handlers
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-      window.addEventListener('dragenter', showDropZone);
-      jeIframe.addEventListener('dragenter', showDropZone);
-      jeDropZone.addEventListener('dragenter', allowDrag);
-      jeDropZone.addEventListener('dragover', allowDrag);
-      jeDropZone.addEventListener('dragleave', hideDropZone);
-      jeDropZone.addEventListener('drop', handleDrop);
-    }
-
 
     var jeCfg = document.querySelector('#json-editor-config');
 

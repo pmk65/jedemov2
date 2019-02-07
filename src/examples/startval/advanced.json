@@ -1,25 +1,22 @@
 {
-  "_header": "",
-  "people":{
-    "name": "John Smith",
-    "age": 35,
-    "gender": "male",
-    "location": {
-      "city": "San Francisco",
-      "state": "California",
-      "citystate": ""
+  "name": "John Smith",
+  "age": 35,
+  "gender": "male",
+  "location": {
+    "city": "San Francisco",
+    "state": "California",
+    "citystate": ""
+  },
+  "pets": [
+    {
+      "name": "Spot",
+      "type": "dog",
+      "fixed": true
     },
-    "pets": [
-      {
-        "name": "Spot",
-        "type": "dog",
-        "fixed": true
-      },
-      {
-        "name": "Whiskers",
-        "type": "cat",
-        "fixed": false
-      }
-    ]
-  }
+    {
+      "name": "Whiskers",
+      "type": "cat",
+      "fixed": false
+    }
+  ]
 }

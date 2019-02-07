@@ -197,33 +197,6 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     background-color: darkgray;
   }
 
-  /* Fullscreen drag'n'drop upload */
-  #dropzone {
-    box-sizing: border-box;
-    display: none;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    z-index: 99999;
-    background: rgba(96, 167, 220, 0.8);
-    border: 11px dashed #60a7dc;
-  }
-  #dropzone > div {
-    position: absolute;
-    width: 50%;
-    height: 20%;
-    min-height: 100px;
-    left:50%;
-    top:50%;
-    transform: translate(-50%,-50%);
-    color: #ddd;
-    padding: 1em;
-    font-size: xx-large;
-    text-align: center;
-  }
-
   /* Slide down menu */
   .slidedown-menu {
     position: absolute;
