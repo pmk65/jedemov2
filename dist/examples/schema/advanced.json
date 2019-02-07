@@ -1,19 +1,33 @@
 {
-  "type": "array",
-  "title": "People",
-  "format": "tabs",
-  "items": {
-    "title": "Person",
-    "headerTemplate": "{{i}} - {{self.name}}",
-    "oneOf": [
-      {
-        "$ref": "#/basic_person.json",
-        "title": "Basic Person"
+  "type":"object",
+  "properties":{
+      "_header": {
+      "type": "string",
+      "format": "hidden",
+      "description": "<h3>Advanced JSON Editor Example</h3><p>This example demonstrates the following:</p><ul><li>Loading external schemas via ajax (using $ref)</li><li>Setting the editor's value from javascript (try the Restore to Default button)</li><li>Validating the editor's contents (try setting name to an empty string)</li><li>Macro templates (try changing the city or state fields and watch the citystate field update automatically)</li><li>Enabling and disabling editor fields</li></ul>  ",
+      "options": {
+        "compact": true,
+        "grid_columns": 12
       },
-      {
-        "$ref": "#/person.json",
-        "title": "Complex Person"
+      "people": {
+        "type": "array",
+        "title": "People",
+        "format": "tabs",
+        "items": {
+          "title": "Person",
+          "headerTemplate": "{{i}} - {{self.name}}",
+          "oneOf": [
+            {
+              "$ref": "#/basic_person.json",
+              "title": "Basic Person"
+            },
+            {
+              "$ref": "#/person.json",
+              "title": "Complex Person"
+            }
+          ]
+        }
       }
-    ]
+    }
   }
 }
