@@ -463,10 +463,8 @@
     // Create page for Iframe
     var createIframeContent = function(code) {
       var options = getJsonEditorOptions();
-      var baseUrl = window.location.toString().replace(window.location.search, "").replace(/[^\/]*$/, '');
       return  '<!DOCTYPE HTML>' +
               '<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
-              '<base src="' + baseUrl + '">' +
               '<style>body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#f8f8f8 !important;}' +
               '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
               'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +

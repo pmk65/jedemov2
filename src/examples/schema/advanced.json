@@ -7,11 +7,11 @@
     "headerTemplate": "{{i}} - {{self.name}}",
     "oneOf": [
       {
-        "$ref": "examples/schema/basic_person.json",
+        "$ref": "#/basic_person.json",
         "title": "Basic Person"
       },
       {
-        "$ref": "examples/schema/person.json",
+        "$ref": "#/person.json",
         "title": "Complex Person"
       }
     ]
