@@ -31,9 +31,9 @@ var roadEngineConfig = {
 };
 
 // When JSON-Editor is ready perform action on field(s)
-jsoneditor.on('ready', function() {
+jseditor.on('ready', function() {
   // Get the JSON-Editor for the "roadname" field
-  var ed = jsoneditor.getEditor('root.roadname');
+  var ed = jseditor.getEditor('root.roadname');
 
   if (ed) {
     // Attach the Typeahead/Bloodhound engine to the JSON-Editor input field

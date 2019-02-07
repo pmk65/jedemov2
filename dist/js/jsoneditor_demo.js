@@ -102,13 +102,26 @@
           'https://cdn.jsdelivr.net/npm/cleave.js@latest/dist/addons/cleave-phone.i18n.min.js'
           ]
         },
-        lib_sceditor: {
+        // JSON-Editor doesn't work correctly with latest version of SCEditor
+        lib_sceditor_new: {
           css: 'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/themes/default.min.css',
           js: [
             'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
-            'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/sceditor.min.js',
+            //'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/sceditor.min.js',
+            'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/jquery.sceditor.min.js',
             'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/formats/bbcode.js',
             'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/formats/xhtml.js'
+          ]
+        },
+        lib_sceditor: {
+          css: [
+            'https://cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.default.min.css',
+            'https://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css'
+          ],
+          js: [
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.xhtml.min.js',
+            'https://cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.bbcode.min.js'
           ]
         },
         lib_simplemde: {
@@ -188,6 +201,7 @@
     var jeSchemaRestore = document.querySelector('#restore-schema'); // Restore initial value of ACE editor
     var jeStartvalRestore = document.querySelector('#restore-startval'); // Restore initial value of ACE editor
     var jeExec = document.querySelector('#execute-code'); // Create form from Schema
+    var jeSetValue = document.querySelector('#execute-setvalue'); // Create form from Schema
     var jeDirectLink = document.querySelector('#direct_link'); // Create direct link url
     var jeUrlReset = document.querySelector('#direct_link_reset'); // Clear query params from url
     var jeTabs = document.querySelector('nav.tabs'); // Tabs (Wrapper, not single buttons)
@@ -247,7 +261,7 @@
 
     // function to catch errors thrown inside iframe
     window.iframeErrorCatcher = function(err) {
-        jeModalContent.innerText = err.message;
+        jeModalContent.innerText = err;
         toggleModal();
     };
 
@@ -409,7 +423,7 @@
     // Build codeblock to create JSON-Editor instance
     var getCode = function(schema, startval) {
       var opt = 'schema:' + schema + (startval.trim() ? ', startval:' + startval : '');
-      return 'if (jsoneditor) jsoneditor.destroy();jsoneditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
+      return 'if (jseditor) jseditor.destroy();jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
     };
 
     // Filter out duplicates from array
@@ -430,8 +444,8 @@
           if (map.css) cssFiles = cssFiles.concat(typeof map.css == 'string' ? [map.css] : map.css);
         }
       }
-      if (cssFiles) extFiles += '<link rel="stylesheet" href="' + uniqueArray(cssFiles).join('" /><\/link><link rel="stylesheet" href="') + '" /><\/link>';
-      if (jsFiles) extFiles += '<script src="' + uniqueArray(jsFiles).join('" /><\/script><script src="') + '" /><\/script>';
+      if (cssFiles.length) extFiles += '<link rel="stylesheet" href="' + uniqueArray(cssFiles).join('" /><\/link><link rel="stylesheet" href="') + '" /><\/link>';
+      if (jsFiles.length) extFiles += '<script src="' + uniqueArray(jsFiles).join('" /><\/script><script src="') + '" /><\/script>';
       return extFiles;
     };
 
@@ -449,23 +463,30 @@
     // Create page for Iframe
     var createIframeContent = function(code) {
       var options = getJsonEditorOptions();
+      var baseUrl = window.location.toString().replace(window.location.search, "").replace(/[^\/]*$/, '');
       return  '<!DOCTYPE HTML>' +
-              '<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><style>' +
-              'body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#f8f8f8 !important;}' +
-              '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +
+              '<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
+              '<base src="' + baseUrl + '">' +
+              '<style>body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#f8f8f8 !important;}' +
+              '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
+              'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +
               '</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css" /><script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>' +
               buildCommentIncludes(code) +
               buildExtFiles(options) +
               buildEditorOptions(options) +
               '</head><body>' +
               '<div class="inner-row"><div id="json-editor-form"></div></div>' +
-              '<script>var jsoneditor;' +
+              '<script>var jseditor;' +
               'try{' +
               code +
-               //';for (var i=0;i<399;i++) {document.write(i+"<br>");};' +  // Iframe scrollbar testing
-               '}catch(err){window.top.iframeErrorCatcher(err);};' +
-               '<\/script>' +
-              '</body></html>';
+               '}catch(err){if (window.top.iframeErrorCatcher) window.top.iframeErrorCatcher(err);else console.log(err);};' +
+               '<\/script></body></html>';
+    };
+
+    // Update form values in iframe (Currently uses the StartVal editor, but should be from a different source)
+    var setValueIframe = function() {
+      var val = aceStartvalEditor.getValue();
+      if (val.trim() && jeIframe.jseditor) jeIframe.jseditor.setValue(JSON.parse(val));
     };
 
     // Load external JSON file
@@ -579,10 +600,14 @@
       // Get content of ACE editor schema, startval and JavaScript;
       var code = getCode(aceSchemaEditor.getValue(), aceStartvalEditor.getValue()) + aceCodeEditor.getValue();
 
-      jeIframe.document.open();
+/*      jeIframe.document.open();
       jeIframe.document.write(createIframeContent(code)); // Iframe method
-      jeIframe.document.close();
+      jeIframe.document.close();*/
 
+      // Alternative to write() which is deprecated
+      var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
+      jeIframeEl.src = window.URL.createObjectURL(bData);
+      window.URL.revokeObjectURL(bData);
    };
 
     /* Setup */
@@ -649,6 +674,7 @@
 
     // Set button event for generating form
     jeExec.addEventListener('click', generateForm);
+    jeSetValue.addEventListener('click', setValueIframe);
 
     // Create the direct link URL
     jeDirectLink.addEventListener('click', updateDirectLink);
@@ -694,10 +720,15 @@
    // Create initial form
     var code = getCode(aceSchemaEditor.getValue(), aceStartvalEditor.getValue()) + aceCodeEditor.getValue();
 
-    jeIframe.document.open();
+/*    jeIframe.document.open();
     jeIframe.document.write(createIframeContent(code)); // Iframe method
-    jeIframe.document.close();
+    jeIframe.document.close();*/
 
+      // Alternative to write() which is deprecated
+      var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
+      jeIframeEl.src = window.URL.createObjectURL(bData);
+      //console.log(jeIframeEl.src);
+      window.URL.revokeObjectURL(bData);
   })();
 
 //# sourceMappingURL=jsoneditor_demo.js.map

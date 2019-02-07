@@ -42,25 +42,34 @@
       <br>
       <nav class="links">
         <button id="execute-code"><i class="icon-cog-alt"></i>Generate Form</button>
+        <button id="execute-setvalue"><i class="icon-cog-alt"></i>setValue</button>
         <button id="direct_link"><i class="icon-link"></i>Direct link</button>
         <button id="direct_link_reset"><i class="icon-unlink"></i>Reset form</button>
         <label for="external-schema">
           <span>Load&nbsp;Example: </span>
           <select id="external-schema">
-            <option value="">Default</option>
-            <option value="basic">Basic Usage</option>
-            <option value="advanced">Advanced Usage [fails]</option>
-            <option value="advanced2">Advanced (Accident Details)</option>
-            <option value="datetime">Datetime</option>
-            <option value="cleave">Cleave</option>
-            <option value="signature">SignaturePad</option>
-            <option value="sceditor">SCEditor [fails]</option>
-            <option value="selectize">Selectize</option>
-            <option value="starrating">Star Rating</option>
-            <option value="upload">Upload [fails]</option>
-            <option value="base64">Base64 (Multiple Upload) </option>
-            <option value="typeahead">Typeahead Autocomplete</option>
-            <option value="meta_schema">Meta Schema</option>
+            <optgroup label="General Examples">
+              <option value="">Default</option>
+              <option value="basic">Basic Usage</option>
+              <option value="advanced">Advanced Usage [fails]</option>
+              <option value="advanced2">Advanced (Accident Details)</option>
+            </optgroup>
+            <optgroup label="Editor Examples">
+              <option value="datetime">Datetime</option>
+              <option value="cleave">Cleave</option>
+              <option value="signature">SignaturePad</option>
+              <option value="sceditor">SCEditor</option>
+              <option value="selectize">Selectize</option>
+              <option value="starrating">Star Rating</option>
+              <option value="upload">Upload [fails]</option>
+              <option value="base64">Base64 (Multiple Upload) </option>
+            </optgroup>
+              <optgroup label="JavaScript Addon Examples">
+              <option value="typeahead">Typeahead Autocomplete</option>
+            </optgroup>
+            <optgroup label="Misc Examples">
+              <option value="meta_schema">Meta Schema</option>
+            </optgroup>
           </select>
         </label>
       </nav>
@@ -74,7 +83,7 @@
     </div>
   </div>
 
-   <iframe id="content1" class="content-row" srcdoc="<p>Loading...</p>"></iframe>
+  <iframe id="content1" class="content-row"></iframe>
 
   <section id="content2" class="content-row active">
     <div class="inner-row">
@@ -289,6 +298,10 @@
             <label>
               <input type="checkbox" id="lib_sceditor" value="lib_sceditor">
               <span>SCEditor</span>
+            </label>
+            <label>
+              <input type="checkbox" id="lib_sceditor_new" value="lib_sceditor_new">
+              <span>SCEditor (Latest scripts)</span>
             </label>
             <label>
               <input type="checkbox" id="lib_simplemde" value="lib_simplemde">
