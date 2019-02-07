@@ -21,16 +21,16 @@ zipEngine.initialize();
 jseditor.on('ready', function() {
 
   // Watch for changes in the "zip" field
-  jseditor.watch('root.zip',function() {
+  jseditor.watch('root.address.zip',function() {
     // Get value from "zip" field
-    var zipValue = jseditor.getEditor('root.zip').getValue();
+    var zipValue = jseditor.getEditor('root.address.zip').getValue();
     // If zipvalue a 4 digit number?
     if (/\d{4}/.test(zipValue)) {
       // Do an AJAX lookup using Bloodhound engine
       zipEngine.search(zipValue, null, function(res) {
         if (res.length) {
           // Set the value of "city" field to the returned value
-          jseditor.getEditor('root.city').setValue(res[2]);
+          jseditor.getEditor('root.address.city').setValue(res[2]);
         }
       });
     }

@@ -5,7 +5,7 @@
       "_header": {
         "type": "string",
         "format": "hidden",
-        "description": "<h3>Adding autoprefilling based on value in another field using Bloodhound </h3><p>This example shows how to add autofill of field, based on the value of another field, using \"onWatch\" event and Twitter Bloodhound plugin.</p><p>The example uses the Danish Roadname API (because it doesn't require any authentication 😄), but you can use whatever API you like (See the documentation for Typeahead/Bloodhound)</p>",
+        "description": "<h3>Adding autoprefilling based on value in another field using Bloodhound </h3><p>This example shows how to add autofill of field, based on the value of another field, using \"onWatch\" event and Twitter Bloodhound plugin.</p><p>The example uses the Danish Roadname API (because it doesn't require any authentication 😄), but you can use whatever API you like (See the documentation for Typeahead/Bloodhound)</p>Try typing a Danish 4 digit zip code like 2100, 2200 etc.</p>",
         "options": {
           "compact": true,
           "grid_columns": 12
@@ -25,13 +25,14 @@
         "street": {
           "type": "string",
           "title": "Street",
+          "default" : "Spooner Street 21",
           "options": {
             "required": true,
             "grid_columns": 12
           }
         },
         "zip": {
-          "type": "number",
+          "type": "string",
           "title": "Zipcode",
           "options": {
             "required": true,

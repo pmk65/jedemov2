@@ -335,6 +335,10 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   .links button:hover i {
     color: #000CEB;
   }
+  #external-schema select option.sub {
+    color: #644;
+  }
+
   #direct_link {
 
   }
