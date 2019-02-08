@@ -231,7 +231,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   .box {
     padding: 20px;
   }
-
+/* Slide-in panel */
   .slideleft-panel {
     position: fixed;
     background-color: #ddd;
@@ -264,6 +264,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     font-size: .8rem;
   }
 
+  /* Busy Overlay */
   #busy-overlay {
     display:none;
     background:rgba(0, 120, 199, 0.5);
@@ -288,13 +289,14 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     font-size: 20vmin;
     pointer-events: none;
   }
-
   @keyframes spin {
     100% {
       transform:rotate(1turn);
     }
 
   }
+
+  /* Buttons */
   .links button {
     outline: none;
     border: 1px solid #444;
@@ -317,3 +319,4 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   #direct_link {
 
   }
+
