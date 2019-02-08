@@ -5,7 +5,7 @@ jseditor.on('ready', function() {
 
   // Create button
   var d = document, b = d.createElement('button'), form = d.querySelector('#json-editor-form');
-  b.appendChild(d.createTextNode('Test Button'));
+  b.appendChild(d.createTextNode('Toggle Enum Values'));
   form.parentNode.insertBefore(b, form.nextSibling);
   b.addEventListener('click', function() {
 

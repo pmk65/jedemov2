@@ -35,8 +35,11 @@
           css: 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css'
         },
         foundation6: {
-          css: 'https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.2/foundation.min.css',
-          js: 'https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.2/js/foundation.min.js'
+          css: 'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css',
+          js: [
+            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js'
+          ]
         },
         jqueryui: {
           css: 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.min.css'
