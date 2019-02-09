@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'json-editor-demo';
-  src: url('../font/json-editor-demo.eot?96045856');
-  src: url('../font/json-editor-demo.eot?96045856#iefix') format('embedded-opentype'),
-       url('../font/json-editor-demo.woff2?96045856') format('woff2'),
-       url('../font/json-editor-demo.woff?96045856') format('woff'),
-       url('../font/json-editor-demo.ttf?96045856') format('truetype'),
-       url('../font/json-editor-demo.svg?96045856#json-editor-demo') format('svg');
+  src: url('../font/json-editor-demo.eot?4818082');
+  src: url('../font/json-editor-demo.eot?4818082#iefix') format('embedded-opentype'),
+       url('../font/json-editor-demo.woff2?4818082') format('woff2'),
+       url('../font/json-editor-demo.woff?4818082') format('woff'),
+       url('../font/json-editor-demo.ttf?4818082') format('truetype'),
+       url('../font/json-editor-demo.svg?4818082#json-editor-demo') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'json-editor-demo';
-    src: url('../font/json-editor-demo.svg?96045856#json-editor-demo') format('svg');
+    src: url('../font/json-editor-demo.svg?4818082#json-editor-demo') format('svg');
   }
 }
 */
@@ -59,6 +59,8 @@
 .icon-link:before { content: '\e801'; } /* '' */
 .icon-wrench:before { content: '\e802'; } /* '' */
 .icon-arrows-cw:before { content: '\e803'; } /* '' */
+.icon-cog:before { content: '\e804'; } /* '' */
+.icon-help-circled:before { content: '\e805'; } /* '' */
 .icon-github-circled:before { content: '\f09b'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
 .icon-laptop:before { content: '\f109'; } /* '' */

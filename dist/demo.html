@@ -38,17 +38,16 @@
 
   <div class="header-row">
     <div class="inner-row">
-      <h1><a href="https://github.com/json-editor/json-editor#json-editor" target="_blank" title="JSON-Editor"><span>JSON-Editor</span>Interactive Playground</a></h1>
+      <h1><a href="https://github.com/json-editor/json-editor#json-editor" target="_blank" rel="noopener noreferrer" title="JSON-Editor - View on GitHub"><span>JSON-Editor</span>Interactive Playground</a></h1>
       <br>
       <nav class="links">
         <button id="execute-code"><i class="icon-cog-alt"></i>Generate Form</button>
-        <button id="execute-setvalue"><i class="icon-cog-alt"></i>setValue</button>
+        <button id="execute-setvalue"><i class="icon-cog"></i>setValue</button>
         <button id="direct_link"><i class="icon-link"></i>Direct link</button>
         <button id="direct_link_reset"><i class="icon-unlink"></i>Reset form</button>
-        <label for="external-schema">
-          <span>Load&nbsp;Example: </span>
+        <div class="select">
           <select id="external-schema">
-            <option value="" selected disabled>Select example</option>
+            <option value="" selected disabled>Load example</option>
             <optgroup label="General Examples">
               <option value="basic">Basic Usage</option>
               <option value="advanced">Advanced Usage (Ajax)</option>
@@ -78,14 +77,14 @@
               <option value="meta_schema">Meta Schema</option>
             </optgroup>
           </select>
-        </label>
+        </div>
       </nav>
 
       <nav class="tabs">
         <button data-content="#content1"><i class="icon-laptop"></i>Form</button>
         <button data-content="#content2" class="active"><i class="icon-keyboard"></i>Schema</button>
         <button data-content="#content3"><i class="icon-wrench"></i>JavaScript</button>
-<!--        <button data-content="#content4"><i class="icon icon4"></i>Options</button>  -->
+        <button data-content="#content4"><i class="icon-help-circled"></i>Help</button>
       </nav>
     </div>
   </div>
@@ -155,7 +154,8 @@
 
   <section id="content4" class="content-row">
     <div class="inner-row">
-      <h2>Header 2</h2>
+      <h2>Help</h2>
+      <p>Placeholder for Instructions/Help text.</p>
     </div>
   </section>
 

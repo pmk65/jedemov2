@@ -195,6 +195,7 @@
     var jeTemplate = document.querySelector('#template');
 
     // Options Checkboxes (Wrapper, not single checkboxes)
+    var jeCfg = document.querySelector('#json-editor-config'); // Config wrapper
     var jeBool = document.querySelector('#boolean_options');
     var jeExtlib = document.querySelector('#ext_lib');
 
@@ -298,9 +299,8 @@
     // if "data-json-editor-special" is set on tag, it will not be included
     var getJsonEditorOptions = function() {
       var options = {},
-          cfg = document.querySelector('#json-editor-config'),
           exclude = ':not([data-json-editor-special])',
-          els = cfg.querySelectorAll('input[type="checkbox"]' + exclude + ',select' + exclude);
+          els = jeCfg.querySelectorAll('input[type="checkbox"]' + exclude + ',select' + exclude);
       Array.from(els).forEach(function(el) {
         if (el.tagName == 'SELECT') options[el.id] = el.value;
         else if (el.checked) options[el.value] = 1;//el.checked;
@@ -360,28 +360,6 @@
       }
     };
 
-    // Include CSS and JavaScript files listed in comments using special keywords
-    var buildCommentIncludes = function(code) {
-      var res = '',
-          match,
-          includeJS = /\s*\/\/\s*includeJS\((['"])([^"']*)\1\)/g,
-          includeCSS = /\s*\/\/\s*includeCSS\((['"])([^"']*)\1\)/g;
-
-      match = includeJS.exec(code);
-      while (match != null) {
-        if (match[2].trim()) res += '<script src="' + match[2] + '"></script>';
-        match = includeJS.exec(code);
-      }
-
-      match = includeCSS.exec(code);
-      while (match != null) {
-        if (match[2].trim()) res += '<link rel="stylesheet" href="' + match[2] + '" />';
-        match = includeCSS.exec(code);
-      }
-      return res;
-    };
-
-
     // Build codeblock to create JSON-Editor instance
     var getCode = function(schema, startval) {
       var opt = 'schema:' + schema + (startval.trim() ? ', startval:' + startval : '');
@@ -396,9 +374,20 @@
       });
     };
 
-      // Build list of external files to include in Iframe
-    var buildExtFiles = function(options) {
+    // Get CSS and JavaScript files listed in comments using special keywords
+    var getUserIncludes = function(code, regex) {
+      var match = regex.exec(code), res = [];
+      while (match != null) {
+        if (match[2].trim()) res.push(match[2]);
+        match = regex.exec(code);
+      }
+      return res;
+    };
+
+     // Build list of external files to include in Iframe
+    var buildExtFiles = function(options, code) {
       var jsFiles = [], cssFiles = [], extFiles = '', map;
+
       for (var i in options) {
         if (options.hasOwnProperty(i) && (mapping.ext_lib[i] || mapping[i] && mapping[i][options[i]])) {
           map = mapping.ext_lib[i] || mapping[i][options[i]];
@@ -406,11 +395,21 @@
           if (map.css) cssFiles = cssFiles.concat(typeof map.css == 'string' ? [map.css] : map.css);
         }
       }
-      if (cssFiles.length) extFiles += '<link rel="stylesheet" href="' + uniqueArray(cssFiles).join('" /><\/link><link rel="stylesheet" href="') + '"><\/link>';
-      if (jsFiles.length) extFiles += '<script src="' + uniqueArray(jsFiles).join('" /><\/script><script src="') + '"><\/script>';
+
+      // Include CSS and JavaScript files listed in comments using special keywords
+      cssFiles = cssFiles.concat(getUserIncludes(code, /\s*\/\/\s*includeCSS\((['"])([^"']*)\1\)/g));
+      jsFiles = jsFiles.concat(getUserIncludes(code, /\s*\/\/\s*includeJS\((['"])([^"']*)\1\)/g));
+
+      cssFiles = uniqueArray(cssFiles);
+      jsFiles = uniqueArray(jsFiles);
+
+      if (cssFiles) extFiles += '<link rel="stylesheet" href="' + cssFiles.join('" /><link rel="stylesheet" href="') + '" />';
+      if (jsFiles) extFiles += '<script src="' + jsFiles.join('"><\/script><script src="') + '"><\/script>';
+
       return extFiles;
     };
 
+    // Build list of JSON-Editor options from config options
     var buildEditorOptions = function(options) {
       var res = '';
       for (var i in options) {
@@ -431,8 +430,7 @@
               '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
               'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +
               '</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css" /><script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>' +
-              buildCommentIncludes(code) +
-              buildExtFiles(options) +
+              buildExtFiles(options, code) +
               buildEditorOptions(options) +
               '</head><body>' +
               '<div class="inner-row"><div id="json-editor-form"></div></div>' +
@@ -449,7 +447,7 @@
       if (val.trim() && jeIframe.jseditor) jeIframe.jseditor.setValue(JSON.parse(val));
     };
 
-    // Load external JSON file
+    // Load external file
     var loadFile = function(file, mimeType, callback) {
       var xobj = new XMLHttpRequest();
       xobj.overrideMimeType(mimeType);
@@ -478,11 +476,18 @@
       var example = this.options[this.selectedIndex].value;
       if (example) {
 
-        eventFire(document.querySelector('nav.tabs button:nth-of-type(2)'), 'click');
+        eventFire(document.querySelector('nav.tabs button:nth-of-type(1)'), 'click');
 
+        // Clear all editors
         aceSchemaEditor.setValue('');
         aceStartvalEditor.setValue('');
         aceCodeEditor.setValue('');
+
+        // Clear include external library checkboxes
+        var els = jeExtlib.querySelectorAll('input');
+        Array.from(els).forEach(function(el) {
+          el.checked = false;
+        });
 
         loadFile('examples/schema/' + example + '.json', 'application/json', function(response) {
           aceSchemaEditor.setValue(response);
@@ -500,7 +505,7 @@
           var cfg = JSON.parse(response);
           for (var id in cfg) {
             if (cfg.hasOwnProperty(id)) {
-              var el = document.querySelector('#json-editor-config #' + id);
+              var el = jeCfg.querySelector('#' + id);
               if (el) {
                 if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[id];
                 else if (el.nodeName == 'SELECT') el.value = cfg[id];
@@ -523,6 +528,16 @@
       if (e.target.type == 'checkbox') {
         console.log('Boolean option "' + e.target.value + '" changed to "' + e.target.checked.toString() + '"');
         //jeIframe.window.JSONEditor.defaults[e.target.value] = e.target.checked;
+      }
+    };
+
+    // Extend expand/collapse for details/summary tags, so that only one open is allowed
+    var summaryOpenHandler = function(e) {
+      if (e.target.nodeName == 'SUMMARY') {
+        var details = this.querySelectorAll('details');
+        for (var i=0;i<details.length;i++) {
+          if (details[i] != e.target.parentNode) details[i].removeAttribute('open');
+        }
       }
     };
 
@@ -621,7 +636,7 @@
     setRestoreButton(jeSchemaRestore, aceSchemaEditor);
     setRestoreButton(jeStartvalRestore, aceStartvalEditor);
 
-    // Sett events on tabs buttons
+    // Set events on tabs buttons
     jeTabs.addEventListener('click', tabsHandler);
 
     // Set button event for loading external schemas
@@ -651,16 +666,8 @@
     jeBool.addEventListener('click', getCheckboxValue);
     jeExtlib.addEventListener('click', getCheckboxValue);
 
-    var jeCfg = document.querySelector('#json-editor-config');
-
-    jeCfg.addEventListener('click', function(e) {
-      if (e.target.nodeName == 'SUMMARY') {
-        var details = this.querySelectorAll('details');
-        for (var i=0;i<details.length;i++) {
-          if (details[i] != e.target.parentNode) details[i].removeAttribute('open');
-        }
-      }
-    });
+    // Set event handler for details/summary tags
+    jeCfg.addEventListener('click', summaryOpenHandler);
 
 
     // Update fields from query parameters
