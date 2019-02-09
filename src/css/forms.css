@@ -66,13 +66,25 @@
   bottom: 0;
   color: #000;
   padding: 0 1em;
-  background: var(--select-color);
+  background-color: var(--select-color);
   pointer-events: none;
-  transition: .25s all ease;   
+  transition: .25s all ease;
 }
+.select select optgroup {
+  color: #111;
+  background-color: var(--select-color);
+}
+
 /* Transition */
 .select:hover::after {
   color: #0af;
+}
+
+nav.links .select {
+  display: inline-table;
+  max-width: 12rem;
+  border: 1px solid rgna(0,0,0,.3);
+  margin: 0;
 }
 
 

@@ -113,30 +113,6 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     border-bottom: 1px solid transparent;
     text-shadow: 1px 0 0 rgba(0,0,0,.5);
   }
-  button .icon {
-    width: 1em;
-    height: 1em;
-    margin-right: .2em;
-    font: normal 1.2em/1.2 Arial;
-  }
-  button .icon1:after {
-    content: "\1F5B5";
-  }
-  button .icon2:after {
-    content: "\2328";
-  }
-  button .icon3:after {
-    content: "\1F58A";
-  }
-  button .icon4:after {
-    content: "\2699";
-  }
-  button .icon5:after {
-    content: "\1F517";
-  }
-  button .icon6:after {
-    content: "\1F501";
-  }
 
   /* Nav links */
   nav.links {
