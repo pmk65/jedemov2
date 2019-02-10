@@ -1,0 +1,34 @@
+{
+  "title": "SCEditor",
+  "schema": {
+    "type": "object",
+    "title": "Blog Post",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "body": {
+        "type": "string",
+        "format": "html",
+        "options": {
+          "wysiwyg": true
+        }
+      }
+    }
+  },
+  "startval": {
+    "body": "",
+    "title": ""
+  },
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1,
+    "lib_sceditor": 1
+  },
+  "code": "",
+  "desc": "Add optional description here. (HTML format)"
+}

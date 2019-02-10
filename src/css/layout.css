@@ -1,5 +1,6 @@
   :root {
-    --bg1-color: #f8f8f8;
+    --xbg1-color: #f8f8f8;
+    --bg1-color: #02577a;
     --bg2-color: #ffffff;
     --text-color: #000000;
     --tab-bgcolor1: #f1f1f1;
@@ -56,7 +57,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     width: 100%;
     height: 100%;
     overflow: hidden;
-    font: normal 1rem/1 Arial;
+    font: normal 1rem/1.2 Arial;
   }
   .header-row {
     background-color: var(--header-color);

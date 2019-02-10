@@ -1,0 +1,87 @@
+{
+  "title": "Star Rating",
+  "schema": {
+    "title": "starrating editor examples",
+    "id": "test",
+    "type": "object",
+    "format": "grid",
+    "properties": {
+      "_header": {
+        "type": "string",
+        "format": "hidden",
+        "description": "<h3>String based Starrating editor</h3><p><ul><li>If \"displayValue\" is set to true, the seleced option will be displayed below the stars.</li></ul></p>",
+        "options": {
+          "compact": true,
+          "grid_columns": 12
+        }
+      },
+      "starrating": {
+        "type": "string",
+        "format": "starrating",
+        "title": "Starrating",
+        "description": "Starrating",
+        "enum": [
+          "Beginner",
+          "Skilled",
+          "Experienced",
+          "Advanced",
+          "Expert"
+        ],
+        "options": {
+          "grid_columns": 2
+        }
+      },
+      "starrating2": {
+        "type": "string",
+        "format": "starrating",
+        "title": "Starrating",
+        "description": "Starrating with \"displayValue=true\"",
+        "enum": [
+          "Beginner",
+          "Skilled",
+          "Experienced",
+          "Advanced",
+          "Expert"
+        ],
+        "options": {
+          "grid_columns": 2,
+          "displayValue": true
+        }
+      },
+      "starrating3": {
+        "type": "string",
+        "format": "starrating",
+        "title": "Starrating",
+        "description": "Starrating with \"displayValue=true\"",
+        "default": "5 Stars",
+        "enum": [
+          "1 Star",
+          "2 Stars",
+          "3 Stars",
+          "4 Stars",
+          "5 Stars",
+          "6 Stars",
+          "7 Stars",
+          "8 Stars",
+          "9 Stars",
+          "10 Stars"
+        ],
+        "options": {
+          "grid_columns": 4,
+          "displayValue": true
+        }
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1
+  },
+  "code": "",
+  "desc": "Add optional description here. (HTML format)"
+}

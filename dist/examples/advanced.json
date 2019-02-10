@@ -1,0 +1,54 @@
+{
+  "title": "Advanced Usage",
+  "schema": {
+    "type": "array",
+    "title": "People",
+    "format": "tabs",
+    "items": {
+      "title": "Person",
+      "headerTemplate": "{{i}} - {{self.name}}",
+      "oneOf": [
+        {
+          "$ref": "#/basic_person.json",
+          "title": "Basic Person"
+        },
+        {
+          "$ref": "#/person.json",
+          "title": "Complex Person"
+        }
+      ]
+    }
+  },
+  "startval": {
+    "name": "John Smith",
+    "age": 35,
+    "gender": "male",
+    "location": {
+      "city": "San Francisco",
+      "state": "California",
+      "citystate": ""
+    },
+    "pets": [
+      {
+        "name": "Spot",
+        "type": "dog",
+        "fixed": true
+      },
+      {
+        "name": "Whiskers",
+        "type": "cat",
+        "fixed": false
+      }
+    ]
+  },
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1
+  },
+  "code": "",
+  "desc": "Add optional description here. (HTML format)"
+}

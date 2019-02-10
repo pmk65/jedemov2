@@ -1,0 +1,38 @@
+{
+  "title": "SimpleMDE",
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "web": {
+          "type": "string",
+          "format": "url"
+        },
+        "mail": {
+          "type": "string",
+          "format": "email"
+        },
+        "bio": {
+          "type": "string",
+          "format": "markdown"
+        }
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1,
+    "lib_simplemde": 1
+  },
+  "code": "",
+  "desc": "Add optional description here. (HTML format)"
+}

@@ -1,0 +1,50 @@
+{
+  "title": "Base64",
+  "schema": {
+    "type": "object",
+    "title": "Car",
+    "properties": {
+      "pictures": {
+        "type": "array",
+        "title": "Pictures",
+        "items": {
+          "type": "object",
+          "title": "Image",
+          "format": "grid",
+          "properties": {
+            "file": {
+              "type": "string",
+              "title": "file",
+              "media": {
+                "binaryEncoding": "base64",
+                "type": "img/png"
+              },
+              "options": {
+                "grid_columns": 6,
+                "multiple": true
+              }
+            },
+            "description": {
+              "type": "string",
+              "title": "Description",
+              "options": {
+                "grid_columns": 6
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1
+  },
+  "code": "",
+  "desc": "Add optional description here. (HTML format)"
+}

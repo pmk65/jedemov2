@@ -1,0 +1,120 @@
+{
+  "title": "Selectize",
+  "schema": {
+    "type": "object",
+    "title": "Text",
+    "required": [
+      "fontSize",
+      "color",
+      "font",
+      "weight",
+      "possibleFonts"
+    ],
+    "properties": {
+      "fontSize": {
+        "type": "integer",
+        "enum": [
+          10,
+          11,
+          12,
+          14,
+          16,
+          18,
+          20,
+          22,
+          24,
+          36,
+          48,
+          60,
+          72,
+          100
+        ],
+        "default": 24,
+        "options": {
+          "selectize_options": {
+            "create": true
+          }
+        }
+      },
+      "color": {
+        "type": "string",
+        "enum": [
+          "black",
+          "red",
+          "green",
+          "blue",
+          "yellow",
+          "orange",
+          "purple",
+          "brown",
+          "white",
+          "cyan",
+          "magenta"
+        ],
+        "options": {
+          "selectize_options": {
+            "create": false,
+            "sortField": "text"
+          }
+        }
+      },
+      "font": {
+        "type": "string",
+        "enumSource": "possible_fonts",
+        "watch": {
+          "possible_fonts": "root.possibleFonts"
+        },
+        "options": {
+          "selectize_options": {
+            "create": false,
+            "sortField": "text"
+          }
+        }
+      },
+      "weight": {
+        "type": "string",
+        "enum": [
+          "normal",
+          "bold",
+          "bolder",
+          "lighter"
+        ],
+        "options": {
+          "enum_titles": [
+            "Normal (400)",
+            "Bold (700)",
+            "Bolder (900)",
+            "Lighter (200)"
+          ]
+        }
+      },
+      "possibleFonts": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "type": "string"
+        },
+        "default": [
+          "Arial",
+          "Times",
+          "Helvetica",
+          "Comic Sans"
+        ]
+      }
+    }
+  },
+  "startval": {
+    "color": "red"
+  },
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1,
+    "lib_selectize": 1
+  },
+  "code": "// Save current Schema and Startval\nvar schema = jseditor.schema;\nvar startval = jseditor.getValue();\n\n// Enable Selectize\nJSONEditor.plugins.selectize.enable = true;\n\n// Regenerate the form\nif (jseditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"),{schema: schema, startval: startval});",
+  "desc": "Add optional description here. (HTML format)"
+}

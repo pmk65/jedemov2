@@ -1,0 +1,38 @@
+{
+  "title": "Midify Enum",
+  "schema": {
+    "title": "Output",
+    "type": "object",
+    "theme": "bootstrap4",
+    "required": [
+      "test1",
+      "test"
+    ],
+    "properties": {
+      "test1": {
+        "title": "String test field",
+        "type": "string",
+        "default": "Hello World"
+      },
+      "test": {
+        "title": "String enum field",
+        "type": "string",
+        "enum": [
+          "black",
+          "white"
+        ]
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1
+  },
+  "code": "jseditor.on('ready', function() {\n\n  // Save the default Enum values\n  var orgEnum = jseditor.schema.properties.test.enum;\n\n  // Create button\n  var d = document, b = d.createElement('button'), form = d.querySelector('#json-editor-form');\n  b.appendChild(d.createTextNode('Toggle Enum Values'));\n  form.parentNode.insertBefore(b, form.nextSibling);\n  b.addEventListener('click', function() {\n\n    this.dataset.toggle = this.dataset.toggle == '1' ? '0' : '1';\n\n    // Get current Schema and Startval\n    var schema = jseditor.schema;\n    var startval = jseditor.getValue();\n\n    // Modify the schema enum values\n    schema.properties.test.enum = (this.dataset.toggle == '1') ? ['red','green','blue'] : orgEnum;\n\n    // Regenerate the form\n    if (jseditor) jseditor.destroy();\n    jseditor = new window.JSONEditor(form ,{schema: schema, startval: startval});\n\n  });\n\n});",
+  "desc": "Add optional description here. (HTML format)"
+}

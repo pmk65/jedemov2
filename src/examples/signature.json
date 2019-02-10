@@ -1,0 +1,30 @@
+{
+  "title": "Signature Pad",
+  "schema": {
+    "type": "object",
+    "title": "Document",
+    "properties": {
+      "signature": {
+        "type": "signature",
+        "title": "Signature",
+        "options": {
+          "canvas_height": 500
+        }
+      }
+    }
+  },
+  "startval": {
+    "signature": null
+  },
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1,
+    "lib_signaturepad": 1
+  },
+  "code": "",
+  "desc": "Add optional description here. (HTML format)"
+}

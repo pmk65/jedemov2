@@ -199,6 +199,9 @@
     var jeBool = document.querySelector('#boolean_options');
     var jeExtlib = document.querySelector('#ext_lib');
 
+    // Example description placeholder
+    var jeExampleDesc = document.querySelector('#example-description');
+
     // Buttons
     var jeSchemaLoad = document.querySelector('#external-schema'); // Load schema
     var jeCodeRestore = document.querySelector('#restore-code'); // Restore initial value of ACE editor
@@ -209,6 +212,7 @@
     var jeDirectLink = document.querySelector('#direct_link'); // Create direct link url
     var jeUrlReset = document.querySelector('#direct_link_reset'); // Clear query params from url
     var jeTabs = document.querySelector('nav.tabs'); // Tabs (Wrapper, not single buttons)
+    var jeSaveExample = document.querySelector('#saveas_example');
 
     var jeBusyOverlay = document.querySelector('#busy-overlay'); // Busy overlay
 
@@ -426,7 +430,7 @@
       var options = getJsonEditorOptions();
       return  '<!DOCTYPE HTML>' +
               '<html lang="en"><head><title>JSON-Editor Form</title><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
-              '<style>body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#f8f8f8 !important;}' +
+              '<style>body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#02577a !important;}' +
               '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
               'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +
               '</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css" /><script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>' +
@@ -447,17 +451,71 @@
       if (val.trim() && jeIframe.jseditor) jeIframe.jseditor.setValue(JSON.parse(val));
     };
 
+    //  Parse JSON string and return JSON object. Empty object returned on error
+    var parseJson = function(str) {
+      var res;
+      try {res = JSON.parse(str);}
+      catch(e) {res = {};}
+      return res;
+    };
+
+    // Save Schema, Start Value, JavaScript and Config options in examples schema format
+    var saveExampleHandler = function() {
+      var example = {
+            "title": prompt('Enter a Title for the example'),
+            "schema" : parseJson(aceSchemaEditor.getValue()),
+            "startval": parseJson(aceStartvalEditor.getValue()),
+            "config": getJsonEditorOptions(),
+            "code": aceCodeEditor.getValue().trim(),
+            "desc": "Add optional description here. (HTML format)"
+          },
+          filename = (example.title || 'example').toLowerCase().replace(/[\s<>:"\\|*]/g, "-") + '.json',
+          blob = new Blob([JSON.stringify(example, null, 2)], {type: "application/json;charset=utf-8"});
+
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(blob, filename);
+      } else {
+          var ev = document.createEvent('MouseEvents'),
+          a = document.createElement('a');
+          a.download = filename;
+          a.href = URL.createObjectURL(blob);
+          a.dataset.downloadurl = ['text/plain', a.download, a.href].join(':');
+          ev.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+          a.dispatchEvent(ev);
+      }
+
+    };
+
     // Load external file
     var loadFile = function(file, mimeType, callback) {
-      var xobj = new XMLHttpRequest();
-      xobj.overrideMimeType(mimeType);
-      xobj.open('GET', file, true);
-      xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4 && xobj.status == '200') {
-          callback(xobj.responseText);
-        }
-      };
-      xobj.send(null);
+      if (window.fetch && window.File && window.FileReader && window.FileList && window.Blob) {
+        fetch(file, {mode: 'no-cors'})
+        .then(function(response) {
+          return response.blob();
+        }).then(function(blob) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            callback(e.target.result);
+          };
+          reader.readAsText(blob);
+        })
+        .catch(function() {
+           callback('');
+        });
+      }
+      else {
+        // IOS Safari and other crappy browsers :D
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType(mimeType);
+        xobj.open('GET', file, true);
+        xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4) {
+            if (xobj.status == '200') callback(xobj.responseText);
+            else callback('');
+          }
+        };
+        xobj.send(null);
+      }
     };
 
     // Trigger event on element
@@ -471,17 +529,9 @@
     };
 
     // Change event handler - Load selected JSON Schema into editor
-    // Does not work locally due to CORS policy
     var loadExampleFiles = function() {
       var example = this.options[this.selectedIndex].value;
       if (example) {
-
-        eventFire(document.querySelector('nav.tabs button:nth-of-type(1)'), 'click');
-
-        // Clear all editors
-        aceSchemaEditor.setValue('');
-        aceStartvalEditor.setValue('');
-        aceCodeEditor.setValue('');
 
         // Clear include external library checkboxes
         var els = jeExtlib.querySelectorAll('input');
@@ -489,20 +539,36 @@
           el.checked = false;
         });
 
-        loadFile('examples/schema/' + example + '.json', 'application/json', function(response) {
-          aceSchemaEditor.setValue(response);
+        jeExampleDesc.innerHTML = '';
+        
+        loadFile('examples/' + example + '.json', 'application/json', function(response) {
+          var example = JSON.parse(response),
+              schema = JSON.stringify(example.schema, null, 2),
+              startval = Object.keys(example.startval).length !== 0 ? JSON.stringify(example.startval, null, 2) : '',
+              cfg = example.config,
+              code = example.code,
+              desc = example.desc;
+
+          // Add description of example to help page
+          if (desc !== '' && desc != 'Add optional description here. (HTML format)') {
+            jeModalContent.innerHTML = jeExampleDesc.innerHTML = '<h3>Info about "' + example.title + '" Example</h3>' + desc;
+          toggleModal();
+          }
+
+          // Update ACE Editor instances
+          aceSchemaEditor.setValue(schema);
           aceSchemaEditor.session.getSelection().clearSelection();
-        });
-        loadFile('examples/startval/' + example + '.json', 'application/json', function(response) {
-          aceStartvalEditor.setValue(response);
+          aceSchemaEditor.resize();
+
+          aceStartvalEditor.setValue(startval);
           aceStartvalEditor.session.getSelection().clearSelection();
-        });
-        loadFile('examples/javascript/' + example + '.js', 'application/javascript', function(response) {
-           aceCodeEditor.setValue(response);
-           aceCodeEditor.session.getSelection().clearSelection();
-        });
-        loadFile('examples/config/' + example + '.json', 'application/json', function(response) {
-          var cfg = JSON.parse(response);
+          aceStartvalEditor.resize();
+
+          aceCodeEditor.setValue(code);
+          aceCodeEditor.session.getSelection().clearSelection();
+          aceCodeEditor.resize();
+
+          // Set config options
           for (var id in cfg) {
             if (cfg.hasOwnProperty(id)) {
               var el = jeCfg.querySelector('#' + id);
@@ -512,9 +578,14 @@
               }
             }
           }
+
+          // Trigger generation of form
+          eventFire(jeExec, 'click');
+
         });
 
       }
+
     };
 
     // Change event handler - for Options selectboxes
@@ -640,7 +711,7 @@
     jeTabs.addEventListener('click', tabsHandler);
 
     // Set button event for loading external schemas
-    if (window.location.protocol != 'file:') jeSchemaLoad.addEventListener('change', loadExampleFiles);
+    if (window.fetch && window.File && window.FileReader && window.FileList && window.Blob) jeSchemaLoad.addEventListener('change', loadExampleFiles);
     else {
       jeSchemaLoad.disabled = true;
       jeSchemaLoad.style.cursor = 'not-allowed';
@@ -654,6 +725,9 @@
     // Create the direct link URL
     jeDirectLink.addEventListener('click', updateDirectLink);
     jeUrlReset.addEventListener('click', resetUrl);
+
+    // Set button event for saving as example
+    jeSaveExample.addEventListener('click', saveExampleHandler);
 
     // Set event handler for string selectboxes
     jeTheme.addEventListener('change', getSelectValue);

@@ -1,0 +1,103 @@
+{
+  "title": "Cleave",
+  "schema": {
+    "title": "Cleave.js editor examples",
+    "id": "test",
+    "type": "object",
+    "format": "grid",
+    "options": {
+      "disable_edit_json": false,
+      "disable_properties": false
+    },
+    "properties": {
+      "_header": {
+        "type": "string",
+        "format": "hidden",
+        "description": "<h3>Example showing how to use Cleave.js to format your &lt;input/&gt; content when you are typing.</h3><p>For documentation on the Cleave.js options, look at <a href=\"https://github.com/nosir/cleave.js\" target=\"_blank\" title=\"Cleave.js Github\">Cleave.js</a> Github page. You can also find a lot of examples in this <a href=\"https://jsfiddle.net/nosir/aLnhdf3z/\" target=\"_blank\" title=\"Cleave.js JSFiddle\">JSFiddle</a> page.</p>",
+        "options": {
+          "compact": true,
+          "grid_columns": 12
+        }
+      },
+      "creditcard": {
+        "type": "string",
+        "title": "Credit Card",
+        "description": " ",
+        "options": {
+          "grid_columns": 6,
+          "inputAttributes": {
+            "placeholder": "enter credit card number"
+          },
+          "cleave": {
+            "creditCard": true,
+            "onCreditCardTypeChanged": "creditCardTypeChangedHandler"
+          }
+        }
+      },
+      "phone": {
+        "type": "string",
+        "title": "Phone number",
+        "description": "Phone number formatting (danish) + prefix",
+        "options": {
+          "grid_columns": 6,
+          "cleave": {
+            "phone": true,
+            "phoneRegionCode": "dk",
+            "prefix": "+45 ",
+            "noImmediatePrefix": false
+          }
+        }
+      },
+      "prefix": {
+        "type": "string",
+        "title": "Prefix",
+        "description": "Prefix",
+        "options": {
+          "grid_columns": 6,
+          "cleave": {
+            "prefix": "JE-"
+          }
+        }
+      },
+      "blocks": {
+        "type": "string",
+        "title": "Serial number",
+        "description": "Blocks, uppercase formatting",
+        "options": {
+          "grid_columns": 6,
+          "inputAttributes": {
+            "placeholder": "Enter serial number"
+          },
+          "cleave": {
+            "blocks": [
+              3,
+              5,
+              5
+            ],
+            "uppercase": true,
+            "delimiter": "-",
+            "delimiterLazyShow": true
+          }
+        }
+      }
+    }
+  },
+  "startval": {
+    "_header": "",
+    "creditcard": "",
+    "phone": "",
+    "prefix": "",
+    "blocks": ""
+  },
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "ajax": 1,
+    "lib_cleavejs": 1
+  },
+  "code": "// Cleave onCreditCardTypeChanged handler\nvar creditCardTypeChangedHandler = function(type) {\n  var el = this.element.nextSibling;\n  if (el) el.innerHTML = 'Card type: <strong>' + type + '</strong>';\n};\n\n// Save current Schema and Startval\nvar schema = jseditor.schema;\nvar startval = jseditor.getValue();\n\n// Patch schema options and add Cleave onCreditCardTypeChanged function\nschema.properties.creditcard.options.cleave.onCreditCardTypeChanged = creditCardTypeChangedHandler;\n\n// Regenerate the form\nif (jseditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"),{schema: schema, startval: startval});",
+  "desc": "Add optional description here. (HTML format)"
+}

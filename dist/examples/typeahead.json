@@ -1,0 +1,17 @@
+{
+  "title": "Typeahead Autocomplete",
+  "schema": {
+    "title": "Typeahead/Bloodhound example",
+    "type": "object",
+    "properties": {
+      "roadname": {
+        "type": "string",
+        "title": "Roadname"
+      }
+    }
+  },
+  "startval": {},
+  "config": {},
+  "code": "// includeJS(\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js\")\n// includeJS(\"https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.bundle.min.js\")\n// includeCSS(\"https://pmk65.github.io/jedemov2/dist/examples/bloodhound.css\")\n\n// Initialize the Typeahead/Bloodhound engine\n// (See Typeahead/Bloodhound documentation for more info)\nvar roadEngine = new Bloodhound({\n  datumTokenizer: Bloodhound.tokenizers.obj.whitespace(\"tekst\"),\n  queryTokenizer: Bloodhound.tokenizers.whitespace,\n  remote: {\n    url: \"https://dawa.aws.dk/vejnavne/autocomplete?q=%QUERY\",\n    wildcard: \"%QUERY\",\n    cache: true\n  }\n});\nroadEngine.clearRemoteCache();\nroadEngine.initialize();\n\n// Typeahead/Bloodhound dataset\nvar roadEngineDataset = {\n  name: \"road\",\n  display: \"tekst\",\n  source: roadEngine.ttAdapter()\n};\n// Typeahead/Bloodhound config options\nvar roadEngineConfig = {\n  autoselect: true,\n  highlight: true,\n  hint: true,\n  minLength: 3\n};\n\n// When JSON-Editor is ready perform action on field(s)\njseditor.on('ready', function() {\n  // Get the JSON-Editor for the \"roadname\" field\n  var ed = jseditor.getEditor('root.roadname');\n\n  if (ed) {\n    // Attach the Typeahead/Bloodhound engine to the JSON-Editor input field\n    $(ed.input).typeahead(roadEngineConfig, roadEngineDataset)\n    .on(\"typeahead:asyncrequest\", function() {\n      // Enable spinner\n      $(ed.input).parent().addClass(\"input-loading\");\n    })\n    .on(\"typeahead:asynccancel typeahead:asyncreceive\", function() {\n      // Disable spinner\n      $(ed.input).parent().removeClass(\"input-loading\");\n    });\n\n    // Change parent (wrapper) display from inline-block to block\n    $(ed.input).parent().css(\"display\", \"block\");\n  }\n});",
+  "desc": "<p>This example shows how to add autocomplete/autosuggest using Twitter Typeahead + Bloodhound plugins.</p><p>The example uses the Danish Roadname API (because it doesn't require any authentication 😄), but you can use whatever API you like (See the <a href='https://github.com/corejavascript/typeahead.js'>documentation</a> for Typeahead/Bloodhound)</p>"
+}
