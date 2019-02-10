@@ -74,14 +74,7 @@
     }
   },
   "startval": {},
-  "config": {
-    "theme": "bootstrap3",
-    "iconlib": "bootstrap3",
-    "object_layout": "normal",
-    "template": "default",
-    "show_errors": "interaction",
-    "ajax": 1
-  },
+  "config": {},
   "code": "",
   "desc": "Add optional description here. (HTML format)"
 }

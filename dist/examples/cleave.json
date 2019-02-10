@@ -90,12 +90,6 @@
     "blocks": ""
   },
   "config": {
-    "theme": "bootstrap3",
-    "iconlib": "bootstrap3",
-    "object_layout": "normal",
-    "template": "default",
-    "show_errors": "interaction",
-    "ajax": 1,
     "lib_cleavejs": 1
   },
   "code": "// Cleave onCreditCardTypeChanged handler\nvar creditCardTypeChangedHandler = function(type) {\n  var el = this.element.nextSibling;\n  if (el) el.innerHTML = 'Card type: <strong>' + type + '</strong>';\n};\n\n// Save current Schema and Startval\nvar schema = jseditor.schema;\nvar startval = jseditor.getValue();\n\n// Patch schema options and add Cleave onCreditCardTypeChanged function\nschema.properties.creditcard.options.cleave.onCreditCardTypeChanged = creditCardTypeChangedHandler;\n\n// Regenerate the form\nif (jseditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"),{schema: schema, startval: startval});",

@@ -297,3 +297,54 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
 
   }
 
+  /* Fullscreen drag'n'drop upload */
+  #dropzone {
+    box-sizing: border-box;
+    display: none;
+    position: absolute;
+    right:0;
+    bottom:0;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+    background: rgba(96, 167, 220, 0.8);
+  }
+  #dropzone > div {
+    pointer-events: none;
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    color: #eee;
+    padding: 1em;
+    font: 2vw/1 Arial;
+    text-align: center;
+  }
+  svg.ants {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    pointer-events: none;
+  }
+  svg.ants rect {
+    fill: none;
+    stroke: rgba(255,255,255,.8);
+    stroke-width: 3vmin;
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 10vmin;
+    animation: ants-stroke 0.8s linear infinite;
+    shape-rendering: geometricPrecision;
+    stroke-dashoffset: 20vmin;
+    animation-direction: reverse;
+  }
+  @keyframes ants-stroke {
+    to {stroke-dashoffset: 0;}
+  }

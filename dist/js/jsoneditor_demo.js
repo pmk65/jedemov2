@@ -214,6 +214,8 @@
     var jeTabs = document.querySelector('nav.tabs'); // Tabs (Wrapper, not single buttons)
     var jeSaveExample = document.querySelector('#saveas_example');
 
+    var jeDropZone = document.querySelector('#dropzone'); // Drag'n'Drop upload zone
+
     var jeBusyOverlay = document.querySelector('#busy-overlay'); // Busy overlay
 
     /* Helper functions */
@@ -368,6 +370,72 @@
     var getCode = function(schema, startval) {
       var opt = 'schema:' + schema + (startval.trim() ? ', startval:' + startval : '');
       return 'if (jseditor) jseditor.destroy();jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
+    };
+
+    // Fullscreen Drag'n'Drop upload handlers
+    var showDropZone = function() {
+      jeDropZone.style.display = "block";
+    };
+    var hideDropZone = function() {
+      jeDropZone.style.display = "none";
+    };
+
+    var handleDrop = function(e) {
+      e.preventDefault();
+      hideDropZone();
+      var file = e.dataTransfer.files[0];
+      if (file.type != 'application/json' || file.size === 0) {
+        jeModalContent.innerText = 'Error: File uploaded is not a .JSON file';
+        toggleModal();
+        return;
+      }
+
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var response = e.target.result;
+        var err = isInvalidJson(response);
+        if (err) {
+          jeModalContent.innerText = err;
+          toggleModal();
+        }
+        else {
+          var ex = JSON.parse(response);
+          if (
+            typeof ex.title != 'string' || typeof ex.desc != 'string' || typeof ex.code != 'string' || typeof ex.schema != 'object' || typeof ex.startval != 'object' || typeof ex.config != 'object') {
+            jeModalContent.innerText = 'JSON file is not in the correct format';
+            toggleModal();
+          }
+          console.log('uploaded',response);
+        }
+      };
+      reader.readAsText(file);
+    };
+
+    var dragHandler = function(e) {
+      switch ((this == window ? 'w_' : 'z_') + e.type) {
+        case 'w_dragstart':
+          this.disabled = true;
+          break;
+        case 'w_dragend':
+          this.disabled = false;
+          break;
+        case 'w_dragenter':
+          if (this.disabled !== true) showDropZone();
+          break;
+        case 'z_dragenter':
+        case 'z_dragover':
+          e.dataTransfer.dropEffect = 'copy';
+          break;
+        case 'z_dragleave':
+          hideDropZone();
+          break;
+        case 'z_drop':
+          handleDrop(e);
+          break;
+      }
+
+      if (this.disabled !== true) e.preventDefault();
+
     };
 
     // Filter out duplicates from array
@@ -540,7 +608,7 @@
         });
 
         jeExampleDesc.innerHTML = '';
-        
+
         loadFile('examples/' + example + '.json', 'application/json', function(response) {
           var example = JSON.parse(response),
               schema = JSON.stringify(example.schema, null, 2),
@@ -743,6 +811,16 @@
     // Set event handler for details/summary tags
     jeCfg.addEventListener('click', summaryOpenHandler);
 
+    // Set Drag'n'Drop handlers
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      jeIframeEl.addEventListener('dragenter', dragHandler, false);
+      ['dragenter', 'dragstart', 'dragend'].forEach(function(ev) {
+        window.addEventListener(ev,  dragHandler, false);
+      });
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function(ev) {
+        jeDropZone.addEventListener(ev,  dragHandler, false);
+      });
+    }
 
     // Update fields from query parameters
     updateFromUrl();

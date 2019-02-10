@@ -1,87 +1,73 @@
 {
-  "title": "Person",
-  "schema": {
-    "$ref": "#/basic_person.json",
-    "properties": {
-      "location": {
+  "$ref": "#/basic_person.json",
+  "properties": {
+    "location": {
+      "type": "object",
+      "title": "Location",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "citystate": {
+          "type": "string",
+          "description": "This is generated automatically from the previous two fields",
+          "template": "{{city}}, {{state}}",
+          "watch": {
+            "city": "person.location.city",
+            "state": "person.location.state"
+          }
+        }
+      }
+    },
+    "pets": {
+      "type": "array",
+      "format": "table",
+      "title": "Pets",
+      "uniqueItems": true,
+      "items": {
         "type": "object",
-        "title": "Location",
         "properties": {
-          "city": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "citystate": {
+          "type": {
             "type": "string",
-            "description": "This is generated automatically from the previous two fields",
-            "template": "{{city}}, {{state}}",
-            "watch": {
-              "city": "person.location.city",
-              "state": "person.location.state"
-            }
+            "enum": [
+              "cat",
+              "dog",
+              "bird",
+              "reptile",
+              "other"
+            ],
+            "default": "dog"
+          },
+          "name": {
+            "type": "string"
+          },
+          "fixed": {
+            "type": "boolean",
+            "title": "spayed / neutered"
           }
         }
-      },
-      "pets": {
-        "type": "array",
-        "format": "table",
-        "title": "Pets",
-        "uniqueItems": true,
-        "items": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": [
-                "cat",
-                "dog",
-                "bird",
-                "reptile",
-                "other"
-              ],
-              "default": "dog"
-            },
-            "name": {
-              "type": "string"
-            },
-            "fixed": {
-              "type": "boolean",
-              "title": "spayed / neutered"
-            }
-          }
-        }
-      },
-      "cars": {
+      }
+    },
+    "cars": {
         "type": "array",
         "format": "tabs",
         "title": "Cars",
         "uniqueItems": false,
-        "items": {
-          "type": "object",
-          "title": "Car",
-          "properties": {
-            "manufacturer": {
-              "type": "string"
-            },
-            "model": {
-              "type": "string"
+        "items":{
+            "type": "object",
+            "title": "Car",
+            "properties": {
+                "manufacturer": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                }
             }
-          }
         }
-      }
     }
-  },
-  "startval": {},
-  "config": {
-    "theme": "bootstrap3",
-    "iconlib": "bootstrap3",
-    "object_layout": "normal",
-    "template": "default",
-    "show_errors": "interaction",
-    "ajax": 1
-  },
-  "code": "",
-  "desc": "Add optional description here. (HTML format)"
+  }
 }

@@ -1,0 +1,34 @@
+{
+  "title": "Basic Person",
+  "schema": {
+    "title": "Person",
+    "type": "object",
+    "id": "person",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "First and Last name",
+        "minLength": 4
+      },
+      "age": {
+        "type": "integer",
+        "default": 21,
+        "minimum": 18,
+        "maximum": 99
+      },
+      "gender": {
+        "type": "string",
+        "enum": [
+          "male",
+          "female"
+        ]
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "ajax": 1
+  },
+  "code": "",
+  "desc": "Add optional description here. (HTML format)"
+}

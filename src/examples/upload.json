@@ -66,14 +66,7 @@
     "upload_fail": "",
     "name": ""
   },
-  "config": {
-    "theme": "bootstrap3",
-    "iconlib": "bootstrap3",
-    "object_layout": "normal",
-    "template": "default",
-    "show_errors": "interaction",
-    "ajax": 1
-  },
+  "config": {},
   "code": "// Save current Schema and Startval\nvar schema = jseditor.schema;\nvar startval = jseditor.getValue();\n\n// Specify upload handler\nJSONEditor.defaults.options.upload = function(type, file, cbs) {\n  if (type === 'root.upload_fail') cbs.failure('Upload failed');\n  else {\n    var tick = 0;\n\n    var tickFunction = function() {\n      tick += 1;\n      console.log('progress: ' + tick);\n\n      if (tick < 100) {\n        cbs.updateProgress(tick);\n        window.setTimeout(tickFunction, 50);\n      } else if (tick == 100) {\n        cbs.updateProgress();\n        window.setTimeout(tickFunction, 500);\n      } else {\n        cbs.success('http://www.example.com/images/' + file.name);\n      }\n    };\n\n    window.setTimeout(tickFunction);\n  }\n};\n\n// Regenerate the form\nif (jseditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"),{schema: schema, startval: startval});",
   "desc": "Add optional description here. (HTML format)"
 }
