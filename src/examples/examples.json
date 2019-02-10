@@ -1,5 +1,5 @@
 {
-  "title": "Examples Schema",
+  "title": "Examples",
   "schema": {
     "title": "Json-Editor Interactive Playground Example format",
     "type": "object",
@@ -53,12 +53,8 @@
   },
   "startval": {},
   "config": {
-    "theme": "bootstrap3",
-    "iconlib": "bootstrap3",
-    "object_layout": "normal",
-    "template": "default",
-    "show_errors": "interaction",
-    "ajax": 1
+    "lib_aceeditor": 1,
+    "lib_sceditor_new": 1
   },
   "code": "",
   "desc": "Add optional description here. (HTML format)"
