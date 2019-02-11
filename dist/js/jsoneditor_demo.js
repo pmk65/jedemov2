@@ -506,7 +506,7 @@
               buildEditorOptions(options) +
               '</head><body>' +
               '<div class="inner-row"><div id="json-editor-form"></div></div>' +
-              '<script>var jseditor;' +
+              '<script>var jseditor;window.JSONEditor.defaults.options.upload = function(type, file, cbs) {};' +
               'try{' +
               code +
                '}catch(err){if (window.top.iframeErrorCatcher) window.top.iframeErrorCatcher(err);else console.log(err);};' +

@@ -71,7 +71,7 @@
   transition: .25s all ease;
 }
 .select select optgroup {
-  color: #111;
+  color: #BDBDBD;
   background-color: var(--select-color);
 }
 .select select optgroup option {

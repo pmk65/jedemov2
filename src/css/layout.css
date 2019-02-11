@@ -25,7 +25,17 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     margin: 0;
     padding: 0;
     background-color: var(--bg1-color);
+    font: normal .9em/1.2 Arial;
   }
+  a {
+    color: var(--header-color);
+    text-decoration: none;
+  }
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+
   h1 {
     font-size: 160%;
     display: inline-block;
@@ -49,7 +59,6 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     margin-bottom: .1rem;
     display: block;
   }
-
   .row-container {
     display: flex;
     flex-wrap: nowrap;
@@ -61,7 +70,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   }
   .header-row {
     background-color: var(--header-color);
-    border-bottom: 1px solid var(--tab-bordercolor);
+/*    border-bottom: 1px solid var(--tab-bordercolor);  */
   }
   .content-row {
     flex-grow: 1;
@@ -72,7 +81,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     display:none;
   }
   .content-row.active {
-    display: flex;
+    display: block;
   }
   .inner-row {
     background-color: var(--bg2-color);
@@ -81,7 +90,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     left:50%;
     transform: translate(-50%,0);
     padding: 1rem 2rem;
-    box-shadow: 2px 0 5px rgba(0,0,0,.2);
+    box-shadow: .2rem 0 5px rgba(0,0,0,.2);
     flex-grow: 1;
   }
   .header-row .inner-row {
@@ -92,16 +101,20 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   nav.tabs {
     float: left;
   }
+  nav.tabs button::-moz-focus-inner {
+    border: 0;
+  }
   nav.tabs button {
     background-color: var(--tab-bgcolor1);
     border: 1px solid var(--tab-bordercolor);
-    margin: 0 2px -1px 0;
+    margin: .2rem .2rem 0 0;
     outline: none;
     cursor: pointer;
     padding: .8rem 1.3rem;
     float: left;
     transition: 0.1s;
     border-radius: .3rem .3rem 0 0;
+    border-bottom: 1px solid rgba(0,0,0,.3);
   }
   nav.tabs button:focus,
   nav.tabs button:hover {
@@ -113,6 +126,9 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     background-color: var(--bg2-color);
     border-bottom: 1px solid transparent;
     text-shadow: 1px 0 0 rgba(0,0,0,.5);
+    border-bottom: 1px solid var(--bg2-color);
+    padding: .9rem 1.3rem;
+    margin: 0 .2rem 0 0;
   }
 
   /* Nav links */
@@ -274,6 +290,12 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   }
 
   /* Buttons */
+
+
+
+  .links button::-moz-focus-inner {
+    border: 0;
+  }
   .links button {
     outline: none;
     border: 1px solid #444;
@@ -281,21 +303,27 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     border-radius: .3rem;
     background-color: var(--tab-bgcolor1);
   }
-  .links button:hover {
+  .links button:hover,
+  .links button:focus {
     background-color: var(--tab-bgcolor2);
   }
-  .links button:hover i {
-    color: #000CEB;
+  .links button:hover i,
+  .links button:focus i {
+    animation: button-icon-glow 1s ease-in-out infinite alternate;
   }
   #external-schema option.sub {
-    color: #644;
+    color: #C4D0E0;
   }
   #external-schema option.fails {
-    color: #AF121F;
+    color: #F2828C;
   }
   #direct_link {
 
   }
+  @keyframes button-icon-glow {
+    to {color: #000CEB;}
+  }
+
 
   /* Fullscreen drag'n'drop upload */
   #dropzone {
