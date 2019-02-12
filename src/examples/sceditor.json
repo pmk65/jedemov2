@@ -23,6 +23,7 @@
   "config": {
     "lib_sceditor": 1
   },
+  "style": "",
   "code": "",
   "desc": "Add optional description here. (HTML format)"
 }

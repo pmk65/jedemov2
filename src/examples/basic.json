@@ -55,6 +55,7 @@
   },
   "startval": {},
   "config": {},
+  "style": "",
   "code": "",
   "desc": "Add optional description here. (HTML format)"
 }

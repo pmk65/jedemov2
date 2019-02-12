@@ -89,8 +89,9 @@
   },
   "startval": {},
   "config": {
-    "ajax": 1 
+    "ajax": 1
   },
+  "style": "",
   "code": "",
   "desc": "Add optional description here. (HTML format)"
 }

@@ -107,8 +107,11 @@
     "color": "red"
   },
   "config": {
+    "theme": "bootstrap2",
+    "iconlib": "bootstrap2",
     "lib_selectize": 1
   },
+  "style": "",
   "code": "// Save current Schema and Startval\nvar schema = jseditor.schema;\nvar startval = jseditor.getValue();\n\n// Enable Selectize\nJSONEditor.plugins.selectize.enable = true;\n\n// Regenerate the form\nif (jseditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"),{schema: schema, startval: startval});",
   "desc": "Add optional description here. (HTML format)"
 }

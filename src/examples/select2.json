@@ -112,6 +112,7 @@
   "config": {
     "lib_select2": 1
   },
+  "style": "",
   "code": "",
   "desc": "Add optional description here. (HTML format)"
 }

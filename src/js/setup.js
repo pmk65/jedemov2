@@ -97,7 +97,11 @@
       },
       ext_lib: {
         lib_aceeditor: {
-          js: 'https://cdn.jsdelivr.net/npm/ace-editor-builds@latest/src-min-noconflict/ace.js'
+          js: [
+          'https://cdn.jsdelivr.net/npm/ace-builds@latest/src-noconflict/ace.min.js',
+          'https://cdn.jsdelivr.net/npm/ace-builds@latest/src-noconflict/mode-json.js',
+          'https://cdn.jsdelivr.net/npm/ace-builds@latest/src-noconflict/mode-javascript.js'
+          ]
         },
         lib_cleavejs: {
           js: [
@@ -168,13 +172,18 @@
     //var aceTheme = 'ace/theme/github';
     var aceTheme = 'ace/theme/vibrant_ink';
 
+    // ACE Editor Beautify extension
+    var aceBeautify = window.ace.require("ace/ext/beautify"); // get reference to extension
+
     // ACE Editor placeholders
     var jeEditSchema = document.querySelector('#schema');
     var jeEditStartval = document.querySelector('#startval');
     var jeEditCode = document.querySelector('#editor');
+    var jeEditCSS = document.querySelector('#csseditor');
 
     // ACE Editor instances
     var aceCodeEditor;
+    var aceStyleEditor;
     var aceSchemaEditor;
     var aceStartvalEditor;
 
@@ -187,16 +196,8 @@
     var jeIframeEl = document.querySelector('iframe');
     var jeIframe = jeIframeEl.contentWindow || ( jeIframeEl.contentDocument.document || jeIframeEl.contentDocument);
 
-    // Options Select boxes
-    var jeTheme = document.querySelector('#theme');
-    var jeIconlib = document.querySelector('#iconlib');
-    var jeLayout = document.querySelector('#object_layout');
-    var jeErrors = document.querySelector('#show_errors');
-    var jeTemplate = document.querySelector('#template');
-
     // Options Checkboxes (Wrapper, not single checkboxes)
     var jeCfg = document.querySelector('#json-editor-config'); // Config wrapper
-    var jeBool = document.querySelector('#boolean_options');
     var jeExtlib = document.querySelector('#ext_lib');
 
     // Example description placeholder
@@ -204,17 +205,39 @@
 
     // Buttons
     var jeSchemaLoad = document.querySelector('#external-schema'); // Load schema
-    var jeCodeRestore = document.querySelector('#restore-code'); // Restore initial value of ACE editor
-    var jeSchemaRestore = document.querySelector('#restore-schema'); // Restore initial value of ACE editor
-    var jeStartvalRestore = document.querySelector('#restore-startval'); // Restore initial value of ACE editor
     var jeExec = document.querySelector('#execute-code'); // Create form from Schema
     var jeSetValue = document.querySelector('#execute-setvalue'); // Create form from Schema
     var jeDirectLink = document.querySelector('#direct_link'); // Create direct link url
     var jeUrlReset = document.querySelector('#direct_link_reset'); // Clear query params from url
     var jeTabs = document.querySelector('nav.tabs'); // Tabs (Wrapper, not single buttons)
-    var jeSaveExample = document.querySelector('#saveas_example');
+    var jeDownloadExample = document.querySelector('#download_example');
+    var jeUploadExample = document.querySelector('#upload_example');
 
+    var jeFileUpload = document.querySelector('input[type="file"]');
     var jeDropZone = document.querySelector('#dropzone'); // Drag'n'Drop upload zone
+
+    // Split panels
+    var jeSplitCfg = {
+        sizes: [75, 25],
+        minSize: [200,200],
+        onDragEnd: function() {
+          aceCodeEditor.resize();
+          aceStyleEditor.resize();
+          //aceSchemaEditor.resize();
+          //aceStartvalEditor.resize();
+        },
+        gutter: function () {
+            var gutter = document.createElement('div');
+            gutter.className = 'split-gutter';
+            gutter.style.height = '400px';
+            return gutter;
+        },
+        gutterSize: 4
+    };
+    var jeSplitPanels = [
+      ['#split-panel1', '#split-panel2'],
+      ['#split-panel3', '#split-panel4']
+    ];
 
     var jeBusyOverlay = document.querySelector('#busy-overlay'); // Busy overlay
 
@@ -249,6 +272,26 @@
       }
     };
 
+    // Trigger event on element
+    var eventFire = function(el, etype){
+      if (el.fireEvent) el.fireEvent('on' + etype);
+      else {
+        el.dispatchEvent(new Event(etype,{
+          'bubbles': true,
+          'cancelable': false
+        }));
+      }
+    };
+
+    // Trigger mouse click event
+    var eventClickFire = function(el) {
+      el.dispatchEvent(new MouseEvent('click', {
+        'view': window,
+        'bubbles': true,
+        'cancelable': false
+      }));
+    };
+
     // Function to handle clicks on Tab buttons
     var tabsHandler = function(e) {
       if (e.target && e.target.nodeName == 'BUTTON') {
@@ -264,6 +307,7 @@
         aceSchemaEditor.resize();
         aceStartvalEditor.resize();
         aceCodeEditor.resize();
+        aceStyleEditor.resize();
       }
     };
 
@@ -311,7 +355,6 @@
         if (el.tagName == 'SELECT') options[el.id] = el.value;
         else if (el.checked) options[el.value] = 1;//el.checked;
       });
-      //console.log('options', options);
       return options;
     };
 
@@ -319,10 +362,11 @@
     var updateDirectLink = function(e) {
       var url = window.location.toString().replace(window.location.search, "");
       if (e.target == jeDirectLink) {
-        url += '?schema=' + window.LZString.compressToBase64(JSON.stringify(aceSchemaEditor.getValue()));
+        url += '?schema=' + window.LZString.compressToBase64(JSON.stringify(aceSchemaEditor.getValue().trim()));
 //        url += '&value=' +  window.LZString.compressToBase64(JSON.stringify(window.jsoneditor.getValue()));
-        url += '&value=' +  window.LZString.compressToBase64(JSON.stringify(aceStartvalEditor.getValue()));
-        url += '&code=' + window.LZString.compressToBase64(JSON.stringify(aceCodeEditor.getValue()));
+        url += '&value=' +  window.LZString.compressToBase64(JSON.stringify(aceStartvalEditor.getValue().trim()));
+        url += '&code=' + window.LZString.compressToBase64(JSON.stringify(aceCodeEditor.getValue().trim()));
+        url += '&style=' + window.LZString.compressToBase64(JSON.stringify(aceStyleEditor.getValue().trim()));
         url += '&'+ toQueryString(getJsonEditorOptions());
       }
       //window.location.href = url;
@@ -337,13 +381,74 @@
       }
     };
 
-    // Set config options based on query parameters
+    // Set editors and config options based on JSON object
+    var updateFromFile = function(response) {
+      var example = JSON.parse(response),
+          schema = JSON.stringify(example.schema, null, 2),
+          startval = Object.keys(example.startval).length !== 0 ? JSON.stringify(example.startval, null, 2) : '',
+          cfg = example.config,
+          code = example.code,
+          style = example.style,
+          desc = example.desc;
+
+        // Clear include external library checkboxes
+        Array.from(jeExtlib.querySelectorAll('input')).forEach(function(el) {
+          el.checked = false;
+        });
+
+        jeExampleDesc.innerHTML = '';
+
+      // Add description of example to help page
+      if (desc !== '' && desc != 'Add optional description here. (HTML format)') {
+        jeModalContent.innerHTML = jeExampleDesc.innerHTML = '<h3>Info about "' + example.title + '" Example</h3>' + desc;
+      toggleModal();
+      }
+
+      // Update ACE Editor instances
+      aceSchemaEditor.setValue(schema);
+      aceSchemaEditor.session.getSelection().clearSelection();
+      aceSchemaEditor.resize();
+
+      aceStartvalEditor.setValue(startval);
+      aceStartvalEditor.session.getSelection().clearSelection();
+      aceStartvalEditor.resize();
+
+      aceCodeEditor.setValue(code);
+      aceCodeEditor.session.getSelection().clearSelection();
+      aceCodeEditor.resize();
+
+      aceStyleEditor.setValue(style);
+      aceStyleEditor.session.getSelection().clearSelection();
+      aceStyleEditor.resize();
+
+      // Set config options
+      for (var id in cfg) {
+        if (cfg.hasOwnProperty(id)) {
+          var el = jeCfg.querySelector('#' + id);
+          if (el) {
+            if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[id];
+            else if (el.nodeName == 'SELECT') el.value = cfg[id];
+          }
+        }
+      }
+
+      // Trigger generation of form
+      eventFire(jeExec, 'click');
+
+    };
+
+    // Set editors and config options based on query parameters
     var updateFromUrl = function() {
       var params = getUrlParams();
       if (params.code) {
         aceCodeEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(params.code)));
         aceCodeEditor.session.getSelection().clearSelection();
         delete params.code;
+      }
+      if (params.style) {
+        aceStyleEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(params.style)));
+        aceStyleEditor.session.getSelection().clearSelection();
+        delete params.style;
       }
       if (params.schema) {
         aceSchemaEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(params.schema)));
@@ -355,6 +460,7 @@
         aceStartvalEditor.session.getSelection().clearSelection();
         delete params.value;
       }
+
       for (var id in params) {
         if (params.hasOwnProperty(id)) {
           var el = document.querySelector('#'+ id);
@@ -364,6 +470,9 @@
           }
         }
       }
+
+      // Trigger generation of form
+      eventFire(jeExec, 'click');
     };
 
     // Build codeblock to create JSON-Editor instance
@@ -397,16 +506,15 @@
         if (err) {
           jeModalContent.innerText = err;
           toggleModal();
+          return;
         }
-        else {
-          var ex = JSON.parse(response);
-          if (
-            typeof ex.title != 'string' || typeof ex.desc != 'string' || typeof ex.code != 'string' || typeof ex.schema != 'object' || typeof ex.startval != 'object' || typeof ex.config != 'object') {
-            jeModalContent.innerText = 'JSON file is not in the correct format';
-            toggleModal();
-          }
-          console.log('uploaded',response);
+        else if ('code,config,desc,schema,startval,style,title' !== Object.getOwnPropertyNames(JSON.parse(response)).sort().join(',')) {
+          jeModalContent.innerText = 'JSON file is not in the correct format';
+          toggleModal();
+          return;
         }
+
+        updateFromFile(response);
       };
       reader.readAsText(file);
     };
@@ -458,7 +566,7 @@
 
      // Build list of external files to include in Iframe
     var buildExtFiles = function(options, code) {
-      var jsFiles = [], cssFiles = [], extFiles = '', map;
+      var jsFiles = [], cssFiles = [], extFiles = '', map, styles = aceStyleEditor.getValue().trim();
 
       for (var i in options) {
         if (options.hasOwnProperty(i) && (mapping.ext_lib[i] || mapping[i] && mapping[i][options[i]])) {
@@ -477,6 +585,8 @@
 
       if (cssFiles) extFiles += '<link rel="stylesheet" href="' + cssFiles.join('" /><link rel="stylesheet" href="') + '" />';
       if (jsFiles) extFiles += '<script src="' + jsFiles.join('"><\/script><script src="') + '"><\/script>';
+
+      if (styles !== '') extFiles += '<style>' + styles +'</style>';
 
       return extFiles;
     };
@@ -498,9 +608,9 @@
       var options = getJsonEditorOptions();
       return  '<!DOCTYPE HTML>' +
               '<html lang="en"><head><title>JSON-Editor Form</title><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
-              '<style>body {margin:0;padding:0;font: normal 1em/1 Arial;background-color:#02577a !important;}' +
-              '.inner-row {background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
-              'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);}' +
+              '<style>body {margin:0;padding:0;font: normal .9em/1.2 Arial;background-color:#02577a !important;}' +
+              '.inner-row {display: grid;background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
+              'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);margin:0 0 3rem 0;}' +
               '</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css" /><script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>' +
               buildExtFiles(options, code) +
               buildEditorOptions(options) +
@@ -527,14 +637,43 @@
       return res;
     };
 
-    // Save Schema, Start Value, JavaScript and Config options in examples schema format
-    var saveExampleHandler = function() {
+    var uploadExampleHandler = function(e) {
+      e.preventDefault();
+      var files = e.target.files || e.dataTransfer.files;
+      if (files.length !== 0) {
+        var file = files[0];
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var response = e.target.result;
+          var err = isInvalidJson(response);
+          if (err) {
+            jeModalContent.innerText = err;
+            toggleModal();
+            return;
+          }
+          else if ('code,config,desc,schema,startval,style,title' !== Object.getOwnPropertyNames(JSON.parse(response)).sort().join(',')) {
+            jeModalContent.innerText = 'JSON file is not in the correct format';
+            toggleModal();
+            return;
+          }
+
+          updateFromFile(response);
+        };
+        reader.readAsText(file);
+      }
+
+    };
+
+    // Save Schema, Start Value, JavaScript Styles and Config options in examples schema format
+    var downloadExampleHandler = function() {
       var example = {
             "title": prompt('Enter a Title for the example'),
             "schema" : parseJson(aceSchemaEditor.getValue()),
             "startval": parseJson(aceStartvalEditor.getValue()),
             "config": getJsonEditorOptions(),
             "code": aceCodeEditor.getValue().trim(),
+            "style": aceStyleEditor.getValue().trim(),
             "desc": "Add optional description here. (HTML format)"
           },
           filename = (example.title || 'example').toLowerCase().replace(/[\s<>:"\\|*]/g, "-") + '.json',
@@ -543,13 +682,11 @@
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
           window.navigator.msSaveOrOpenBlob(blob, filename);
       } else {
-          var ev = document.createEvent('MouseEvents'),
-          a = document.createElement('a');
+          var a = document.createElement('a');
           a.download = filename;
           a.href = URL.createObjectURL(blob);
           a.dataset.downloadurl = ['text/plain', a.download, a.href].join(':');
-          ev.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-          a.dispatchEvent(ev);
+          eventClickFire(a);
       }
 
     };
@@ -586,87 +723,11 @@
       }
     };
 
-    // Trigger event on element
-    var eventFire = function(el, etype){
-      if (el.fireEvent) el.fireEvent('on' + etype);
-      else {
-        var evObj = document.createEvent('Events');
-        evObj.initEvent(etype, true, false);
-        el.dispatchEvent(evObj);
-      }
-    };
-
     // Change event handler - Load selected JSON Schema into editor
     var loadExampleFiles = function() {
       var example = this.options[this.selectedIndex].value;
       if (example) {
-
-        // Clear include external library checkboxes
-        var els = jeExtlib.querySelectorAll('input');
-        Array.from(els).forEach(function(el) {
-          el.checked = false;
-        });
-
-        jeExampleDesc.innerHTML = '';
-
-        loadFile('examples/' + example + '.json', 'application/json', function(response) {
-          var example = JSON.parse(response),
-              schema = JSON.stringify(example.schema, null, 2),
-              startval = Object.keys(example.startval).length !== 0 ? JSON.stringify(example.startval, null, 2) : '',
-              cfg = example.config,
-              code = example.code,
-              desc = example.desc;
-
-          // Add description of example to help page
-          if (desc !== '' && desc != 'Add optional description here. (HTML format)') {
-            jeModalContent.innerHTML = jeExampleDesc.innerHTML = '<h3>Info about "' + example.title + '" Example</h3>' + desc;
-          toggleModal();
-          }
-
-          // Update ACE Editor instances
-          aceSchemaEditor.setValue(schema);
-          aceSchemaEditor.session.getSelection().clearSelection();
-          aceSchemaEditor.resize();
-
-          aceStartvalEditor.setValue(startval);
-          aceStartvalEditor.session.getSelection().clearSelection();
-          aceStartvalEditor.resize();
-
-          aceCodeEditor.setValue(code);
-          aceCodeEditor.session.getSelection().clearSelection();
-          aceCodeEditor.resize();
-
-          // Set config options
-          for (var id in cfg) {
-            if (cfg.hasOwnProperty(id)) {
-              var el = jeCfg.querySelector('#' + id);
-              if (el) {
-                if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[id];
-                else if (el.nodeName == 'SELECT') el.value = cfg[id];
-              }
-            }
-          }
-
-          // Trigger generation of form
-          eventFire(jeExec, 'click');
-
-        });
-
-      }
-
-    };
-
-    // Change event handler - for Options selectboxes
-    var getSelectValue = function() {
-      var key = this.id, val = this.value;
-      //jeIframe.window.JSONEditor.defaults.[key] = val;
-       console.log('String option "' + key + '" changed to "' + val + '"');
-    };
-
-    var getCheckboxValue = function(e) {
-      if (e.target.type == 'checkbox') {
-        console.log('Boolean option "' + e.target.value + '" changed to "' + e.target.checked.toString() + '"');
-        //jeIframe.window.JSONEditor.defaults[e.target.value] = e.target.checked;
+        loadFile('examples/' + example + '.json', 'application/json', updateFromFile);
       }
     };
 
@@ -680,13 +741,35 @@
       }
     };
 
-    // Click event handler - Set restore to default for ACE Editor
-    var setRestoreButton = function(sel, ed) {
-      sel.addEventListener('click', function(def, e) {
+    // Handler for buttons in editor slidedown panel
+    var editorPanelButtonHandler = function(def, e) {
+      // "this" is the ACE Editor instance
+      if (e.target.dataset.action) {
         e.preventDefault();
-        this.setValue(def);
-        this.session.getSelection().clearSelection();
-      }.bind(ed, ed.getValue()));
+        switch (e.target.dataset.action.toLowerCase()) {
+          case 'beautify':
+            aceBeautify.beautify(this.session);
+          break;
+          case 'restore': {
+              this.setValue(def);
+              this.session.getSelection().clearSelection();
+            break;
+          }
+          case 'clear': {
+            this.setValue('');
+            this.session.getSelection().clearSelection();
+            break;
+          }
+        }
+      }
+    };
+
+    // Set click event action for buttons in editor slidedown menus
+    var setEditorPanelButtons = function(edEl, ed) {
+      var buttons = edEl.parentNode.querySelectorAll('.slidedown-menu button');
+      [].forEach.call(buttons, function(button) {
+        button.addEventListener('click', editorPanelButtonHandler.bind(ed, ed.getValue()));
+      });
     };
 
     // "OnReady" event for Iframe
@@ -740,6 +823,10 @@
       tabSize: 2,
       useSoftTabs: true
     });
+    aceSchemaEditor.renderer.setOptions({
+      minLines: 40,
+      maxLines: 40
+    });
 
     // Setup ACE editor for editing Schema start values
     aceStartvalEditor = window.ace.edit(jeEditStartval);
@@ -750,6 +837,10 @@
       mode: 'ace/mode/json',
       tabSize: 2,
       useSoftTabs: true
+    });
+    aceStartvalEditor.renderer.setOptions({
+      minLines: 40,
+      maxLines: 40
     });
 
     // Setup ACE editor for editing JavaScript
@@ -765,15 +856,38 @@
       useWrapMode: true,
       indentedSoftWrap: true
     });
+    aceCodeEditor.renderer.setOptions({
+      minLines: 40,
+      maxLines: 40
+    });
+
+    // Setup ACE editor for editing CSS
+    aceStyleEditor = window.ace.edit(jeEditCSS);
+    aceStyleEditor.setOptions({
+      theme: aceTheme
+    });
+    aceStyleEditor.session.setOptions({
+      mode: 'ace/mode/css',
+      tabSize: 2,
+      wrap: true,
+      useSoftTabs: true,
+      useWrapMode: true,
+      indentedSoftWrap: true
+    });
+    aceStyleEditor.renderer.setOptions({
+      minLines: 40,
+      maxLines: 40
+    });
 
     // Show error if JSON schema or startval is invalid
     aceSchemaEditor.on("blur", showModalError.bind(aceSchemaEditor));
     aceStartvalEditor.on("blur", showModalError.bind(aceStartvalEditor));
 
     // Set buttom event to restore initial value of ACE editor content.
-    setRestoreButton(jeCodeRestore, aceCodeEditor);
-    setRestoreButton(jeSchemaRestore, aceSchemaEditor);
-    setRestoreButton(jeStartvalRestore, aceStartvalEditor);
+    setEditorPanelButtons(jeEditSchema, aceSchemaEditor);
+    setEditorPanelButtons(jeEditStartval,aceStartvalEditor);
+    setEditorPanelButtons(jeEditCode, aceCodeEditor);
+    setEditorPanelButtons(jeEditCSS, aceStyleEditor);
 
     // Set events on tabs buttons
     jeTabs.addEventListener('click', tabsHandler);
@@ -794,26 +908,17 @@
     jeDirectLink.addEventListener('click', updateDirectLink);
     jeUrlReset.addEventListener('click', resetUrl);
 
-    // Set button event for saving as example
-    jeSaveExample.addEventListener('click', saveExampleHandler);
-
-    // Set event handler for string selectboxes
-    jeTheme.addEventListener('change', getSelectValue);
-    jeIconlib.addEventListener('change', getSelectValue);
-    jeLayout.addEventListener('change', getSelectValue);
-    jeErrors.addEventListener('change', getSelectValue);
-    jeTemplate.addEventListener('change', getSelectValue);
-
-    // Set event handler for boolean checkboxes
-    jeBool.addEventListener('click', getCheckboxValue);
-    jeExtlib.addEventListener('click', getCheckboxValue);
+    // Set button event for downloading as example
+    jeDownloadExample.addEventListener('click', downloadExampleHandler);
+    // Set button event for uploading example
+    jeUploadExample.addEventListener('click', eventClickFire.bind(null, jeFileUpload));
+    jeFileUpload.addEventListener('change', uploadExampleHandler);
 
     // Set event handler for details/summary tags
     jeCfg.addEventListener('click', summaryOpenHandler);
 
     // Set Drag'n'Drop handlers
     if (window.File && window.FileReader && window.FileList && window.Blob) {
-      jeIframeEl.addEventListener('dragenter', dragHandler, false);
       ['dragenter', 'dragstart', 'dragend'].forEach(function(ev) {
         window.addEventListener(ev,  dragHandler, false);
       });
@@ -821,6 +926,10 @@
         jeDropZone.addEventListener(ev,  dragHandler, false);
       });
     }
+
+    // Set movable split panels
+    window.Split(jeSplitPanels[0], jeSplitCfg);
+    window.Split(jeSplitPanels[1], jeSplitCfg);
 
     // Update fields from query parameters
     updateFromUrl();
@@ -832,9 +941,8 @@
     jeIframe.document.write(createIframeContent(code)); // Iframe method
     jeIframe.document.close();*/
 
-      // Alternative to write() which is deprecated
-      var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
-      jeIframeEl.src = window.URL.createObjectURL(bData);
-      //console.log(jeIframeEl.src);
-      window.URL.revokeObjectURL(bData);
+    // Alternative to write() which is deprecated
+    var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
+    jeIframeEl.src = window.URL.createObjectURL(bData);
+    window.URL.revokeObjectURL(bData);
   })();

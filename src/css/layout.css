@@ -92,6 +92,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     padding: 1rem 2rem;
     box-shadow: .2rem 0 5px rgba(0,0,0,.2);
     flex-grow: 1;
+    margin: 0 0 2rem 0;
   }
   .header-row .inner-row {
     background-color: var(--header-color);
@@ -311,6 +312,14 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   .links button:focus i {
     animation: button-icon-glow 1s ease-in-out infinite alternate;
   }
+  .links input[type='file'] {
+    position: absolute;
+    visibility: hidden;
+    height:0;
+    width:0;
+    left:-99999px;
+  }
+
   #external-schema option.sub {
     color: #C4D0E0;
   }
@@ -344,7 +353,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     height: 20%;
     left:50%;
     top:50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%) scale(1.0);
     color: #eee;
     padding: 1em;
     font: 2vw/1 Arial;
@@ -375,4 +384,19 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   }
   @keyframes ants-stroke {
     to {stroke-dashoffset: 0;}
+  }
+  /* Github corner */
+  .github-corner:hover .octo-arm {
+    animation:octocat-wave 560ms ease-in-out;
+  }
+  @keyframes octocat-wave {
+    0%,100%{transform:rotate(0);}
+    20%,60%{transform:rotate(-25deg);}
+    40%,80%{transform:rotate(10deg);}
+  }
+  @media (max-width:500px){
+    .github-corner:hover .octo-arm {animation:none;}
+    .github-corner .octo-arm {
+      animation:octocat-wave 560ms ease-in-out;
+    }
   }

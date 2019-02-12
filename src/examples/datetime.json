@@ -243,8 +243,10 @@
     "fidatetime": 0
   },
   "config": {
+    "iconlib": "fontawesome3",
     "lib_flatpickr": 1
   },
+  "style": "",
   "code": "",
   "desc": "<h4>Extended handling of date, time and datetime-local type fields.</h4><p>Works with both string and integer data types. (If integer is used, the date will be returned in epoch format)</p><p>Has optional support for using <a href=\"https://flatpickr.js.org/\" target=\"_blank\" title=\"Flatpickr datepicker\">flatpickr datepicker</a>.</p><p>All flatpickr options is supported with a few minor differences.<ul><li>\"<strong>enableTime</strong>\" and \"<strong>noCalendar</strong>\" are set automatically, based on the data type.</li><li>Extra config option \"<strong>errorDateFormat</strong>\". If this is set, it will replace the format displayed in error messages.</li><li>It is not possible to use \"<strong>inline</strong>\" and \"<strong>wrap</strong>\" options together.</li><li>When using the \"<strong>wrap</strong>\" option, \"toggle\" and \"clear\" buttons are automatically added to markup.<br>2 extra boolean options (\"<strong>showToggleButton</strong>\" and \"<strong>showClearButton</strong>\") are available to control which buttons to display.<br>Note: not all frameworks supports this. (Works in: Bootstrap and Foundation)</li><li>When using the \"inline\" option, an extra boolean option (\"<strong>inlineHideInput</strong>\") is available to hide the original input field.</li><li>If \"mode\" is set to either \"multiple\" or \"range\", only string data type is supported. Also the result from these is returned as a string, not an array.</li></ul></p>"
 }

@@ -1,7 +1,8 @@
-#editor, #schema, #startval {
+#editor, #schema, #startval, #csseditor {
   width: 100%;
   height: 400px;
 }
+
 .split-parent {
   position: relative;
   width: 100%;
@@ -13,7 +14,7 @@
   display: table;
   clear: both;
 }
-#split-panel1, #split-panel2 {
+#split-panel1, #split-panel2, #split-panel3, #split-panel4 {
   position: relative;
   float: left;
 }
