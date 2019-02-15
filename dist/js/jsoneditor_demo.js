@@ -330,19 +330,6 @@
         toggleModal();
     };
 
-    var shortenUrl = function(url, callback) {
-      //url='http://is.gd/create.php?format=simple&url=http://www.eb.dk';
-      var xobj = new XMLHttpRequest();
-      xobj.open('GET', 'http://is.gd/create.php?format=simple&url=' + encodeURIComponent(url), true);
-      xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4) {
-          if (xobj.status == '200') callback(xobj.responseText);
-          else callback('');
-        }
-      };
-      xobj.send();
-     };
-
     // Convert URL GET parameters into object or return value if key is supplied
     var getUrlParams = function(key) {
       var prmstr = window.location.search.substr(1), params = {};
@@ -384,10 +371,6 @@
       return options;
     };
 
-    var shortUrlCallback=function(res) {
-      console.log('shortUrl',res);
-    };
-
     // Create Direct Link URL with query parameters
     var updateDirectLink = function(e) {
       var url = window.location.toString().replace(window.location.search, "");
@@ -401,9 +384,8 @@
       }
       //window.location.href = url;
       //window.location.assign(url);
-      shortenUrl(url, shortUrlCallback);
       copyToClipboard(url);
-      //window.location.replace(url);
+      window.location.replace(url);
     };
 
     // Clear query parameters from URL
