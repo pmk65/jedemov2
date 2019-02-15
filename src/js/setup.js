@@ -292,6 +292,19 @@
       }));
     };
 
+    // copy text to clipboard
+    var copyToClipboard = function(txt) {
+      var ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    };
+
     // Function to handle clicks on Tab buttons
     var tabsHandler = function(e) {
       if (e.target && e.target.nodeName == 'BUTTON') {
@@ -317,6 +330,19 @@
         toggleModal();
     };
 
+    var shortenUrl = function(url, callback) {
+      //url='http://is.gd/create.php?format=simple&url=http://www.eb.dk';
+      var xobj = new XMLHttpRequest();
+      xobj.open('GET', 'http://is.gd/create.php?format=simple&url=' + encodeURIComponent(url), true);
+      xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4) {
+          if (xobj.status == '200') callback(xobj.responseText);
+          else callback('');
+        }
+      };
+      xobj.send();
+     };
+
     // Convert URL GET parameters into object or return value if key is supplied
     var getUrlParams = function(key) {
       var prmstr = window.location.search.substr(1), params = {};
@@ -335,7 +361,7 @@
     };
 
     // Convert object into query string
-    function toQueryString(obj) {
+    var toQueryString = function(obj) {
       var parts = [];
       for (var i in obj) {
         if (obj.hasOwnProperty(i)) {
@@ -343,7 +369,7 @@
         }
       }
       return parts.join("&");
-    }
+    };
 
     // Get options object from checkboxes and selectboxes
     // if "data-json-editor-special" is set on tag, it will not be included
@@ -356,6 +382,10 @@
         else if (el.checked) options[el.value] = 1;//el.checked;
       });
       return options;
+    };
+
+    var shortUrlCallback=function(res) {
+      console.log('shortUrl',res);
     };
 
     // Create Direct Link URL with query parameters
@@ -371,7 +401,9 @@
       }
       //window.location.href = url;
       //window.location.assign(url);
-      window.location.replace(url);
+      shortenUrl(url, shortUrlCallback);
+      copyToClipboard(url);
+      //window.location.replace(url);
     };
 
     // Clear query parameters from URL
