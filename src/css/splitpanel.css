@@ -1,4 +1,4 @@
-#editor, #schema, #startval, #csseditor {
+#editor, #schema, #startval, #csseditor,#output,#validate {
   width: 100%;
   height: 400px;
 }
@@ -14,7 +14,9 @@
   display: table;
   clear: both;
 }
-#split-panel1, #split-panel2, #split-panel3, #split-panel4 {
+#split-panel1, #split-panel2,
+#split-panel3, #split-panel4,
+#split-panel5, #split-panel6 {
   position: relative;
   float: left;
 }

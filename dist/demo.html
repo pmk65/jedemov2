@@ -41,7 +41,7 @@
   <div class="header-row">
     <div class="inner-row">
       <h1><a href="https://github.com/json-editor/json-editor#json-editor" target="_blank" rel="noopener noreferrer" title="JSON-Editor - View on GitHub"><span>JSON-Editor</span>Interactive Playground</a></h1>
-      <br>
+
       <nav class="links">
         <button id="execute-code" title="Generate Form"><i class="icon-cog-alt"></i>Generate Form</button>
         <button id="execute-setvalue" title="setValue"><i class="icon-cog"></i>setValue</button>
@@ -94,6 +94,7 @@
 
       <nav class="tabs">
         <button data-content="#content1"><i class="icon-laptop"></i>Form</button>
+        <button data-content="#content5"><i class="icon-laptop"></i>Output</button>
         <button data-content="#content2" class="active"><i class="icon-keyboard"></i>Schema</button>
         <button data-content="#content3"><i class="icon-wrench"></i>JavaScript/CSS</button>
         <button data-content="#content4"><i class="icon-help-circled"></i>Help</button>
@@ -112,8 +113,7 @@
         <div id="split-panel1">
           <div class="slidedown-menu">
             <div class="box">
-              <button data-action="restore">Restore default schema</button>
-              <button data-action="beautify">Beautify Schema</button>
+               <button data-action="beautify">Beautify Schema</button>
               <button data-action="clear">Delete All</button>
             </div>
           </div>
@@ -135,7 +135,6 @@
 
           <div class="slidedown-menu">
             <div class="box">
-              <button data-action="restore">Restore default startval</button>
               <button data-action="beautify">Beautify Startval</button>
               <button data-action="clear">Delete All</button>
             </div>
@@ -160,7 +159,6 @@
         <div id="split-panel3">
           <div class="slidedown-menu">
             <div class="box">
-              <button data-action="restore">Restore default code</button>
               <button data-action="beautify">Beautify code</button>
               <button data-action="clear">Delete All</button>
             </div>
@@ -172,7 +170,6 @@ console.log('jseditor',jseditor);</div>
         <div id="split-panel4">
           <div class="slidedown-menu">
             <div class="box">
-              <button data-action="restore">Restore default CSS</button>
               <button data-action="beautify">Beautify CSS</button>
               <button data-action="clear">Delete All</button>
             </div>
@@ -196,7 +193,8 @@ console.log('jseditor',jseditor);</div>
 
       <h4>The Tabs</h4>
       <ul>
-        <li><strong><i class="icon-laptop"></i>Form</strong> - The output form generated from the schema.</li>
+        <li><strong><i class="icon-laptop"></i>Form</strong> - The form generated from the schema.</li>
+        <li><strong><i class="icon-laptop"></i>Output</strong> - The output and validation results from the form. (Only available if the editor is instantiated using the variable <strong>jseditor</strong>)</li>
         <li><strong><i class="icon-keyboard"></i>Schema</strong> - The JSON schema and starting values.</li>
         <li><strong><i class="icon-wrench"></i>JavaScript/CSS</strong> - Optional custom JavaScript and CSS setup.</li>
         <li><strong><i class="icon-help-circled"></i>Help</strong> - The text you are reading right now.</li>
@@ -247,6 +245,25 @@ console.log('jseditor',jseditor);</div>
         </li>
       </ul>
       <br><br><br><br><br><br><br><br>
+    </div>
+  </section>
+
+  <section id="content5" class="content-row">
+    <div class="inner-row">
+      <h2>Output/Validation</h2>
+      <div class="split-parent">
+        <div id="split-panel5">
+          <div id="output"></div>
+        </div>
+
+        <div id="split-panel6">
+          <div id="validate"></div>
+        </div>
+      </div>
+<!--      <textarea id="output" style="width: 100%; height: 300px; font-family: monospace;resize:vertical;"></textarea>
+      <h2>Validation</h2>
+      <p>This will update whenever the form changes to show validation errors if there are any.</p>
+      <textarea id="validate" style="width: 100%; height: 100px; font-family: monospace;resize:vertical;" readonly disabled></textarea>-->
     </div>
   </section>
 

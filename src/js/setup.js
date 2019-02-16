@@ -180,12 +180,16 @@
     var jeEditStartval = document.querySelector('#startval');
     var jeEditCode = document.querySelector('#editor');
     var jeEditCSS = document.querySelector('#csseditor');
+    var jeOutput = document.querySelector('#output');  // Form output
+    var jeValidate = document.querySelector('#validate');  // Validation output
 
     // ACE Editor instances
     var aceCodeEditor;
     var aceStyleEditor;
     var aceSchemaEditor;
     var aceStartvalEditor;
+    var aceOutputEditor;
+    var aceValidateEditor;
 
     // Error Modal box
     var jeModal = document.querySelector(".modal");
@@ -223,8 +227,10 @@
         onDragEnd: function() {
           aceCodeEditor.resize();
           aceStyleEditor.resize();
-          //aceSchemaEditor.resize();
-          //aceStartvalEditor.resize();
+          aceSchemaEditor.resize();
+          aceStartvalEditor.resize();
+          aceOutputEditor.resize();
+          aceValidateEditor.resize();
         },
         gutter: function () {
             var gutter = document.createElement('div');
@@ -236,7 +242,8 @@
     };
     var jeSplitPanels = [
       ['#split-panel1', '#split-panel2'],
-      ['#split-panel3', '#split-panel4']
+      ['#split-panel3', '#split-panel4'],
+      ['#split-panel5', '#split-panel6']
     ];
 
     var jeBusyOverlay = document.querySelector('#busy-overlay'); // Busy overlay
@@ -321,6 +328,9 @@
         aceStartvalEditor.resize();
         aceCodeEditor.resize();
         aceStyleEditor.resize();
+        aceOutputEditor.resize();
+        aceValidateEditor.resize();
+
       }
     };
 
@@ -328,6 +338,37 @@
     window.iframeErrorCatcher = function(err) {
         jeModalContent.innerText = err;
         toggleModal();
+    };
+
+    // catch form output and validation errors from inside iframe
+    window.iframeOutputCatcher = function(json, validation_errors, na) {
+      var bu = document.querySelector('button[data-content="#content5"]');
+      bu.style.display = na === 1 ? 'none' : 'initial';
+      if (na !== 1) {
+        aceOutputEditor.setValue(JSON.stringify(json, null, 2));
+        aceOutputEditor.session.getSelection().clearSelection();
+        aceOutputEditor.resize();
+        // Show validation errors if there are any
+        var val = validation_errors.length ? validation_errors : {'schema': 'valid'};
+        aceValidateEditor.setValue(JSON.stringify(val, null, 2));
+        aceValidateEditor.session.getSelection().clearSelection();
+        aceValidateEditor.resize();
+      }
+    };
+
+    // Update values in schema from output JSON
+    var updateSchemaValues = function() {
+      // this = aceOutputEditor
+      var json;
+      try {
+        json = JSON.parse(this.getValue());
+      }
+      catch (err) {
+        jeModalContent.innerText = err;
+        toggleModal();
+        return;
+      }
+      jeIframe.updateSchemaValuesIframe(json);
     };
 
     // Convert URL GET parameters into object or return value if key is supplied
@@ -435,6 +476,9 @@
       aceStyleEditor.session.getSelection().clearSelection();
       aceStyleEditor.resize();
 
+      aceOutputEditor.resize();
+      aceValidateEditor.resize();
+
       // Set config options
       for (var id in cfg) {
         if (cfg.hasOwnProperty(id)) {
@@ -474,6 +518,13 @@
         aceStartvalEditor.session.getSelection().clearSelection();
         delete params.value;
       }
+
+      aceSchemaEditor.resize();
+      aceStartvalEditor.resize();
+      aceCodeEditor.resize();
+      aceStyleEditor.resize();
+      aceOutputEditor.resize();
+      aceValidateEditor.resize();
 
       for (var id in params) {
         if (params.hasOwnProperty(id)) {
@@ -629,10 +680,30 @@
               buildExtFiles(options, code) +
               buildEditorOptions(options) +
               '</head><body>' +
-              '<div class="inner-row"><div id="json-editor-form"></div></div>' +
-              '<script>var jseditor;window.JSONEditor.defaults.options.upload = function(type, file, cbs) {};' +
+              '<div class="inner-row"><div id="json-editor-form"></div></div><script>' +
+
+              // Update JSON-Editor values from top window
+              'window.updateSchemaValuesIframe = function(json) {' +
+              ' if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) {' +
+              '  jseditor.setValue(json);' +
+              ' }' +
+              '};' +
+
+              // Dummy upload function to prevent errors
+              'var jseditor;window.JSONEditor.defaults.options.upload = function(type, file, cbs) {};' +
               'try{' +
               code +
+
+              // Send form output and validation errors to top window
+              'if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) {' +
+              '  jseditor.on("change",function() {' +
+              '    window.top.iframeOutputCatcher(jseditor.getValue(), jseditor.validate());' +
+              '  });' +
+              '} else {' +
+              '  window.top.iframeOutputCatcher(null, null, 1);' +
+              '}' +
+
+                // Send iframe errors to top window
                '}catch(err){if (window.top.iframeErrorCatcher) window.top.iframeErrorCatcher(err);else console.log(err);};' +
                '<\/script></body></html>';
     };
@@ -756,7 +827,7 @@
     };
 
     // Handler for buttons in editor slidedown panel
-    var editorPanelButtonHandler = function(def, e) {
+    var editorPanelButtonHandler = function(e) {
       // "this" is the ACE Editor instance
       if (e.target.dataset.action) {
         e.preventDefault();
@@ -764,11 +835,6 @@
           case 'beautify':
             aceBeautify.beautify(this.session);
           break;
-          case 'restore': {
-              this.setValue(def);
-              this.session.getSelection().clearSelection();
-            break;
-          }
           case 'clear': {
             this.setValue('');
             this.session.getSelection().clearSelection();
@@ -782,7 +848,7 @@
     var setEditorPanelButtons = function(edEl, ed) {
       var buttons = edEl.parentNode.querySelectorAll('.slidedown-menu button');
       [].forEach.call(buttons, function(button) {
-        button.addEventListener('click', editorPanelButtonHandler.bind(ed, ed.getValue()));
+        button.addEventListener('click', editorPanelButtonHandler.bind(ed));
       });
     };
 
@@ -857,6 +923,37 @@
       maxLines: 40
     });
 
+    // Setup ACE editor for editing output values
+    aceOutputEditor = window.ace.edit(jeOutput);
+    aceOutputEditor.setOptions({
+      theme: aceTheme
+    });
+    aceOutputEditor.session.setOptions({
+      mode: 'ace/mode/json',
+      tabSize: 2,
+      useSoftTabs: true
+    });
+    aceOutputEditor.renderer.setOptions({
+      minLines: 40,
+      maxLines: 40
+    });
+
+    // Setup ACE editor for displayiong validation results
+    aceValidateEditor = window.ace.edit(jeValidate);
+    aceValidateEditor.setOptions({
+      readOnly: true,
+      theme: aceTheme
+    });
+    aceValidateEditor.session.setOptions({
+      mode: 'ace/mode/json',
+      tabSize: 2,
+      useSoftTabs: true
+    });
+    aceValidateEditor.renderer.setOptions({
+      minLines: 40,
+      maxLines: 40
+    });
+
     // Setup ACE editor for editing JavaScript
     aceCodeEditor = window.ace.edit(jeEditCode);
     aceCodeEditor.setOptions({
@@ -896,6 +993,9 @@
     // Show error if JSON schema or startval is invalid
     aceSchemaEditor.on("blur", showModalError.bind(aceSchemaEditor));
     aceStartvalEditor.on("blur", showModalError.bind(aceStartvalEditor));
+
+    // Update form if output JSON is changed
+    aceOutputEditor.on("blur", updateSchemaValues.bind(aceOutputEditor));
 
     // Set buttom event to restore initial value of ACE editor content.
     setEditorPanelButtons(jeEditSchema, aceSchemaEditor);
@@ -944,6 +1044,7 @@
     // Set movable split panels
     window.Split(jeSplitPanels[0], jeSplitCfg);
     window.Split(jeSplitPanels[1], jeSplitCfg);
+    window.Split(jeSplitPanels[2], jeSplitCfg);
 
     // Update fields from query parameters
     updateFromUrl();
