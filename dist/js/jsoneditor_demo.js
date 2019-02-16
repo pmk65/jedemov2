@@ -1,15 +1,9 @@
- (function() {
+(function() {
 
  /*
   * ToDo:
-  *  - Detect config changes and update iframe
   *  - Save/compare default values of Ace Editor content before creating Direct Link (No need to include the default values)
-  *  - Move options to slide-in panel and remove useless <details> tags wrapping <select> tags.
-  *  - Show error output (panel?) and form output
-  *  - Code cleanup
-  *  - Extend Load functionality so it can load Schema,Startval and JavaScript.
-  *  - Functionality to save current setup (Schema,startval and JavaScript) and to upload it again.
-  *  - Create an unified format for saved schemas (so startval and JavaScript can be included)
+  *  - Url shortener for direct link. 
   */
 
     // value -> CSS/JavaScript mapping for external files
@@ -1060,6 +1054,7 @@
     var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
     jeIframeEl.src = window.URL.createObjectURL(bData);
     window.URL.revokeObjectURL(bData);
-  })();
+
+})();
 
 //# sourceMappingURL=jsoneditor_demo.js.map
