@@ -235,7 +235,7 @@
         gutter: function () {
             var gutter = document.createElement('div');
             gutter.className = 'split-gutter';
-            gutter.style.height = '400px';
+            gutter.style.height = '560px';
             return gutter;
         },
         gutterSize: 4
