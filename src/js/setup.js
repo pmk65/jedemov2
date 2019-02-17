@@ -3,7 +3,7 @@
  /*
   * ToDo:
   *  - Save/compare default values of Ace Editor content before creating Direct Link (No need to include the default values)
-  *  - Url shortener for direct link. 
+  *  - Url shortener for direct link.
   */
 
     // value -> CSS/JavaScript mapping for external files
@@ -293,7 +293,7 @@
       }));
     };
 
-    // copy text to clipboard
+    // Copy text to clipboard
     var copyToClipboard = function(txt) {
       var ta = document.createElement('textarea');
       ta.value = txt;
@@ -304,6 +304,40 @@
       ta.select();
       document.execCommand('copy');
       document.body.removeChild(ta);
+
+      window.Push.create('Copied to Clipboard', {
+        body: txt,
+        timeout: 4000,
+        onClick: function () {
+          window.focus();
+          this.close();
+        }
+      });
+
+    };
+
+    // JSONP request
+    var loadJSONP = (function() {
+      var unique = 0;
+      return function(url, callback, context) {
+        var name = "_jsonp_" + unique++;
+        url += (url.match(/\?/) ? '&' : '?') + 'callback=' + name;
+        var script = document.createElement('script');
+        script.src = url;
+        window[name] = function(data){
+          callback.call(context || window, data);
+          document.getElementsByTagName('head')[0].removeChild(script);
+          script = null;
+          delete window[name];
+        };
+        document.getElementsByTagName('head')[0].appendChild(script);
+      };
+    })();
+
+    // Create shorturl for direct link
+    var shortenUrl = function(url, callback) {
+      url = 'https://is.gd/create.php?format=json&url=' + encodeURIComponent(url);
+      loadJSONP(url, callback);
     };
 
     // Function to handle clicks on Tab buttons
@@ -410,23 +444,33 @@
     var updateDirectLink = function(e) {
       var url = window.location.toString().replace(window.location.search, "");
       if (e.target == jeDirectLink) {
-        url += '?schema=' + window.LZString.compressToBase64(JSON.stringify(aceSchemaEditor.getValue().trim()));
+        url += '?schema=' + encodeURIComponent(window.LZString.compressToBase64(JSON.stringify(aceSchemaEditor.getValue().trim())));
 //        url += '&value=' +  window.LZString.compressToBase64(JSON.stringify(window.jsoneditor.getValue()));
-        url += '&value=' +  window.LZString.compressToBase64(JSON.stringify(aceStartvalEditor.getValue().trim()));
-        url += '&code=' + window.LZString.compressToBase64(JSON.stringify(aceCodeEditor.getValue().trim()));
-        url += '&style=' + window.LZString.compressToBase64(JSON.stringify(aceStyleEditor.getValue().trim()));
+        url += '&value=' +  encodeURIComponent(window.LZString.compressToBase64(JSON.stringify(aceStartvalEditor.getValue().trim())));
+        url += '&code=' + encodeURIComponent(window.LZString.compressToBase64(JSON.stringify(aceCodeEditor.getValue().trim())));
+        url += '&style=' + encodeURIComponent(window.LZString.compressToBase64(JSON.stringify(aceStyleEditor.getValue().trim())));
         url += '&'+ toQueryString(getJsonEditorOptions());
+      }
+
+      if (window.location.protocol !== 'file:') {
+        shortenUrl(url, function(data) {
+          e.target.addEventListener('mouseup', function() {
+            copyToClipboard(data.shorturl);
+          }, {once: true});
+        });
+      }
+      else {
+        copyToClipboard(url);
       }
       //window.location.href = url;
       //window.location.assign(url);
-      copyToClipboard(url);
       window.location.replace(url);
     };
 
     // Clear query parameters from URL
-    var resetUrl = function() {
+    var resetUrl = function(e) {
       if (confirm('Clear URL query parameters?')) {
-        updateDirectLink(true);
+        updateDirectLink(e);
       }
     };
 
@@ -498,17 +542,17 @@
         delete params.code;
       }
       if (params.style) {
-        aceStyleEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(params.style)));
+        aceStyleEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.style))));
         aceStyleEditor.session.getSelection().clearSelection();
         delete params.style;
       }
       if (params.schema) {
-        aceSchemaEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(params.schema)));
+        aceSchemaEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.schema))));
         aceSchemaEditor.session.getSelection().clearSelection();
         delete params.schema;
       }
       if (params.value) {
-        aceStartvalEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(params.value)));
+        aceStartvalEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.value))));
         aceStartvalEditor.session.getSelection().clearSelection();
         delete params.value;
       }
@@ -1013,7 +1057,7 @@
     jeSetValue.addEventListener('click', setValueIframe);
 
     // Create the direct link URL
-    jeDirectLink.addEventListener('click', updateDirectLink);
+    jeDirectLink.addEventListener('mousedown', updateDirectLink);
     jeUrlReset.addEventListener('click', resetUrl);
 
     // Set button event for downloading as example
