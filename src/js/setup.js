@@ -454,15 +454,24 @@
 
       if (window.location.protocol !== 'file:') {
         shortenUrl(url, function(data) {
-          e.target.addEventListener('mouseup', function() {
+          // Clipboad actions not allowed here since it's a calback event and not an "User generated event"
+          window.addEventListener('mouseup', function() {
+            // But it's allowed here as this is an "User generated event"
             copyToClipboard(data.shorturl);
-            window.location.replace(url); 
+            window.location.replace(url);
           }, {once: true});
+
+          // Trigger the 'mouseup' event (It can only be fired once)
+          window.dispatchEvent(new MouseEvent('mouseup', {
+            'view': window,
+            'bubbles': true,
+            'cancelable': false
+          }));
         });
       }
       else {
         copyToClipboard(url);
-        window.location.replace(url);
+        //window.location.replace(url);
       }
       //window.location.href = url;
       //window.location.assign(url);

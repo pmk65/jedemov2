@@ -27,15 +27,32 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     background-color: var(--bg1-color);
     font: normal .9em/1.2 Arial;
   }
-  a {
-    color: var(--header-color);
-    text-decoration: none;
-  }
-  a:hover,
-  a:focus {
-    text-decoration: underline;
-  }
 
+  a {
+    position: relative;
+    color: var(--header-color);
+    text-decoration:none;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  a:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: -.1em;
+    width: 0;
+    height: .1em;
+    background-color: var(--select-color);
+    transform: translateX(-50%);
+    transition: width 0.2s;
+  }
+  a:hover, a:focus {
+    color: var(--select-color);
+  }
+  a:hover:after, a:focus:after {
+    width: 100%;
+  }
   h1 {
     font-size: 160%;
     display: inline-block;
@@ -175,7 +192,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     background-color: white;
     padding: 1rem 1.5rem;
     width: 90%;
-    max-width: 1000px;  
+    max-width: 1000px;
     border-radius: 0.5rem;
     z-index: 99999;
   }
