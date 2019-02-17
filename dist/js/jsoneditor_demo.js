@@ -456,15 +456,16 @@
         shortenUrl(url, function(data) {
           e.target.addEventListener('mouseup', function() {
             copyToClipboard(data.shorturl);
+            window.location.replace(url); 
           }, {once: true});
         });
       }
       else {
         copyToClipboard(url);
+        window.location.replace(url);
       }
       //window.location.href = url;
       //window.location.assign(url);
-      window.location.replace(url);
     };
 
     // Clear query parameters from URL
