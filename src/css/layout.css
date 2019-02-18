@@ -344,12 +344,40 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   #external-schema option.fails {
     color: #F2828C;
   }
-  #direct_link {
-
-  }
   @keyframes button-icon-glow {
     to {color: #000CEB;}
   }
+  /* Input an button inside the modal box */
+  .cbreq {
+    text-align: center;
+  }
+  .cbreq button::-moz-focus-inner {
+    border: 0;
+  }
+  .cbreq button {
+    outline: none;
+    border: 1px solid #888;
+    padding: .3rem .5rem;
+    border-radius: .3rem;
+    background-color: var(--tab-bgcolor1);
+  }
+  .cbreq button:hover,
+  .cbreq button:focus {
+    background-color: var(--tab-bgcolor2);
+  }
+  .cbreq button:hover i,
+  .cbreq button:focus i {
+    animation: button-icon-glow 1s ease-in-out infinite alternate;
+  }
+  .cbreq input {
+    width: 50%;
+    margin-right: .5rem;
+    font-size: 1rem;
+    padding: .3rem .5rem;
+    background-color: var(--tab-bgcolor1);
+  }
+
+
 
   /* Fullscreen drag'n'drop upload */
   #dropzone {

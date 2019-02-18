@@ -306,8 +306,11 @@
       ta.style.left = '0px';
       document.body.appendChild(ta);
       ta.select();
-      document.execCommand('copy');
+      var res = true;
+      try { document.execCommand('copy'); }
+      catch(err) { res = false; }
       document.body.removeChild(ta);
+      return res;
     };
 
     // JSONP request
@@ -327,12 +330,6 @@
         document.querySelector('head').appendChild(script);
       };
     })();
-
-    // Create shorturl for direct link
-    var shortenUrl = function(url, callback) {
-      url = 'https://is.gd/create.php?format=json&url=' + encodeURIComponent(url);
-      loadJSONP(url, callback);
-    };
 
     // Function to handle clicks on Tab buttons
     var tabsHandler = function(e) {
@@ -446,29 +443,19 @@
         url += '&'+ toQueryString(getJsonEditorOptions());
 
         if (window.location.protocol !== 'file:') {
-          shortenUrl(url, function(data) {
-            // Clipboad actions not allowed here since it's a calback event and not an "User generated event"
-            window.addEventListener('mouseup', function() {
-              // But it's allowed here as this is an "User generated event"
-              copyToClipboard(data.shorturl);
-              jeModalContent.innerText = 'ShortURL copied to clipboard.';
-              toggleModal();
-              //window.location.replace(url);
+          loadJSONP('https://is.gd/create.php?format=json&url=' + encodeURIComponent(url), function(data) {
+            // Clipboard actions not allowed here since it's a callback event and not an "User generated event"
+            jeModalContent.innerHTML = '<div class="cbreq">Direct Link: <input type="text" value="' + data.shorturl + '" readonly /><button>Copy to Clipboard</button></div>';
+            jeModalContent.querySelector('button').addEventListener('click', function() {
+              var val = jeModalContent.querySelector('input').value;
+              jeModalContent.innerText = copyToClipboard(val) ? 'URL copied to clipboard.' : 'Error: Copy to clipboard failed!';
             }, {once: true});
-
-            // Trigger the 'mouseup' event (It can only be fired once)
-            window.dispatchEvent(new MouseEvent('mouseup', {
-              'view': window,
-              'bubbles': true,
-              'cancelable': false
-            }));
+            toggleModal();
           });
         }
         else {
-          copyToClipboard(url);
-          jeModalContent.innerText = 'URL copied to clipboard.';
+          jeModalContent.innerText = copyToClipboard(url) ? 'URL copied to clipboard.' : 'Error: Copy to clipboard failed!';
           toggleModal();
-          //window.location.replace(url);
         }
       }
       else {
@@ -758,10 +745,10 @@
     };
 
     // Update form values in iframe (Currently uses the StartVal editor, but should be from a different source)
-    var setValueIframe = function() {
+/*    var setValueIframe = function() {
       var val = aceStartvalEditor.getValue();
       if (val.trim() && jeIframe.jseditor) jeIframe.jseditor.setValue(JSON.parse(val));
-    };
+    };*/
 
     //  Parse JSON string and return JSON object. Empty object returned on error
     var parseJson = function(str) {
@@ -929,10 +916,6 @@
       // Get content of ACE editor schema, startval and JavaScript;
       var code = getCode(aceSchemaEditor.getValue(), aceStartvalEditor.getValue()) + aceCodeEditor.getValue();
 
-/*      jeIframe.document.open();
-      jeIframe.document.write(createIframeContent(code)); // Iframe method
-      jeIframe.document.close();*/
-
       // Alternative to write() which is deprecated
       var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
       jeIframeEl.onload = function() { window.URL.revokeObjectURL(bData); };
@@ -1056,7 +1039,7 @@
     setEditorPanelButtons(jeEditCSS, aceStyleEditor);
 
     // Set events on tabs buttons
-    jeTabs.addEventListener('click', tabsHandler);
+    jeTabs.addEventListener('click', tabsHandler, false);
 
     // Set button event for loading external schemas
     if (window.fetch && window.File && window.FileReader && window.FileList && window.Blob) jeSchemaLoad.addEventListener('change', loadExampleFiles);
@@ -1067,20 +1050,20 @@
     }
 
     // Set button event for generating form
-    jeExec.addEventListener('click', generateForm);
+    jeExec.addEventListener('click', generateForm, false);
 
     // Create the direct link URL
-    jeDirectLink.addEventListener('mousedown', updateDirectLink);
-    jeUrlReset.addEventListener('click', resetUrl);
+    jeDirectLink.addEventListener('click', updateDirectLink, false);
+    jeUrlReset.addEventListener('click', resetUrl, false);
 
     // Set button event for downloading as example
-    jeDownloadExample.addEventListener('click', downloadExampleHandler);
+    jeDownloadExample.addEventListener('click', downloadExampleHandler, false);
     // Set button event for uploading example
-    jeUploadExample.addEventListener('click', eventClickFire.bind(null, jeFileUpload));
-    jeFileUpload.addEventListener('change', uploadExampleHandler);
+    jeUploadExample.addEventListener('click', eventClickFire.bind(null, jeFileUpload), false);
+    jeFileUpload.addEventListener('change', uploadExampleHandler, false);
 
     // Set event handler for details/summary tags
-    jeCfg.addEventListener('click', summaryOpenHandler);
+    jeCfg.addEventListener('click', summaryOpenHandler, false);
 
     // Set Drag'n'Drop handlers
     if (window.File && window.FileReader && window.FileList && window.Blob) {
