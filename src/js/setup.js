@@ -1,12 +1,16 @@
+/**
+ * @name JSON-Editor Interactive Playground
+ * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
+ * @version {{ VERSION }}
+ * @author Peter Klein
+ * @see https://github.com/pmk65/jedemov2/
+ * @license MIT
+ * @example see README.md for requirements, examples and usage info
+ */
+
 (function() {
 
- /*
-  * ToDo:
-  *  - Save/compare default values of Ace Editor content before creating Direct Link (No need to include the default values)
-  *  - Url shortener for direct link.
-  */
-
-    // value -> CSS/JavaScript mapping for external files
+     // value -> CSS/JavaScript mapping for external files
     var mapping = {
       theme: {
         bootstrap2: {
@@ -204,7 +208,6 @@
     // Buttons
     var jeSchemaLoad = document.querySelector('#external-schema'); // Load schema
     var jeExec = document.querySelector('#execute-code'); // Create form from Schema
-    var jeSetValue = document.querySelector('#execute-setvalue'); // Create form from Schema
     var jeDirectLink = document.querySelector('#direct_link'); // Create direct link url
     var jeUrlReset = document.querySelector('#direct_link_reset'); // Clear query params from url
     var jeTabs = document.querySelector('nav.tabs'); // Tabs (Wrapper, not single buttons)
@@ -298,22 +301,13 @@
       var ta = document.createElement('textarea');
       ta.value = txt;
       ta.setAttribute('readonly', '');
-      ta.style.position = 'absolute';
-      ta.style.left = '-9999px';
+      ta.style.position = 'fixed';
+      ta.style.bottom = '0px';
+      ta.style.left = '0px';
       document.body.appendChild(ta);
       ta.select();
       document.execCommand('copy');
       document.body.removeChild(ta);
-
-      window.Push.create('Copied to Clipboard', {
-        body: txt,
-        timeout: 4000,
-        onClick: function () {
-          window.focus();
-          this.close();
-        }
-      });
-
     };
 
     // JSONP request
@@ -326,11 +320,11 @@
         script.src = url;
         window[name] = function(data){
           callback.call(context || window, data);
-          document.getElementsByTagName('head')[0].removeChild(script);
+          document.querySelector('head').removeChild(script);
           script = null;
           delete window[name];
         };
-        document.getElementsByTagName('head')[0].appendChild(script);
+        document.querySelector('head').appendChild(script);
       };
     })();
 
@@ -433,7 +427,7 @@
       var options = {},
           exclude = ':not([data-json-editor-special])',
           els = jeCfg.querySelectorAll('input[type="checkbox"]' + exclude + ',select' + exclude);
-      Array.from(els).forEach(function(el) {
+      Array.from(els).forEach(function(el) {  // from() unsupported in IE
         if (el.tagName == 'SELECT') options[el.id] = el.value;
         else if (el.checked) options[el.value] = 1;//el.checked;
       });
@@ -450,28 +444,35 @@
         url += '&code=' + encodeURIComponent(window.LZString.compressToBase64(JSON.stringify(aceCodeEditor.getValue().trim())));
         url += '&style=' + encodeURIComponent(window.LZString.compressToBase64(JSON.stringify(aceStyleEditor.getValue().trim())));
         url += '&'+ toQueryString(getJsonEditorOptions());
-      }
 
-      if (window.location.protocol !== 'file:') {
-        shortenUrl(url, function(data) {
-          // Clipboad actions not allowed here since it's a calback event and not an "User generated event"
-          window.addEventListener('mouseup', function() {
-            // But it's allowed here as this is an "User generated event"
-            copyToClipboard(data.shorturl);
-            window.location.replace(url);
-          }, {once: true});
+        if (window.location.protocol !== 'file:') {
+          shortenUrl(url, function(data) {
+            // Clipboad actions not allowed here since it's a calback event and not an "User generated event"
+            window.addEventListener('mouseup', function() {
+              // But it's allowed here as this is an "User generated event"
+              copyToClipboard(data.shorturl);
+              jeModalContent.innerText = 'ShortURL copied to clipboard.';
+              toggleModal();
+              //window.location.replace(url);
+            }, {once: true});
 
-          // Trigger the 'mouseup' event (It can only be fired once)
-          window.dispatchEvent(new MouseEvent('mouseup', {
-            'view': window,
-            'bubbles': true,
-            'cancelable': false
-          }));
-        });
+            // Trigger the 'mouseup' event (It can only be fired once)
+            window.dispatchEvent(new MouseEvent('mouseup', {
+              'view': window,
+              'bubbles': true,
+              'cancelable': false
+            }));
+          });
+        }
+        else {
+          copyToClipboard(url);
+          jeModalContent.innerText = 'URL copied to clipboard.';
+          toggleModal();
+          //window.location.replace(url);
+        }
       }
       else {
-        copyToClipboard(url);
-        //window.location.replace(url);
+        window.location.replace(url);
       }
       //window.location.href = url;
       //window.location.assign(url);
@@ -495,7 +496,7 @@
           desc = example.desc;
 
         // Clear include external library checkboxes
-        Array.from(jeExtlib.querySelectorAll('input')).forEach(function(el) {
+        Array.from(jeExtlib.querySelectorAll('input')).forEach(function(el) { // from() unsupported in IE
           el.checked = false;
         });
 
@@ -504,7 +505,7 @@
       // Add description of example to help page
       if (desc !== '' && desc != 'Add optional description here. (HTML format)') {
         jeModalContent.innerHTML = jeExampleDesc.innerHTML = '<h3>Info about "' + example.title + '" Example</h3>' + desc;
-      toggleModal();
+        toggleModal();
       }
 
       // Update ACE Editor instances
@@ -800,8 +801,10 @@
 
     // Save Schema, Start Value, JavaScript Styles and Config options in examples schema format
     var downloadExampleHandler = function() {
+      var title = prompt('Enter a Title for the example', 'JSON-Editor Example');
+      if (title === null) return;
       var example = {
-            "title": prompt('Enter a Title for the example'),
+            "title": title,
             "schema" : parseJson(aceSchemaEditor.getValue()),
             "startval": parseJson(aceStartvalEditor.getValue()),
             "config": getJsonEditorOptions(),
@@ -916,9 +919,10 @@
     var generateForm = function(e) {
       e.preventDefault();
 
+      // Trigger Tab switching when form is ready
       window.requestAnimationFrame(function() {
         // console.log('Busy');
-        jeBusyOverlay.classList.add('active');
+        jeBusyOverlay.classList.add('active'); // Doesn't seem to work
         iframeOnReady(jeIframe, iframeReady);
       });
 
@@ -931,8 +935,8 @@
 
       // Alternative to write() which is deprecated
       var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
+      jeIframeEl.onload = function() { window.URL.revokeObjectURL(bData); };
       jeIframeEl.src = window.URL.createObjectURL(bData);
-      window.URL.revokeObjectURL(bData);
    };
 
     /* Setup */
@@ -1064,7 +1068,6 @@
 
     // Set button event for generating form
     jeExec.addEventListener('click', generateForm);
-    jeSetValue.addEventListener('click', setValueIframe);
 
     // Create the direct link URL
     jeDirectLink.addEventListener('mousedown', updateDirectLink);
@@ -1089,7 +1092,7 @@
       });
     }
 
-    // Set movable split panels
+    // Set resizable split panels
     window.Split(jeSplitPanels[0], jeSplitCfg);
     window.Split(jeSplitPanels[1], jeSplitCfg);
     window.Split(jeSplitPanels[2], jeSplitCfg);
@@ -1097,16 +1100,7 @@
     // Update fields from query parameters
     updateFromUrl();
 
-   // Create initial form
-    var code = getCode(aceSchemaEditor.getValue(), aceStartvalEditor.getValue()) + aceCodeEditor.getValue();
-
-/*    jeIframe.document.open();
-    jeIframe.document.write(createIframeContent(code)); // Iframe method
-    jeIframe.document.close();*/
-
-    // Alternative to write() which is deprecated
-    var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
-    jeIframeEl.src = window.URL.createObjectURL(bData);
-    window.URL.revokeObjectURL(bData);
+    // Trigger generation of form
+    eventFire(jeExec, 'click');
 
 })();

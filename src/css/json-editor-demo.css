@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'json-editor-demo';
-  src: url('../font/json-editor-demo.eot?63068206');
-  src: url('../font/json-editor-demo.eot?63068206#iefix') format('embedded-opentype'),
-       url('../font/json-editor-demo.woff2?63068206') format('woff2'),
-       url('../font/json-editor-demo.woff?63068206') format('woff'),
-       url('../font/json-editor-demo.ttf?63068206') format('truetype'),
-       url('../font/json-editor-demo.svg?63068206#json-editor-demo') format('svg');
+  src: url('../font/json-editor-demo.eot?30985025');
+  src: url('../font/json-editor-demo.eot?30985025#iefix') format('embedded-opentype'),
+       url('../font/json-editor-demo.woff2?30985025') format('woff2'),
+       url('../font/json-editor-demo.woff?30985025') format('woff'),
+       url('../font/json-editor-demo.ttf?30985025') format('truetype'),
+       url('../font/json-editor-demo.svg?30985025#json-editor-demo') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'json-editor-demo';
-    src: url('../font/json-editor-demo.svg?63068206#json-editor-demo') format('svg');
+    src: url('../font/json-editor-demo.svg?30985025#json-editor-demo') format('svg');
   }
 }
 */
@@ -55,10 +55,8 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.icon-cog-alt:before { content: '\e800'; } /* '' */
 .icon-link:before { content: '\e801'; } /* '' */
 .icon-wrench:before { content: '\e802'; } /* '' */
-.icon-arrows-cw:before { content: '\e803'; } /* '' */
 .icon-cog:before { content: '\e804'; } /* '' */
 .icon-help-circled:before { content: '\e805'; } /* '' */
 .icon-info-circled:before { content: '\e806'; } /* '' */
@@ -68,6 +66,6 @@
 .icon-menu:before { content: '\f0c9'; } /* '' */
 .icon-laptop:before { content: '\f109'; } /* '' */
 .icon-spinner:before { content: '\f110'; } /* '' */
-.icon-github:before { content: '\f113'; } /* '' */
 .icon-keyboard:before { content: '\f11c'; } /* '' */
 .icon-unlink:before { content: '\f127'; } /* '' */
+.icon-wpforms:before { content: '\f298'; } /* '' */
