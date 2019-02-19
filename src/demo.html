@@ -5,6 +5,8 @@
 <head>
   <title>Json-Editor Interactive Playground</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="description" content="The JSON-Editor Interactive Playground is a page where you can test various setups for the OpenSource JSON Schema parser JSON-Editor">
+  <meta name="keywords" content="json, schema, json editor, json schema, javascript, json-editor">
 
     <!-- Favicon -->
     <link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik0yNi40OTYgNy41MDR2MjEuNWMwIC44My0uNjY5IDEuNS0xLjUgMS41aC0xOGMtLjgzIDAtMS41LS42Ny0xLjUtMS41di0yNmMwLS44MzEuNjctMS41IDEuNS0xLjVoMTMuNXoiLz48cGF0aCBkPSJNNSAyNC4wMDR2NWMwIDEuMTA4Ljg5MiAyIDIgMmgxOGMxLjEwOCAwIDItLjg5MiAyLTJ2LTVINXptMTcuNTE4Ljk3OGEuNS41IDAgMCAxIC4zODIuMjA3bDIuMDk4IDIuODAxVjI1LjVhLjUuNSAwIDAgMSAuNDkyLS41MDguNS41IDAgMCAxIC41MDguNTA4djMuOTg4YS41LjUgMCAwIDEtLjkwMi4zMDFsLS4wMTQtLjAxOGEuNS41IDAgMCAwLS4wMDIgMGwtMi4wODItMi43Nzl2Mi41YS41LjUgMCAxIDEtMSAwVjI1LjUzYS41LjUgMCAwIDEgLjQ2OS0uNTQuNS41IDAgMCAxIC4wNSAwdi0uMDA3em0tMTMuMDI2LjAxNmEuNS41IDAgMCAxIC41MDguNTA4djMuMDAyYS41LjUgMCAwIDEtLjAxNi4xMzNBMS41MDMgMS41MDMgMCAwIDEgOC41IDMwYy0uODIyIDAtMS41LS42NzgtMS41LTEuNWEuNS41IDAgMCAxIC40OTItLjUwNkEuNS41IDAgMCAxIDggMjguNWMwIC4yODYuMjE0LjUuNS41LjI4NiAwIC41LS4yMTQuNS0uNXYtMi45OTJBLjUuNSAwIDAgMSA5LjQ5MiAyNXYtLjAwMnptMi45NS4wMDJhLjUuNSAwIDAgMSAuMDUgMCAuNS41IDAgMCAxIC4wMzUgMGgxLjk2NWEuNS41IDAgMSAxIDAgMWgtMmMtLjI4NSAwLS41LjIxNC0uNS41IDAgLjI4Ni4yMTUuNS41LjVhLjUuNSAwIDAgMSAuMDM1IDBoLjk2NWEuNS41IDAgMCAxIC4xMDguMDEgMS41MDUgMS41MDUgMCAwIDEgMS4zOTIgMS40OWMwIC43ODctLjYyMiAxLjQzMy0xLjM5NiAxLjQ4OGEuNS41IDAgMCAxLS4xMDQuMDEyaC0yYS41LjUgMCAxIDEgMC0xaDJjLjI4NiAwIC41LS4yMTQuNS0uNSAwLS4yODYtLjIxNC0uNS0uNS0uNWgtMWEuNS41IDAgMCAxLS4wOTQtLjAxIDEuNTA0IDEuNTA0IDAgMCAxLTEuNDA2LTEuNDljMC0uNzg0LjYxNy0xLjQyOCAxLjM4Ny0xLjQ4OEEuNS41IDAgMCAxIDEyLjQ0IDI1em02LjA1OCAwYzEuMzc1IDAgMi41IDEuMTI1IDIuNSAyLjVTMTkuODc1IDMwIDE4LjUgMzBhMi41MDggMi41MDggMCAwIDEtMi41LTIuNWMwLTEuMzc1IDEuMTI1LTIuNSAyLjUtMi41em0wIDFjLS44MzQgMC0xLjUuNjY2LTEuNSAxLjVzLjY2NiAxLjUgMS41IDEuNSAxLjUtLjY2NiAxLjUtMS41LS42NjYtMS41LTEuNS0xLjV6Ii8+PHBhdGggc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik0yNi40OTYgNy41MDRoLTQuNWMtLjgzIDAtMS41LS42Ny0xLjUtMS41di00LjUiLz48cGF0aCBzdHlsZT0ibGluZS1oZWlnaHQ6bm9ybWFsO3RleHQtaW5kZW50OjA7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWRlY29yYXRpb24tbGluZTpub25lO3RleHQtZGVjb3JhdGlvbi1zdHlsZTpzb2xpZDt0ZXh0LWRlY29yYXRpb24tY29sb3I6IzAwMDt0ZXh0LXRyYW5zZm9ybTpub25lO2Jsb2NrLXByb2dyZXNzaW9uOnRiO2lzb2xhdGlvbjphdXRvO21peC1ibGVuZC1tb2RlOm5vcm1hbCIgZD0iTTEzLjUwOCAxMC4wMDRjLTEuMSAwLTIgLjktMiAydjFjMCAuNTYzLS40MzggMS0xIDFhLjUuNSAwIDAgMC0uNDk4LjQwNi41LjUgMCAwIDAgLjE0OC40NTUuNS41IDAgMCAwIC4wNzguMDYxLjUuNSAwIDAgMCAuMTM5LjA2LjUuNSAwIDAgMCAuMDk4LjAxNS41LjUgMCAwIDAgLjAzNSAwYy41NjIgMCAxIC40MzggMSAxdjEuMDAxYzAgMS4wOTkuOSAyIDIgMmEuNS41IDAgMSAwIDAtMWMtLjU2MyAwLTEtLjQzOC0xLTFWMTZjMC0uNTk4LS4yNzMtMS4xMzItLjY5NC0xLjVhMS45OSAxLjk5IDAgMCAwIC42OTQtMS41di0xYzAtLjU2Mi40MzctMSAxLTFhLjUuNSAwIDEgMCAwLTF6bTMuOTMzIDBhLjUuNSAwIDAgMCAuMDUxIDFjLjU2MyAwIDEgLjQzNyAxIDF2MWMwIC41OTkuMjczIDEuMTMzLjY5NCAxLjUtLjQyLjM2OC0uNjk0LjkwMi0uNjk0IDEuNXYxYzAgLjU2My0uNDM3IDEtMSAxYS41LjUgMCAxIDAgMCAxYzEuMSAwIDItLjkgMi0ydi0xYzAtLjU2Mi40MzgtMSAxLTFhLjUuNSAwIDAgMCAuMzI0LS4xMTMuNS41IDAgMCAwIC4wMzgtLjAzNS41LjUgMCAwIDAtLjM2Mi0uODUyYy0uNTYyIDAtMS0uNDM3LTEtMXYtMWMwLTEuMS0uOS0yLTItMmEuNS41IDAgMCAwLS4wNSAwek0xNS41IDEyYS41LjUgMCAwIDAtLjUuNS41LjUgMCAwIDAgLjUuNS41LjUgMCAwIDAgLjUtLjUuNS41IDAgMCAwLS41LS41em0tLjAwOCAxLjk5NEEuNS41IDAgMCAwIDE1IDE0LjV2M2EuNS41IDAgMSAwIDEgMHYtM2EuNS41IDAgMCAwLS41MDgtLjUwNnoiIGNvbG9yPSIjMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgb3ZlcmZsb3c9InZpc2libGUiIHdoaXRlLXNwYWNlPSJub3JtYWwiLz48L3N2Zz4=" rel="icon" type="image/x-icon" />
@@ -23,18 +25,7 @@
   <!-- Split.js - https://github.com/nathancahill/split/ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.10/split.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/push.js@latest/bin/push.min.js"></script>
   <link rel="stylesheet" href="css/jsoneditor_demo.min.css" />
-  <style>
-  /* https://stackoverflow.com/questions/325273/make-iframe-to-fit-100-of-containers-remaining-height */
-
-
-  /*
-  https://www.canva.com/color-palette/
-  */
-
-
-  </style>
 </head>
 
 <body>
@@ -42,7 +33,7 @@
 
   <div class="header-row">
     <div class="inner-row">
-      <h1><a href="https://github.com/json-editor/json-editor#json-editor" target="_blank" rel="noopener noreferrer" title="JSON-Editor - View on GitHub"><span>JSON-Editor</span>Interactive Playground</a></h1>
+      <h1><a href="https://github.com/json-editor/json-editor#json-editor" target="_blank" rel="noopener noreferrer" title="JSON-Editor - View on GitHub"><span>JSON-Editor </span>Interactive Playground</a></h1>
 
       <nav class="links">
         <button id="execute-code" title="Generate Form"><i class="icon-cog"></i>Generate Form</button>
@@ -72,7 +63,7 @@
               <option value="selectize">Selectize</option>
               <option value="simplemde">SimpleMDE</option>
               <option value="starrating">Star Rating</option>
-              <option value="upload" class="fails">Upload [fails]</option>
+              <option value="upload">Upload</option>
               <option value="base64">Base64 (Multiple Upload) </option>
             </optgroup>
             <optgroup label="JavaScript Addon Examples">
@@ -248,6 +239,13 @@ console.log('jseditor',jseditor);</div>
         <li>
           <a href="https://www.jsonschema.net/" target="_blank" rel="noopener noreferrer">JSONschema.Net</a> - Generates JSON schema from JSON data.
         </li>
+        <li>
+          <a href="https://niebert.github.io/JSON2Schema" target="_blank" rel="noopener noreferrer">JSON2Schema</a> - JSON Schema Support Tool for JSON Editor.
+        </li>
+        <li>
+          <a href="http://json.bootsphp.com/jsonSchemaCreator/" target="_blank" rel="noopener noreferrer">jsonSchemaCreator</a> - Schema Creator JSON Editor.
+        </li>
+
       </ul>
       <br><br><br><br><br><br><br><br>
     </div>
@@ -268,194 +266,194 @@ console.log('jseditor',jseditor);</div>
   </section>
 
   <div class="slideleft-panel">
-      <div id="json-editor-config">
-          <h2>JSON-Editor Options</h2>
-          <div>
-            <label for="theme">CSS Framework</label>
-            <div class="select">
-              <select id="theme">
-                <option value="barebones">Barebones</option>
-                <option value="html">HTML</option>
-                <option value="jqueryui">jQuery UI</option>
-                <option value="bootstrap2">Bootstrap 2</option>
-                <option value="bootstrap3" selected>Bootstrap 3</option>
-                <option value="bootstrap4">Bootstrap 4</option>
-                <option value="foundation3">Foundation 3</option>
-                <option value="foundation4">Foundation 4</option>
-                <option value="foundation5">Foundation 5</option>
-                <option value="foundation6">Foundation 6</option>
-                <option value="materialize">Materialize</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label for="iconlib">Icon Library</label>
-            <div class="select">
-              <select id="iconlib">
-                <option value="">None</option>
-                <option value="jqueryui">jQuery UI</option>
-                <option value="bootstrap2">Bootstrap 2 Glyphicons</option>
-                <option value="bootstrap3" selected>Bootstrap 3 Glyphicons</option>
-                <option value="foundation2">Foundicons 2</option>
-                <option value="foundation3">Foundicons 3</option>
-                <option value="fontawesome3">FontAwesome 3</option>
-                <option value="fontawesome4">FontAwesome 4</option>
-                <option value="fontawesome5">FontAwesome 5</option>
-                <option value="materialicons">Material Icons</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label for="object_layout">Object Layout</label>
-            <div class="select">
-              <select id="object_layout">
-                <option value="normal">normal</option>
-                <option value="grid">grid</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label for="template">Template Engine</label>
-            <div class="select">
-              <select id="template">
-                <option value="default">Default</option>
-                <option value="ejs">Ejs</option>
-                <option value="handlebars">Handlebars</option>
-                <option value="hogan">Hogan</option>
-                <option value="markup">Markup</option>
-                <option value="mustache">Mustache</option>
-                <option value="swig">Swig</option>
-                <option value="underscore">Underscore</option>
-              </select>
-            </div>
-          </div>
-
-           <div>
-            <label for="show_errors">Show Errors</label>
-            <div class="select">
-              <select id="show_errors">
-                <option value="interaction">On Interaction</option>
-                <option value="change">On Field Change</option>
-                <option value="always">Always</option>
-                <option value="never">Never</option>
-              </select>
-            </div>
-          </div>
-
-        <details open>
-          <summary>Boolean options</summary>
-          <div id="boolean_options">
-            <label>
-              <input type="checkbox" id="required_by_default" value="required_by_default">
-              <span>Object properties required by default</span>
-            </label>
-            <label>
-              <input type="checkbox" id="display_required_only" value="display_required_only">
-              <span>No additional object properties</span>
-            </label>
-            <label>
-              <input type="checkbox" id="ajax" value="ajax">
-              <span>Allow loading schemas via Ajax</span>
-            </label>
-            <label>
-              <input type="checkbox" id="disable_edit_json" value="disable_edit_json">
-              <span>Disable "Edit JSON" buttons</span>
-            </label>
-            <label>
-              <input type="checkbox" id="disable_collapse" value="disable_collapse">
-              <span>Disable collapse buttons</span>
-            </label>
-            <label>
-              <input type="checkbox" id="disable_properties" value="disable_properties">
-              <span>Disable properties buttons</span>
-            </label>
-            <label>
-              <input type="checkbox" id="disable_array_add" value="disable_array_add">
-              <span>Disable array add buttons</span>
-            </label>
-            <label>
-              <input type="checkbox" id="disable_array_reorder" value="disable_array_reorder">
-              <span>Disable array move buttons</span>
-            </label>
-            <label>
-              <input type="checkbox" id="disable_array_delete" value="disable_array_delete">
-              <span>Disable array delete buttons</span>
-            </label>
-            <label>
-              <input type="checkbox" id="enable_array_copy" value="enable_array_copy">
-              <span>Add copy buttons to arrays</span>
-            </label>
-            <label>
-              <input type="checkbox" id="array_controls_top" value="array_controls_top">
-              <span>Array controls will be displayed at top of list</span>
-            </label>
-            <label>
-              <input type="checkbox" id="disable_array_delete_all_rows" value="disable_array_delete_all_rows">
-              <span>Disable array delete all rows buttons</span>
-            </label>
-            <label>
-              <input type="checkbox" id="disable_array_delete_last_row" value="disable_array_delete_last_row">
-              <span>Disable array delete last row buttons</span>
-            </label>
-          </div>
-        </details>
-
-        <details>
-          <summary>Include External Libraries</summary>
-          <div id="ext_lib">
-            <label>
-              <input type="checkbox" id="lib_aceeditor" value="lib_aceeditor">
-              <span>Ace Editor</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_sceditor" value="lib_sceditor">
-              <span>SCEditor</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_sceditor_new" value="lib_sceditor_new">
-              <span>SCEditor (Latest scripts)</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_simplemde" value="lib_simplemde">
-              <span>SimpleMDE</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_select2" value="lib_select2">
-              <span>Select2</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_selectize" value="lib_selectize">
-              <span>Selectize</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_flatpickr" value="lib_flatpickr">
-              <span>Flatpickr</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_signaturepad" value="lib_signaturepad">
-              <span>Signature Pad</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_mathjs" value="lib_mathjs">
-              <span>Math.js</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_cleavejs" value="lib_cleavejs">
-              <span>Cleave.js</span>
-            </label>
-            <label>
-              <input type="checkbox" id="lib_jquery" value="lib_jquery">
-              <span>jQuery</span>
-            </label>
-          </div>
-        </details>
+    <div id="json-editor-config">
+      <h2>JSON-Editor Options</h2>
+      <div>
+        <label for="theme">CSS Framework</label>
+        <div class="select">
+          <select id="theme">
+            <option value="barebones">Barebones</option>
+            <option value="html">HTML</option>
+            <option value="jqueryui">jQuery UI</option>
+            <option value="bootstrap2">Bootstrap 2</option>
+            <option value="bootstrap3" selected>Bootstrap 3</option>
+            <option value="bootstrap4">Bootstrap 4</option>
+            <option value="foundation3">Foundation 3</option>
+            <option value="foundation4">Foundation 4</option>
+            <option value="foundation5">Foundation 5</option>
+            <option value="foundation6">Foundation 6</option>
+            <option value="materialize">Materialize</option>
+          </select>
+        </div>
       </div>
+
+      <div>
+        <label for="iconlib">Icon Library</label>
+        <div class="select">
+          <select id="iconlib">
+            <option value="">None</option>
+            <option value="jqueryui">jQuery UI</option>
+            <option value="bootstrap2">Bootstrap 2 Glyphicons</option>
+            <option value="bootstrap3" selected>Bootstrap 3 Glyphicons</option>
+            <option value="foundation2">Foundicons 2</option>
+            <option value="foundation3">Foundicons 3</option>
+            <option value="fontawesome3">FontAwesome 3</option>
+            <option value="fontawesome4">FontAwesome 4</option>
+            <option value="fontawesome5">FontAwesome 5</option>
+            <option value="materialicons">Material Icons</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label for="object_layout">Object Layout</label>
+        <div class="select">
+          <select id="object_layout">
+            <option value="normal">normal</option>
+            <option value="grid">grid</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label for="template">Template Engine</label>
+        <div class="select">
+          <select id="template">
+            <option value="default">Default</option>
+            <option value="ejs">Ejs</option>
+            <option value="handlebars">Handlebars</option>
+            <option value="hogan">Hogan</option>
+            <option value="markup">Markup</option>
+            <option value="mustache">Mustache</option>
+            <option value="swig">Swig</option>
+            <option value="underscore">Underscore</option>
+          </select>
+        </div>
+      </div>
+
+       <div>
+        <label for="show_errors">Show Errors</label>
+        <div class="select">
+          <select id="show_errors">
+            <option value="interaction">On Interaction</option>
+            <option value="change">On Field Change</option>
+            <option value="always">Always</option>
+            <option value="never">Never</option>
+          </select>
+        </div>
+      </div>
+
+      <details open>
+        <summary>Boolean options</summary>
+        <div id="boolean_options">
+          <label>
+            <input type="checkbox" id="required_by_default" value="required_by_default">
+            <span>Object properties required by default</span>
+          </label>
+          <label>
+            <input type="checkbox" id="display_required_only" value="display_required_only">
+            <span>No additional object properties</span>
+          </label>
+          <label>
+            <input type="checkbox" id="ajax" value="ajax">
+            <span>Allow loading schemas via Ajax</span>
+          </label>
+          <label>
+            <input type="checkbox" id="disable_edit_json" value="disable_edit_json">
+            <span>Disable "Edit JSON" buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" id="disable_collapse" value="disable_collapse">
+            <span>Disable collapse buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" id="disable_properties" value="disable_properties">
+            <span>Disable properties buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" id="disable_array_add" value="disable_array_add">
+            <span>Disable array add buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" id="disable_array_reorder" value="disable_array_reorder">
+            <span>Disable array move buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" id="disable_array_delete" value="disable_array_delete">
+            <span>Disable array delete buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" id="enable_array_copy" value="enable_array_copy">
+            <span>Add copy buttons to arrays</span>
+          </label>
+          <label>
+            <input type="checkbox" id="array_controls_top" value="array_controls_top">
+            <span>Array controls will be displayed at top of list</span>
+          </label>
+          <label>
+            <input type="checkbox" id="disable_array_delete_all_rows" value="disable_array_delete_all_rows">
+            <span>Disable array delete all rows buttons</span>
+          </label>
+          <label>
+            <input type="checkbox" id="disable_array_delete_last_row" value="disable_array_delete_last_row">
+            <span>Disable array delete last row buttons</span>
+          </label>
+        </div>
+      </details>
+
+      <details>
+        <summary>Include External Libraries</summary>
+        <div id="ext_lib">
+          <label>
+            <input type="checkbox" id="lib_aceeditor" value="lib_aceeditor">
+            <span>Ace Editor</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_sceditor" value="lib_sceditor">
+            <span>SCEditor</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_sceditor_new" value="lib_sceditor_new">
+            <span>SCEditor (Latest scripts)</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_simplemde" value="lib_simplemde">
+            <span>SimpleMDE</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_select2" value="lib_select2">
+            <span>Select2</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_selectize" value="lib_selectize">
+            <span>Selectize</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_flatpickr" value="lib_flatpickr">
+            <span>Flatpickr</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_signaturepad" value="lib_signaturepad">
+            <span>Signature Pad</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_mathjs" value="lib_mathjs">
+            <span>Math.js</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_cleavejs" value="lib_cleavejs">
+            <span>Cleave.js</span>
+          </label>
+          <label>
+            <input type="checkbox" id="lib_jquery" value="lib_jquery">
+            <span>jQuery</span>
+          </label>
+        </div>
+      </details>
+    </div>
   </div>
 
-   <div class="modal">
+  <div class="modal">
     <div class="modal-content">
       <span class="close-button">&times;</span>
       <p>&nbsp;</p>
@@ -464,7 +462,11 @@ console.log('jseditor',jseditor);</div>
 
 </main>
 
-<div id="busy-overlay"><div><div class="spinner"><i class="icon-spinner"></i></div></div></div>
+<div id="busy-overlay">
+  <div>
+    <div class="spinner"><i class="icon-spinner"></i></div>
+  </div>
+</div>
 <div id="dropzone">
   <div>Drop Playground JSON example file here</div>
   <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 40 40" preserveAspectRatio="none" class="ants"><rect width="40" height="40"></rect></svg>

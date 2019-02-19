@@ -28,6 +28,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     font: normal .9em/1.2 Arial;
   }
 
+  .modal-content a,
   section a {
     position: relative;
     color: var(--header-color);
@@ -35,6 +36,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     white-space: nowrap;
     transition: color 0.2s;
   }
+  .modal-content a:after,
   section a:after {
     content: "";
     display: block;
@@ -47,9 +49,11 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     transform: translateX(-50%);
     transition: width 0.2s;
   }
+  .modal-content a:hover, .modal-content a:focus,
   section a:hover, section a:focus {
     color: var(--select-color);
   }
+  .modal-content a:hover:after, .modal-content a:focus:after,
   section a:hover:after, section a:focus:after {
     width: 100%;
   }
@@ -319,6 +323,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     outline: none;
     border: 1px solid #444;
     padding: .3rem .5rem;
+    cursor: pointer;
     border-radius: .3rem;
     background-color: var(--tab-bgcolor1);
   }
@@ -357,6 +362,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   .cbreq button {
     outline: none;
     border: 1px solid #888;
+    cursor: pointer; 
     padding: .3rem .5rem;
     border-radius: .3rem;
     background-color: var(--tab-bgcolor1);
