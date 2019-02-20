@@ -1,7 +1,7 @@
 /**
  * @name JSON-Editor Interactive Playground
  * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
- * @version 0.0.2
+ * @version {{ VERSION }}
  * @author Peter Klein
  * @see https://github.com/pmk65/jedemov2/
  * @license MIT
@@ -33,7 +33,7 @@
           css: 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css'
         },
         foundation6: {
-          css: 'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css',
+          css: 'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-float.min.css',
           js: [
             'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
             'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js'
@@ -1032,7 +1032,7 @@
     // Update form if output JSON is changed
     aceOutputEditor.on("blur", updateSchemaValues.bind(aceOutputEditor));
 
-    // Set buttom event to restore initial value of ACE editor content.
+    // Set buttom event in editor slidedown panels.
     setEditorPanelButtons(jeEditSchema, aceSchemaEditor);
     setEditorPanelButtons(jeEditStartval,aceStartvalEditor);
     setEditorPanelButtons(jeEditCode, aceCodeEditor);
