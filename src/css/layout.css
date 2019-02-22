@@ -362,7 +362,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   .cbreq button {
     outline: none;
     border: 1px solid #888;
-    cursor: pointer; 
+    cursor: pointer;
     padding: .3rem .5rem;
     border-radius: .3rem;
     background-color: var(--tab-bgcolor1);
@@ -375,15 +375,6 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   .cbreq button:focus i {
     animation: button-icon-glow 1s ease-in-out infinite alternate;
   }
-  .cbreq input {
-    width: 50%;
-    margin-right: .5rem;
-    font-size: 1rem;
-    padding: .3rem .5rem;
-    background-color: var(--tab-bgcolor1);
-  }
-
-
 
   /* Fullscreen drag'n'drop upload */
   #dropzone {

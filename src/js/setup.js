@@ -442,19 +442,26 @@
         url += '&style=' + encodeURIComponent(window.LZString.compressToBase64(JSON.stringify(aceStyleEditor.getValue().trim())));
         url += '&'+ toQueryString(getJsonEditorOptions());
 
+        var urlToClipboardHandler = function(val, e) {
+          jeModalContent.innerText = copyToClipboard(val) ? 'URL copied to clipboard.' : 'Error: Copy to clipboard failed!';
+        };
+
         if (window.location.protocol !== 'file:') {
           loadJSONP('https://is.gd/create.php?format=json&url=' + encodeURIComponent(url), function(data) {
             // Clipboard actions not allowed here since it's a callback event and not an "User generated event"
-            jeModalContent.innerHTML = '<div class="cbreq">Direct Link: <input type="text" value="' + data.shorturl + '" readonly /><button>Copy to Clipboard</button></div>';
-            jeModalContent.querySelector('button').addEventListener('click', function() {
-              var val = jeModalContent.querySelector('input').value;
-              jeModalContent.innerText = copyToClipboard(val) ? 'URL copied to clipboard.' : 'Error: Copy to clipboard failed!';
-            }, {once: true});
+            jeModalContent.innerHTML = '<div class="cbreq"><h3>Direct Link Generated</h3><button id="cbreq-url">Copy Url to Clipboard</button> <buttonid="cbreq-shorturl">Copy ShortUrl to Clipboard</button></div>';
+            jeModalContent.querySelector('#cbreq-url').addEventListener('click', urlToClipboardHandler.bind(null, url), {once: true});
+            jeModalContent.querySelector('#cbreq-shorturl').addEventListener('click', urlToClipboardHandler.bind(null, data.shorturl), {once: true});
             toggleModal();
           });
+
+          if (window.history) {
+            window.history.replaceState('', window.title, url);
+          }
+
         }
         else {
-          jeModalContent.innerText = copyToClipboard(url) ? 'URL copied to clipboard.' : 'Error: Copy to clipboard failed!';
+          urlToClipboardHandler(url, null);
           toggleModal();
         }
       }
@@ -872,6 +879,9 @@
         switch (e.target.dataset.action.toLowerCase()) {
           case 'beautify':
             aceBeautify.beautify(this.session);
+          break;
+          case 'wordwrap':
+            this.setOption('wrap',  this.getOption('wrap') == 'off');
           break;
           case 'clear': {
             this.setValue('');
