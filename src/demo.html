@@ -36,6 +36,7 @@
       <h1><a href="https://github.com/json-editor/json-editor#json-editor" target="_blank" rel="noopener noreferrer" title="JSON-Editor - View on GitHub"><span>JSON-Editor </span>Interactive Playground</a></h1>
 
       <nav class="links">
+        <button id="show-config" title="Config option"><i class="icon-menu"></i>Options</button>
         <button id="execute-code" title="Generate Form"><i class="icon-cog"></i>Generate Form</button>
         <button id="direct_link" title="Create Direct link to current setup"><i class="icon-link"></i>Direct link</button>
         <button id="direct_link_reset" title="Reset form and query parameters"><i class="icon-unlink"></i>Reset form</button>
@@ -203,6 +204,7 @@ console.log('jseditor',jseditor);</div>
 
       <h4>The Buttons</h4>
       <ul>
+        <li><strong><i class="icon-menu"></i>Options</strong> - JSON-Editor config options. (Form will be re-generated after exiting the config panel.)</li>
         <li><strong><i class="icon-cog"></i>Generate Form</strong> - Generates the output form from the schema.</li>
         <li><strong><i class="icon-link"></i>Direct Link</strong> - Create direct link URL. (A 'shortUrl' will be copied to clipboard)</li>
         <li><strong><i class="icon-unlink"></i>Reset Form</strong> - Resets the playground and clear query parameters.</li>
@@ -212,7 +214,6 @@ console.log('jseditor',jseditor);</div>
 
       <h4>Other</h4>
       <ul>
-        <li><strong><i class="icon-menu"></i>Config</strong> - JSON-Editor settings.</li>
         <li><strong>Load Example</strong> - Loads a predefined example.</li>
       </ul>
 
@@ -271,193 +272,196 @@ console.log('jseditor',jseditor);</div>
     </div>
   </section>
 
-  <div class="slideleft-panel">
-    <div id="json-editor-config">
-      <h2>JSON-Editor Options</h2>
-      <div>
-        <label for="theme">CSS Framework</label>
-        <div class="select">
-          <select id="theme">
-            <option value="barebones">Barebones</option>
-            <option value="html">HTML</option>
-            <option value="jqueryui">jQuery UI</option>
-            <option value="bootstrap2">Bootstrap 2</option>
-            <option value="bootstrap3" selected>Bootstrap 3</option>
-            <option value="bootstrap4">Bootstrap 4</option>
-            <option value="foundation3">Foundation 3</option>
-            <option value="foundation4">Foundation 4</option>
-            <option value="foundation5">Foundation 5</option>
-            <option value="foundation6">Foundation 6</option>
-            <option value="materialize">Materialize</option>
-          </select>
+    <div id="slideleft-panel" class="panel panel-left">
+      <div class="panel-container">
+        <div class="panel-contents" id="json-editor-config">
+          <h2>JSON-Editor Options</h2>
+          <div>
+            <label for="theme">CSS Framework</label>
+            <div class="select">
+              <select id="theme">
+                <option value="barebones">Barebones</option>
+                <option value="html">HTML</option>
+                <option value="jqueryui">jQuery UI</option>
+                <option value="bootstrap2">Bootstrap 2</option>
+                <option value="bootstrap3" selected>Bootstrap 3</option>
+                <option value="bootstrap4">Bootstrap 4</option>
+                <option value="foundation3">Foundation 3</option>
+                <option value="foundation4">Foundation 4</option>
+                <option value="foundation5">Foundation 5</option>
+                <option value="foundation6">Foundation 6</option>
+                <option value="materialize">Materialize</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="iconlib">Icon Library</label>
+            <div class="select">
+              <select id="iconlib">
+                <option value="">None</option>
+                <option value="jqueryui">jQuery UI</option>
+                <option value="bootstrap2">Bootstrap 2 Glyphicons</option>
+                <option value="bootstrap3" selected>Bootstrap 3 Glyphicons</option>
+                <option value="foundation2">Foundicons 2</option>
+                <option value="foundation3">Foundicons 3</option>
+                <option value="fontawesome3">FontAwesome 3</option>
+                <option value="fontawesome4">FontAwesome 4</option>
+                <option value="fontawesome5">FontAwesome 5</option>
+                <option value="materialicons">Material Icons</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="object_layout">Object Layout</label>
+            <div class="select">
+              <select id="object_layout">
+                <option value="normal">normal</option>
+                <option value="grid">grid</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="template">Template Engine</label>
+            <div class="select">
+              <select id="template">
+                <option value="default">Default</option>
+                <option value="ejs">Ejs</option>
+                <option value="handlebars">Handlebars</option>
+                <option value="hogan">Hogan</option>
+                <option value="markup">Markup</option>
+                <option value="mustache">Mustache</option>
+                <option value="swig">Swig</option>
+                <option value="underscore">Underscore</option>
+              </select>
+            </div>
+          </div>
+
+           <div>
+            <label for="show_errors">Show Errors</label>
+            <div class="select">
+              <select id="show_errors">
+                <option value="interaction">On Interaction</option>
+                <option value="change">On Field Change</option>
+                <option value="always">Always</option>
+                <option value="never">Never</option>
+              </select>
+            </div>
+          </div>
+
+          <details open>
+            <summary>Boolean options</summary>
+            <div id="boolean_options">
+              <label>
+                <input type="checkbox" id="required_by_default" value="required_by_default">
+                <span>Object properties required by default</span>
+              </label>
+              <label>
+                <input type="checkbox" id="display_required_only" value="display_required_only">
+                <span>No additional object properties</span>
+              </label>
+              <label>
+                <input type="checkbox" id="ajax" value="ajax">
+                <span>Allow loading schemas via Ajax</span>
+              </label>
+              <label>
+                <input type="checkbox" id="disable_edit_json" value="disable_edit_json">
+                <span>Disable "Edit JSON" buttons</span>
+              </label>
+              <label>
+                <input type="checkbox" id="disable_collapse" value="disable_collapse">
+                <span>Disable collapse buttons</span>
+              </label>
+              <label>
+                <input type="checkbox" id="disable_properties" value="disable_properties">
+                <span>Disable properties buttons</span>
+              </label>
+              <label>
+                <input type="checkbox" id="disable_array_add" value="disable_array_add">
+                <span>Disable array add buttons</span>
+              </label>
+              <label>
+                <input type="checkbox" id="disable_array_reorder" value="disable_array_reorder">
+                <span>Disable array move buttons</span>
+              </label>
+              <label>
+                <input type="checkbox" id="disable_array_delete" value="disable_array_delete">
+                <span>Disable array delete buttons</span>
+              </label>
+              <label>
+                <input type="checkbox" id="enable_array_copy" value="enable_array_copy">
+                <span>Add copy buttons to arrays</span>
+              </label>
+              <label>
+                <input type="checkbox" id="array_controls_top" value="array_controls_top">
+                <span>Array controls will be displayed at top of list</span>
+              </label>
+              <label>
+                <input type="checkbox" id="disable_array_delete_all_rows" value="disable_array_delete_all_rows">
+                <span>Disable array delete all rows buttons</span>
+              </label>
+              <label>
+                <input type="checkbox" id="disable_array_delete_last_row" value="disable_array_delete_last_row">
+                <span>Disable array delete last row buttons</span>
+              </label>
+            </div>
+          </details>
+
+          <details>
+            <summary>Include External Libraries</summary>
+            <div id="ext_lib">
+              <label>
+                <input type="checkbox" id="lib_aceeditor" value="lib_aceeditor">
+                <span>Ace Editor</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_sceditor" value="lib_sceditor">
+                <span>SCEditor</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_sceditor_new" value="lib_sceditor_new">
+                <span>SCEditor (Latest scripts)</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_simplemde" value="lib_simplemde">
+                <span>SimpleMDE</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_select2" value="lib_select2">
+                <span>Select2</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_selectize" value="lib_selectize">
+                <span>Selectize</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_flatpickr" value="lib_flatpickr">
+                <span>Flatpickr</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_signaturepad" value="lib_signaturepad">
+                <span>Signature Pad</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_mathjs" value="lib_mathjs">
+                <span>Math.js</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_cleavejs" value="lib_cleavejs">
+                <span>Cleave.js</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_jquery" value="lib_jquery">
+                <span>jQuery</span>
+              </label>
+            </div>
+          </details>
         </div>
+        <div class="panel-close-button" title="Close panel">&times;</div>
       </div>
-
-      <div>
-        <label for="iconlib">Icon Library</label>
-        <div class="select">
-          <select id="iconlib">
-            <option value="">None</option>
-            <option value="jqueryui">jQuery UI</option>
-            <option value="bootstrap2">Bootstrap 2 Glyphicons</option>
-            <option value="bootstrap3" selected>Bootstrap 3 Glyphicons</option>
-            <option value="foundation2">Foundicons 2</option>
-            <option value="foundation3">Foundicons 3</option>
-            <option value="fontawesome3">FontAwesome 3</option>
-            <option value="fontawesome4">FontAwesome 4</option>
-            <option value="fontawesome5">FontAwesome 5</option>
-            <option value="materialicons">Material Icons</option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label for="object_layout">Object Layout</label>
-        <div class="select">
-          <select id="object_layout">
-            <option value="normal">normal</option>
-            <option value="grid">grid</option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label for="template">Template Engine</label>
-        <div class="select">
-          <select id="template">
-            <option value="default">Default</option>
-            <option value="ejs">Ejs</option>
-            <option value="handlebars">Handlebars</option>
-            <option value="hogan">Hogan</option>
-            <option value="markup">Markup</option>
-            <option value="mustache">Mustache</option>
-            <option value="swig">Swig</option>
-            <option value="underscore">Underscore</option>
-          </select>
-        </div>
-      </div>
-
-       <div>
-        <label for="show_errors">Show Errors</label>
-        <div class="select">
-          <select id="show_errors">
-            <option value="interaction">On Interaction</option>
-            <option value="change">On Field Change</option>
-            <option value="always">Always</option>
-            <option value="never">Never</option>
-          </select>
-        </div>
-      </div>
-
-      <details open>
-        <summary>Boolean options</summary>
-        <div id="boolean_options">
-          <label>
-            <input type="checkbox" id="required_by_default" value="required_by_default">
-            <span>Object properties required by default</span>
-          </label>
-          <label>
-            <input type="checkbox" id="display_required_only" value="display_required_only">
-            <span>No additional object properties</span>
-          </label>
-          <label>
-            <input type="checkbox" id="ajax" value="ajax">
-            <span>Allow loading schemas via Ajax</span>
-          </label>
-          <label>
-            <input type="checkbox" id="disable_edit_json" value="disable_edit_json">
-            <span>Disable "Edit JSON" buttons</span>
-          </label>
-          <label>
-            <input type="checkbox" id="disable_collapse" value="disable_collapse">
-            <span>Disable collapse buttons</span>
-          </label>
-          <label>
-            <input type="checkbox" id="disable_properties" value="disable_properties">
-            <span>Disable properties buttons</span>
-          </label>
-          <label>
-            <input type="checkbox" id="disable_array_add" value="disable_array_add">
-            <span>Disable array add buttons</span>
-          </label>
-          <label>
-            <input type="checkbox" id="disable_array_reorder" value="disable_array_reorder">
-            <span>Disable array move buttons</span>
-          </label>
-          <label>
-            <input type="checkbox" id="disable_array_delete" value="disable_array_delete">
-            <span>Disable array delete buttons</span>
-          </label>
-          <label>
-            <input type="checkbox" id="enable_array_copy" value="enable_array_copy">
-            <span>Add copy buttons to arrays</span>
-          </label>
-          <label>
-            <input type="checkbox" id="array_controls_top" value="array_controls_top">
-            <span>Array controls will be displayed at top of list</span>
-          </label>
-          <label>
-            <input type="checkbox" id="disable_array_delete_all_rows" value="disable_array_delete_all_rows">
-            <span>Disable array delete all rows buttons</span>
-          </label>
-          <label>
-            <input type="checkbox" id="disable_array_delete_last_row" value="disable_array_delete_last_row">
-            <span>Disable array delete last row buttons</span>
-          </label>
-        </div>
-      </details>
-
-      <details>
-        <summary>Include External Libraries</summary>
-        <div id="ext_lib">
-          <label>
-            <input type="checkbox" id="lib_aceeditor" value="lib_aceeditor">
-            <span>Ace Editor</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_sceditor" value="lib_sceditor">
-            <span>SCEditor</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_sceditor_new" value="lib_sceditor_new">
-            <span>SCEditor (Latest scripts)</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_simplemde" value="lib_simplemde">
-            <span>SimpleMDE</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_select2" value="lib_select2">
-            <span>Select2</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_selectize" value="lib_selectize">
-            <span>Selectize</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_flatpickr" value="lib_flatpickr">
-            <span>Flatpickr</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_signaturepad" value="lib_signaturepad">
-            <span>Signature Pad</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_mathjs" value="lib_mathjs">
-            <span>Math.js</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_cleavejs" value="lib_cleavejs">
-            <span>Cleave.js</span>
-          </label>
-          <label>
-            <input type="checkbox" id="lib_jquery" value="lib_jquery">
-            <span>jQuery</span>
-          </label>
-        </div>
-      </details>
     </div>
-  </div>
 
   <div class="modal">
     <div class="modal-content">

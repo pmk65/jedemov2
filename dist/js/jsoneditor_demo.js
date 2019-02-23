@@ -205,7 +205,11 @@
     // Example description placeholder
     var jeExampleDesc = document.querySelector('#example-description');
 
+    // Slid-in config panel
+    var jeLeftPanel = document.querySelector('#slideleft-panel');
+
     // Buttons
+    var jeShowConfig = document.querySelector('#show-config'); // Show config panel
     var jeSchemaLoad = document.querySelector('#external-schema'); // Load schema
     var jeExec = document.querySelector('#execute-code'); // Create form from Schema
     var jeDirectLink = document.querySelector('#direct_link'); // Create direct link url
@@ -294,6 +298,27 @@
         'bubbles': true,
         'cancelable': false
       }));
+    };
+
+    // Handler for showing/hiding left panel
+    var setPanelHandler = function(panel) {
+      var panelClose = panel.querySelector('.panel-close-button'),
+      panelContainer = panel.querySelector('.panel-container'),
+      panelHandler = function(e) {
+        if (e.target === panel && !panel.classList.contains('panel-inactive') || !e.currentTarget.contains(panelContainer)) {
+          if (panel.classList.contains('panel-active')) panel.classList.toggle('panel-inactive');
+          else panel.classList.add('panel-active');
+        }
+        if (panel.classList.contains('panel-inactive')) {
+          // panel closing
+          // Trigger generation of form
+          eventFire(jeExec, 'click');
+        }
+
+      }.bind(panel);
+      panel.addEventListener('click', panelHandler, false);
+      if (panelClose) panelClose.addEventListener('click', panelHandler, false);
+      return panelHandler;
     };
 
     // Copy text to clipboard
@@ -442,7 +467,7 @@
         url += '&style=' + encodeURIComponent(window.LZString.compressToBase64(JSON.stringify(aceStyleEditor.getValue().trim())));
         url += '&'+ toQueryString(getJsonEditorOptions());
 
-        var urlToClipboardHandler = function(val, e) {
+        var urlToClipboardHandler = function(val) {
           jeModalContent.innerText = copyToClipboard(val) ? 'URL copied to clipboard.' : 'Error: Copy to clipboard failed!';
         };
 
@@ -461,7 +486,7 @@
 
         }
         else {
-          urlToClipboardHandler(url, null);
+          urlToClipboardHandler(url);
           toggleModal();
         }
       }
@@ -1084,6 +1109,10 @@
         jeDropZone.addEventListener(ev,  dragHandler, false);
       });
     }
+
+    // Set handler for showing/hiding left panel
+    var panelHandler = setPanelHandler(jeLeftPanel);
+    jeShowConfig.addEventListener('click', panelHandler, false);
 
     // Set resizable split panels
     window.Split(jeSplitPanels[0], jeSplitCfg);

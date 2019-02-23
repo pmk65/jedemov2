@@ -248,7 +248,74 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
     padding: 20px;
   }
 /* Slide-in panel */
-  .slideleft-panel {
+
+.panel {
+  position: absolute;
+  margin:0;
+  padding:0;
+  top:0;
+  left:0;
+  width: 0;
+  overflow: hidden;
+  cursor: pointer;
+  --panel-width: 25rem;
+  --panel-transition-speed: .3s;
+}
+.panel.panel-active {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,.2);
+  transition: background var(--panel-transition-speed) linear;
+}
+.panel.panel-inactive {
+  width: 0vw;
+  height: 0vh;
+  background: rgba(0,0,0,0);
+  transition: background var(--panel-transition-speed) linear,
+              width .0s linear var(--panel-transition-speed),
+              height .0s linear var(--panel-transition-speed);
+}
+.panel-container {
+  display:block;
+  position: absolute;
+  background: #eee;
+  overflow: auto;
+  cursor: default;
+  transition: var(--panel-transition-speed) transform ease-in-out;
+  float: left;
+  top:0;
+  left:0;
+  width: var(--panel-width);
+  height: 100%;
+  transform: translate(calc(var(--panel-width) * -1), 0);
+  box-shadow: 3px 0 5px rgba(0,0,0,.2);
+  border-right: 1px solid rgba(0,0,0,.2);
+}
+.panel.panel-left.panel-inactive .panel-container {
+  transform: translate(calc(var(--panel-width) * -1), 0) !important;
+}
+.panel.panel-active .panel-container {
+  transform: translate(0, 0);
+}
+.panel .panel-container .panel-contents {
+  margin: 1rem;
+}
+
+.panel-close-button {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  top: .5em;
+  right: .5em;
+  color: #ddd;
+  background: #444;
+  cursor: pointer;
+  text-align: center;
+  font: normal 1em/1em Arial;
+
+}
+
+/*  .slideleft-panel {
     position: fixed;
     background-color: #ddd;
     top: 0;
@@ -278,7 +345,7 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   .slideleft-panel > div {
     margin: 1rem .5rem;
     font-size: .8rem;
-  }
+  }*/
 
   /* Busy Overlay */
   #busy-overlay {
