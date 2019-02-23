@@ -449,7 +449,7 @@
         if (window.location.protocol !== 'file:') {
           loadJSONP('https://is.gd/create.php?format=json&url=' + encodeURIComponent(url), function(data) {
             // Clipboard actions not allowed here since it's a callback event and not an "User generated event"
-            jeModalContent.innerHTML = '<div class="cbreq"><h3>Direct Link Generated</h3><button id="cbreq-url">Copy Url to Clipboard</button> <buttonid="cbreq-shorturl">Copy ShortUrl to Clipboard</button></div>';
+            jeModalContent.innerHTML = '<div class="cbreq"><h3>Direct Link Generated</h3><button id="cbreq-url">Copy Url to Clipboard</button> <button id="cbreq-shorturl">Copy ShortUrl to Clipboard</button></div>';
             jeModalContent.querySelector('#cbreq-url').addEventListener('click', urlToClipboardHandler.bind(null, url), {once: true});
             jeModalContent.querySelector('#cbreq-shorturl').addEventListener('click', urlToClipboardHandler.bind(null, data.shorturl), {once: true});
             toggleModal();
