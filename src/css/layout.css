@@ -1,3 +1,12 @@
+/**
+ * @name JSON-Editor Interactive Playground
+ * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
+ * @version 0.3.0
+ * @author Peter Klein
+ * @see https://github.com/pmk65/jedemov2/
+ * @license MIT
+ * @example see README.md for requirements, examples and usage info
+ */
   :root {
     --xbg1-color: #f8f8f8;
     --bg1-color: #02577a;
@@ -9,12 +18,6 @@
     --header-color: #02577a;
     --select-color: #024C69;
   }
-  /*
-https://aykevl.nl/2014/09/fix-jumping-scrollbar
-https://codepen.io/elstgav/pen/myEJNv
-https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shifting-its-position-when-scrollbar-appears
-
-  */
   * {
     box-sizing: border-box;
   }
@@ -247,105 +250,70 @@ https://stackoverflow.com/questions/9341465/prevent-a-centered-layout-from-shift
   .box {
     padding: 20px;
   }
-/* Slide-in panel */
-
-.panel {
-  position: absolute;
-  margin:0;
-  padding:0;
-  top:0;
-  left:0;
-  width: 0;
-  overflow: hidden;
-  cursor: pointer;
-  --panel-width: 25rem;
-  --panel-transition-speed: .3s;
-}
-.panel.panel-active {
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,.2);
-  transition: background var(--panel-transition-speed) linear;
-}
-.panel.panel-inactive {
-  width: 0vw;
-  height: 0vh;
-  background: rgba(0,0,0,0);
-  transition: background var(--panel-transition-speed) linear,
-              width .0s linear var(--panel-transition-speed),
-              height .0s linear var(--panel-transition-speed);
-}
-.panel-container {
-  display:block;
-  position: absolute;
-  background: #eee;
-  overflow: auto;
-  cursor: default;
-  transition: var(--panel-transition-speed) transform ease-in-out;
-  float: left;
-  top:0;
-  left:0;
-  width: var(--panel-width);
-  height: 100%;
-  transform: translate(calc(var(--panel-width) * -1), 0);
-  box-shadow: 3px 0 5px rgba(0,0,0,.2);
-  border-right: 1px solid rgba(0,0,0,.2);
-}
-.panel.panel-left.panel-inactive .panel-container {
-  transform: translate(calc(var(--panel-width) * -1), 0) !important;
-}
-.panel.panel-active .panel-container {
-  transform: translate(0, 0);
-}
-.panel .panel-container .panel-contents {
-  margin: 1rem;
-}
-
-.panel-close-button {
-  position: absolute;
-  width: 1em;
-  height: 1em;
-  top: .5em;
-  right: .5em;
-  color: #ddd;
-  background: #444;
-  cursor: pointer;
-  text-align: center;
-  font: normal 1em/1em Arial;
-
-}
-
-/*  .slideleft-panel {
-    position: fixed;
-    background-color: #ddd;
-    top: 0;
-    width: 20.5rem;
-    left: -20rem;
-    border-right: 1px solid var(--bg1-color);
+  /* Slide-in panel */
+  .panel {
+    position: absolute;
+    margin:0;
+    padding:0;
+    top:0;
+    left:0;
+    width: 0;
+    overflow: hidden;
+    cursor: pointer;
+    --panel-width: 25rem;
+    --panel-transition-speed: .3s;
+  }
+  .panel.panel-active {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.2);
+    transition: background var(--panel-transition-speed) linear;
+  }
+  .panel.panel-inactive {
+    width: 0vw;
+    height: 0vh;
+    background: rgba(0,0,0,0);
+    transition: background var(--panel-transition-speed) linear,
+                width .0s linear var(--panel-transition-speed),
+                height .0s linear var(--panel-transition-speed);
+  }
+  .panel-container {
+    display:block;
+    position: absolute;
+    background: #eee;
+    overflow: auto;
+    cursor: default;
+    transition: var(--panel-transition-speed) transform ease-in-out;
+    float: left;
+    top:0;
+    left:0;
+    width: var(--panel-width);
     height: 100%;
-    transition: .4s ease-in-out;
-    font: normal Arial;
-   }
-  .slideleft-panel:hover {
-    transform: translate(20rem,0);
+    transform: translate(calc(var(--panel-width) * -1), 0);
+    box-shadow: 3px 0 5px rgba(0,0,0,.2);
+    border-right: 1px solid rgba(0,0,0,.2);
   }
-  .slideleft-panel:before {
-    background-color: inherit;
-    position:absolute;
-    font-family: "json-editor-demo";
-    content: "\f0c9";
-    width: 2rem;
-    height: 2rem;
-    right: -2rem;
-    top: .5rem;
-    line-height: 30px;
+  .panel.panel-left.panel-inactive .panel-container {
+    transform: translate(calc(var(--panel-width) * -1), 0) !important;
+  }
+  .panel.panel-active .panel-container {
+    transform: translate(0, 0);
+  }
+  .panel .panel-container .panel-contents {
+    margin: 1rem;
+  }
+  .panel-close-button {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    top: .5em;
+    right: .5em;
+    color: #ddd;
+    background: #444;
+    cursor: pointer;
     text-align: center;
-    border-radius:0 5px 5px 0;
+    font: normal 1em/1em Arial;
   }
-  .slideleft-panel > div {
-    margin: 1rem .5rem;
-    font-size: .8rem;
-  }*/
 
   /* Busy Overlay */
   #busy-overlay {
