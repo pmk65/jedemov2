@@ -1,7 +1,7 @@
 /**
  * @name JSON-Editor Interactive Playground
  * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
- * @version 0.3.0   
+ * @version {{ VERSION }}
  * @author Peter Klein
  * @see https://github.com/pmk65/jedemov2/
  * @license MIT
@@ -738,9 +738,11 @@
 
     // Create page for Iframe
     var createIframeContent = function(code) {
+      var baseUrl = window.location.toString().replace(window.location.search, "").replace(/(.*\/)[^\/]+$/g, "$1");
       var options = getJsonEditorOptions();
       return  '<!DOCTYPE HTML>' +
               '<html lang="en"><head><title>JSON-Editor Form</title><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
+              '<base href="' + baseUrl + '" />' +
               '<style>body {margin:0;padding:0;font: normal .9em/1.2 Arial;background-color:#02577a !important;}' +
               '.inner-row {display: grid;background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
               'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);margin:0 0 3rem 0;}' +
