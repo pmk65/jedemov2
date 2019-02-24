@@ -738,11 +738,9 @@
 
     // Create page for Iframe
     var createIframeContent = function(code) {
-      var baseUrl = window.location.toString().replace(window.location.search, "").replace(/(.*\/)[^\/]+$/g, "$1");
       var options = getJsonEditorOptions();
       return  '<!DOCTYPE HTML>' +
               '<html lang="en"><head><title>JSON-Editor Form</title><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
-              '<base href="' + baseUrl + '" />' +
               '<style>body {margin:0;padding:0;font: normal .9em/1.2 Arial;background-color:#02577a !important;}' +
               '.inner-row {display: grid;background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
               'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);margin:0 0 3rem 0;}' +
@@ -953,10 +951,16 @@
       // Get content of ACE editor schema, startval and JavaScript;
       var code = getCode(aceSchemaEditor.getValue(), aceStartvalEditor.getValue()) + aceCodeEditor.getValue();
 
-      // Alternative to write() which is deprecated
+/*
+      // Alternative to document.write() which is deprecated
       var bData = new Blob([createIframeContent(code)], {type: 'text/html'});
       jeIframeEl.onload = function() { window.URL.revokeObjectURL(bData); };
       jeIframeEl.src = window.URL.createObjectURL(bData);
+*/
+      // document.write() seems to be the only way if you want reliable path info from window.loctation. See test example: https://codepen.io/pmk/pen/wOwoyW
+      jeIframe.document.open();
+      jeIframe.document.write(createIframeContent(code));
+      jeIframe.document.close();
    };
 
     /* Setup */
