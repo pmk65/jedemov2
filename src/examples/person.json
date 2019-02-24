@@ -1,5 +1,5 @@
 {
-  "$ref": "#/basic_person.json",
+  "$ref": "basic_person.json",
   "properties": {
     "location": {
       "type": "object",
@@ -52,22 +52,22 @@
       }
     },
     "cars": {
-        "type": "array",
-        "format": "tabs",
-        "title": "Cars",
-        "uniqueItems": false,
-        "items":{
-            "type": "object",
-            "title": "Car",
-            "properties": {
-                "manufacturer": {
-                    "type": "string"
-                },
-                "model": {
-                    "type": "string"
-                }
-            }
+      "type": "array",
+      "format": "tabs",
+      "title": "Cars",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "title": "Car",
+        "properties": {
+          "manufacturer": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          }
         }
+      }
     }
   }
 }

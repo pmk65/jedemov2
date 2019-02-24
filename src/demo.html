@@ -49,11 +49,11 @@
             <option value="" selected disabled>Load example</option>
             <optgroup label="General Examples">
               <option value="basic">Basic Usage</option>
-              <option value="advanced">Advanced Usage (Ajax)</option>
+              <option value="advanced" class="fails">Advanced Usage (Ajax) [fails]</option>
               <option value="advanced-basic-person" class="sub">Basic Person (Ajax schema)</option>
               <option value="advanced-person" class="sub">Person (Ajax schema)</option>
               <option value="advanced2">Advanced (Accident Details)</option>
-              <option value="recursive" class="fails">Recursive [fails]</option>
+              <option value="recursive">Recursive</option>
             </optgroup>
             <optgroup label="Editor Examples">
               <option value="datetime">Datetime</option>
@@ -67,15 +67,12 @@
               <option value="upload">Upload</option>
               <option value="base64">Base64 (Multiple Upload) </option>
             </optgroup>
-            <optgroup label="JavaScript Addon Examples">
+            <optgroup label="JavaScript/CSS Examples">
               <option value="typeahead">Typeahead Autocomplete</option>
               <option value="typeahead2">Typeahead Autoprefill</option>
               <option value="modifyenum">Modify Enum</option>
               <option value="collapse-expand-all">Collapse/Expand All Button</option>
-            </optgroup>
-            <optgroup label="CSS Examples">
-              <option value="button-icon">Show buttons as icon only</option>
-              <option value="button-text">Show buttons as text only</option>
+              <option value="buttons-as-icon-or-text-only">Buttons as icon or text only</option>
             </optgroup>
             <optgroup label="Misc Examples">
               <option value="meta_schema">Meta Schema</option>
@@ -112,18 +109,105 @@
             </div>
           </div>
   <div id="schema">{
-    "title": "Output",
-    "type": "object",
-    "theme": "bootstrap4",
-    "required": ["test"],
-    "properties": {
-      "test": {
-        "title": "String test field",
-        "type": "string",
-        "default": "hello"
+  "title": "Person",
+  "type": "object",
+  "required": [
+    "name",
+    "age",
+    "date",
+    "favorite_color",
+    "gender",
+    "location",
+    "pets"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "First and Last name",
+      "minLength": 4,
+      "default": "Jeremy Dorn"
+    },
+    "age": {
+      "type": "integer",
+      "default": 25,
+      "minimum": 18,
+      "maximum": 99
+    },
+    "favorite_color": {
+      "type": "string",
+      "format": "color",
+      "title": "favorite color",
+      "default": "#ffa500"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "male",
+        "female"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "options": {
+        "flatpickr": {}
       }
+    },
+    "location": {
+      "type": "object",
+      "title": "Location",
+      "properties": {
+        "city": {
+          "type": "string",
+          "default": "San Francisco"
+        },
+        "state": {
+          "type": "string",
+          "default": "CA"
+        },
+        "citystate": {
+          "type": "string",
+          "description": "This is generated automatically from the previous two fields",
+          "template": "{{city}}, {{state}}",
+          "watch": {
+            "city": "location.city",
+            "state": "location.state"
+          }
+        }
+      }
+    },
+    "pets": {
+      "type": "array",
+      "format": "table",
+      "title": "Pets",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "Pet",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "cat",
+              "dog",
+              "bird",
+              "reptile",
+              "other"
+            ],
+            "default": "dog"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "default": [{
+        "type": "dog",
+        "name": "Walter"
+      }]
     }
-  }</div>
+  }
+}</div>
           </div>
           <div id="split-panel2">
 
@@ -134,10 +218,7 @@
               <button data-action="wordwrap">Toggle WordWrap</button>
             </div>
           </div>
-<div id="startval">{
-    "test": "hello world"
-}</div>
-
+          <div id="startval"></div>
         </div>
 
       </div>
@@ -196,7 +277,7 @@ console.log('jseditor',jseditor);</div>
       <h4>The Tabs</h4>
       <ul>
         <li><strong><i class="icon-wpforms"></i>Form</strong> - The form generated from the schema.</li>
-        <li><strong><i class="icon-laptop"></i>Output</strong> - The output and validation results from the form. (Only available if the editor is instantiated using the variable <strong>jseditor</strong>)</li>
+        <li><strong><i class="icon-laptop"></i>Output</strong> - The output and validation results from the form. (Only available if the editor is instantiated using the variable <strong>jseditor</strong>)<br>Changing the output values will update the field values in the form.</li>
         <li><strong><i class="icon-keyboard"></i>Schema</strong> - The JSON schema and starting values.</li>
         <li><strong><i class="icon-wrench"></i>JavaScript/CSS</strong> - Optional custom JavaScript and CSS setup.</li>
         <li><strong><i class="icon-help-circled"></i>Help</strong> - The text you are reading right now.</li>

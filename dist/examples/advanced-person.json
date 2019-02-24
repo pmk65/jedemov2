@@ -3,7 +3,7 @@
   "schema": {
     "title": "Person",
     "schema": {
-      "$ref": "#/basic_person.json",
+      "$ref": "basic_person.json",
       "properties": {
         "location": {
           "type": "object",
@@ -89,9 +89,11 @@
   },
   "startval": {},
   "config": {
+    "required_by_default": 1,
+    "no_additional_properties": 1,
     "ajax": 1
   },
   "style": "",
   "code": "",
-  "desc": "Add optional description here. (HTML format)"
+  "desc": "A<p>External schema for the Advanced example.</p>"
 }

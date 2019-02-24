@@ -9,11 +9,11 @@
       "headerTemplate": "{{i}} - {{self.name}}",
       "oneOf": [
         {
-          "$ref": "#/basic_person.json",
+          "$ref": "basic_person.json",
           "title": "Basic Person"
         },
         {
-          "$ref": "#/person.json",
+          "$ref": "person.json",
           "title": "Complex Person"
         }
       ]
@@ -42,9 +42,11 @@
     ]
   },
   "config": {
+    "required_by_default": 1,
+    "no_additional_properties": 1,
     "ajax": 1
   },
   "style": "",
   "code": "",
-  "desc": "Add optional description here. (HTML format)"
+  "desc": "<p>This example demonstrates the following:</p><ul><li>Loading external schemas via ajax (using $ref)</li><li>Setting the editor's value from javascript (try the Restore to Default button)</li><li>Validating the editor's contents (try setting name to an empty string)</li><li>Macro templates (try changing the city or state fields and watch the citystate field update automatically)</li><li>Enabling and disabling editor fields</li></ul>"
 }

@@ -32,7 +32,7 @@
             "oneOf": [
               {
                 "title": "none",
-                "type": null
+                "type": "null"
               },
               {
                 "title": "person",
@@ -67,5 +67,5 @@
   },
   "style": "",
   "code": "",
-  "desc": "Add optional description here. (HTML format)"
+  "desc": "<p>This example demonstrates the many ways you can use recursive schemas (aka self-referential or circular schemas).</p><ul><li>Within array items as long as minLength is 0.  See \"coworkers\" below.</li><li>In non-default properties.  See \"mother\" below (click the \"object properties\" button and check \"mother\")</li><li>In oneOf as long as it's not the 1st choice.  See \"bestFriend\" below.</li><li>In patternProperties.  Try adding the property \"cousin_1\" using the \"object properties\" button.</li></ul>"
 }

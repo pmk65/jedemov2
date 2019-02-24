@@ -5,7 +5,6 @@ module.exports = function(grunt) {
     'string-replace': {
       version: {
         files: {
-          'src/': ['src/css/*.css', 'src/js/*.js'],
           'dist/': ['dist/css/*.css', 'dist/js/*.js']
         },
         options: {

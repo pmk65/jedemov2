@@ -1,0 +1,110 @@
+{
+  "title": "Buttons as Icon or Text only",
+  "schema": {
+    "title": "Person",
+    "type": "object",
+    "required": [
+      "name",
+      "age",
+      "date",
+      "favorite_color",
+      "gender",
+      "location",
+      "pets"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "First and Last name",
+        "minLength": 4,
+        "default": "Jeremy Dorn"
+      },
+      "age": {
+        "type": "integer",
+        "default": 25,
+        "minimum": 18,
+        "maximum": 99
+      },
+      "favorite_color": {
+        "type": "string",
+        "format": "color",
+        "title": "favorite color",
+        "default": "#ffa500"
+      },
+      "gender": {
+        "type": "string",
+        "enum": [
+          "male",
+          "female"
+        ]
+      },
+      "date": {
+        "type": "string",
+        "format": "date",
+        "options": {
+          "flatpickr": {}
+        }
+      },
+      "location": {
+        "type": "object",
+        "title": "Location",
+        "properties": {
+          "city": {
+            "type": "string",
+            "default": "San Francisco"
+          },
+          "state": {
+            "type": "string",
+            "default": "CA"
+          },
+          "citystate": {
+            "type": "string",
+            "description": "This is generated automatically from the previous two fields",
+            "template": "{{city}}, {{state}}",
+            "watch": {
+              "city": "location.city",
+              "state": "location.state"
+            }
+          }
+        }
+      },
+      "pets": {
+        "type": "array",
+        "format": "table",
+        "title": "Pets",
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "title": "Pet",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "cat",
+                "dog",
+                "bird",
+                "reptile",
+                "other"
+              ],
+              "default": "dog"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "default": [
+          {
+            "type": "dog",
+            "name": "Walter"
+          }
+        ]
+      }
+    }
+  },
+  "startval": {},
+  "config": {},
+  "code": "jseditor.on('ready', function() {\n\n  // Create buttom and insert it after the root header\n  var iButton = jseditor.root.getButton('Icon Only', '', 'Icon Only'),\n  tButton = jseditor.root.getButton('Text Only', '', 'Text Only'),\n  aButton = jseditor.root.getButton('Text & Icon', '', 'Text & Icon'),\n  button_holder = jseditor.root.theme.getHeaderButtonHolder();\n\n  button_holder.appendChild(iButton);\n  button_holder.appendChild(tButton);\n  button_holder.appendChild(aButton);\n  jseditor.root.header.parentNode.insertBefore(button_holder, jseditor.root.header.nextSibling);\n\n  var buttonHandler = function(mode) {\n    var b = document.body;\n    b.classList.remove('button-text', 'button-icon');\n    switch (mode) {\n      case 'icon':\n        b.classList.add('button-icon');\n        break;\n      case 'text':\n        b.classList.add('button-text');\n        break;\n    }\n  };\n\n  iButton.addEventListener('click', buttonHandler.bind(null, 'icon'), false);\n  tButton.addEventListener('click', buttonHandler.bind(null, 'text'), false);\n  aButton.addEventListener('click', buttonHandler.bind(null, ''), false);\n\n});",
+  "style": ".button-text .json-editor-btntype-editjson i,\n.button-text .json-editor-btntype-properties i {\n  display: none;\n}\n\n.button-icon .json-editor-btntype-editjson span,\n.button-icon .json-editor-btntype-properties span {\n  display: none;\n}",
+  "desc": "<p>This example shows how to control the display of button icons and text through CSS.</p><p>The example adds 3 buttons at the top. These buttons toggle a 'master' classname on the body tag which triggers the CSS to hide/show button icon/text.</p>"
+}

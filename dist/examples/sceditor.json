@@ -25,5 +25,5 @@
   },
   "style": "",
   "code": "",
-  "desc": "Add optional description here. (HTML format)"
+  "desc": "<p>This example demonstrates JSONEditor's integration with SCEditor</p>"
 }

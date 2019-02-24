@@ -27,9 +27,11 @@
   },
   "startval": {},
   "config": {
+    "required_by_default": 1,
+    "no_additional_properties": 1,
     "ajax": 1
   },
   "style": "",
   "code": "",
-  "desc": "Add optional description here. (HTML format)"
+  "desc": "<p>External schema for the Advanced example.</p>"
 }
