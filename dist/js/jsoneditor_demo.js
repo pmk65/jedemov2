@@ -567,23 +567,43 @@
     var updateFromUrl = function() {
       var params = getUrlParams();
       if (params.code) {
-        aceCodeEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(params.code)));
-        aceCodeEditor.session.getSelection().clearSelection();
+        try {
+          aceCodeEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.code))));
+          aceCodeEditor.session.getSelection().clearSelection();
+        }
+        catch(err) {
+          console.log('Error parsing Javascript data from URL parameter.', err);
+        }
         delete params.code;
       }
       if (params.style) {
-        aceStyleEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.style))));
-        aceStyleEditor.session.getSelection().clearSelection();
+        try {
+          aceStyleEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.style))));
+          aceStyleEditor.session.getSelection().clearSelection();
+        }
+        catch(err) {
+          console.log('Error parsing CSS data from URL parameter.', err);
+        }
         delete params.style;
       }
       if (params.schema) {
-        aceSchemaEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.schema))));
-        aceSchemaEditor.session.getSelection().clearSelection();
+        try {
+          aceSchemaEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.schema))));
+          aceSchemaEditor.session.getSelection().clearSelection();
+        }
+        catch(err) {
+          console.log('Error parsing Schema data from URL parameter.', err);
+        }
         delete params.schema;
       }
       if (params.value) {
-        aceStartvalEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.value))));
-        aceStartvalEditor.session.getSelection().clearSelection();
+        try {
+          aceStartvalEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.value))));
+          aceStartvalEditor.session.getSelection().clearSelection();
+        }
+        catch(err) {
+          console.log('Error parsing Startval data from URL parameter.', err);
+        }
         delete params.value;
       }
 
