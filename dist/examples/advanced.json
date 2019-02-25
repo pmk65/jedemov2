@@ -9,11 +9,11 @@
       "headerTemplate": "{{i}} - {{self.name}}",
       "oneOf": [
         {
-          "$ref": "basic_person.json",
+          "$ref": "examples/basic_person.json",
           "title": "Basic Person"
         },
         {
-          "$ref": "person.json",
+          "$ref": "examples/person.json",
           "title": "Complex Person"
         }
       ]
