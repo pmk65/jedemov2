@@ -625,7 +625,7 @@
       }
 
       // Trigger generation of form
-      eventFire(jeExec, 'click');
+      //eventFire(jeExec, 'click');
     };
 
     // Build codeblock to create JSON-Editor instance
