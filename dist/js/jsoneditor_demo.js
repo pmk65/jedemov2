@@ -402,6 +402,16 @@
       }
     };
 
+    // Clear ACE Output and Validation editors
+    var clearOutput = function() {
+        aceValidateEditor.setValue('');
+        aceValidateEditor.session.getSelection().clearSelection();
+        aceValidateEditor.resize();
+        aceOutputEditor.setValue('');
+        aceOutputEditor.session.getSelection().clearSelection();
+        aceOutputEditor.resize();
+    };
+
     // Convert URL GET parameters into object or return value if key is supplied
     var getUrlParams = function(key) {
       var prmstr = window.location.search.substr(1), params = {};
@@ -507,6 +517,7 @@
         });
 
         jeExampleDesc.innerHTML = '';
+        clearOutput();
 
       // Add description of example to help page
       if (desc !== '' && desc != 'Add optional description here. (HTML format)') {
@@ -553,6 +564,7 @@
     // Set editors and config options based on query parameters
     var updateFromUrl = function() {
       var params = getUrlParams();
+      clearOutput();
       if (params.code) {
         try {
           aceCodeEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.code))));
