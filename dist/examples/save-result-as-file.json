@@ -1,0 +1,127 @@
+{
+  "title": "Save Result As File",
+  "schema": {
+    "title": "Person",
+    "type": "object",
+    "required": [
+      "name",
+      "age",
+      "date",
+      "favorite_color",
+      "gender",
+      "location",
+      "pets"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "First and Last name",
+        "minLength": 4,
+        "default": "Jeremy Dorn"
+      },
+      "age": {
+        "type": "integer",
+        "default": 25,
+        "minimum": 18,
+        "maximum": 99
+      },
+      "favorite_color": {
+        "type": "string",
+        "format": "color",
+        "title": "favorite color",
+        "default": "#ffa500"
+      },
+      "gender": {
+        "type": "string",
+        "enum": [
+          "male",
+          "female"
+        ]
+      },
+      "date": {
+        "type": "string",
+        "format": "date",
+        "options": {
+          "flatpickr": {}
+        }
+      },
+      "location": {
+        "type": "object",
+        "title": "Location",
+        "properties": {
+          "city": {
+            "type": "string",
+            "default": "San Francisco"
+          },
+          "state": {
+            "type": "string",
+            "default": "CA"
+          },
+          "citystate": {
+            "type": "string",
+            "description": "This is generated automatically from the previous two fields",
+            "template": "{{city}}, {{state}}",
+            "watch": {
+              "city": "location.city",
+              "state": "location.state"
+            }
+          }
+        }
+      },
+      "pets": {
+        "type": "array",
+        "format": "table",
+        "title": "Pets",
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "title": "Pet",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "cat",
+                "dog",
+                "bird",
+                "reptile",
+                "other"
+              ],
+              "default": "dog"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "default": [
+          {
+            "type": "dog",
+            "name": "Walter"
+          }
+        ]
+      }
+    }
+  },
+  "startval": {
+    "name": "Jeremy Dorn",
+    "age": 25,
+    "favorite_color": "#ffa500",
+    "gender": "male",
+    "date": "",
+    "location": {
+      "city": "San Francisco",
+      "state": "CA",
+      "citystate": "San Francisco, CA"
+    },
+    "pets": [
+      {
+        "type": "dog",
+        "name": "Walter"
+      }
+    ]
+  },
+  "config": {},
+  "code": "var button = jseditor.root.getButton('Save Result As File', 'save', 'Save Result As File'),\nbutton_holder = jseditor.root.theme.getHeaderButtonHolder();\nbutton_holder.appendChild(button);\njseditor.root.header.parentNode.insertBefore(button_holder, jseditor.root.header.nextSibling);\n\nbutton.addEventListener('click', function(e) {\n  e.preventDefault();\n  var example = jseditor.getValue(),\n  filename = 'example.json',\n  blob = new Blob([JSON.stringify(example, null, 2)], {\n    type: \"application/json;charset=utf-8\"\n  });\n\n  if (window.navigator && window.navigator.msSaveOrOpenBlob) {\n    window.navigator.msSaveOrOpenBlob(blob, filename);\n  } else {\n    var a = document.createElement('a');\n    a.download = filename;\n    a.href = URL.createObjectURL(blob);\n    a.dataset.downloadurl = ['text/plain', a.download, a.href].join(':');\n\n    a.dispatchEvent(new MouseEvent('click', {\n      'view': window,\n      'bubbles': true,\n      'cancelable': false\n    }));\n  }\n}, false);",
+  "style": "",
+  "desc": "<p>This example shows how to add a \"Save Result As File\" button to the form.</p>"
+}

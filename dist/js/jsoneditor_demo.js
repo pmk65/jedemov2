@@ -1,7 +1,7 @@
 /**
  * @name JSON-Editor Interactive Playground
  * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
- * @version {{ VERSION }}
+ * @version 0.4.0
  * @author Peter Klein
  * @see https://github.com/pmk65/jedemov2/
  * @license MIT
@@ -107,8 +107,7 @@
           'https://cdn.jsdelivr.net/npm/cleave.js@latest/dist/addons/cleave-phone.i18n.min.js'
           ]
         },
-        // JSON-Editor doesn't work correctly with latest version of SCEditor
-        lib_sceditor_new: {
+        lib_sceditor: {
           css: 'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/themes/default.min.css',
           js: [
             'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
@@ -116,17 +115,6 @@
             'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/jquery.sceditor.min.js',
             'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/formats/bbcode.js',
             'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/formats/xhtml.js'
-          ]
-        },
-        lib_sceditor: {
-          css: [
-            'https://cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.default.min.css',
-            'https://cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css'
-          ],
-          js: [
-            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
-            'https://cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.xhtml.min.js',
-            'https://cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.bbcode.min.js'
           ]
         },
         lib_simplemde: {
@@ -300,6 +288,21 @@
       }));
     };
 
+    // Update values in schema from output JSON
+    var updateSchemaValues = function() {
+      // this = aceOutputEditor
+      var json;
+      try {
+        json = JSON.parse(this.getValue());
+      }
+      catch (err) {
+        jeModalContent.innerText = err;
+        toggleModal();
+        return;
+      }
+      jeIframe.updateSchemaValuesIframe(json);
+    };
+
     // Handler for showing/hiding left panel
     var setPanelHandler = function(panel) {
       var panelClose = panel.querySelector('.panel-close-button'),
@@ -314,7 +317,6 @@
           // Trigger generation of form
           eventFire(jeExec, 'click');
         }
-
       }.bind(panel);
       panel.addEventListener('click', panelHandler, false);
       if (panelClose) panelClose.addEventListener('click', panelHandler, false);
@@ -398,21 +400,6 @@
         aceValidateEditor.session.getSelection().clearSelection();
         aceValidateEditor.resize();
       }
-    };
-
-    // Update values in schema from output JSON
-    var updateSchemaValues = function() {
-      // this = aceOutputEditor
-      var json;
-      try {
-        json = JSON.parse(this.getValue());
-      }
-      catch (err) {
-        jeModalContent.innerText = err;
-        toggleModal();
-        return;
-      }
-      jeIframe.updateSchemaValuesIframe(json);
     };
 
     // Convert URL GET parameters into object or return value if key is supplied
@@ -968,8 +955,11 @@
         iframeOnReady(jeIframe, iframeReady);
       });
 
+
+      var startVal = aceOutputEditor.getValue() || aceStartvalEditor.getValue();
+
       // Get content of ACE editor schema, startval and JavaScript;
-      var code = getCode(aceSchemaEditor.getValue(), aceStartvalEditor.getValue()) + aceCodeEditor.getValue();
+      var code = getCode(aceSchemaEditor.getValue(), startVal) + aceCodeEditor.getValue();
 
 /*
       // Alternative to document.write() which is deprecated
@@ -981,6 +971,7 @@
       jeIframe.document.open();
       jeIframe.document.write(createIframeContent(code));
       jeIframe.document.close();
+
    };
 
     /* Setup */
