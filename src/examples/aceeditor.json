@@ -1,0 +1,33 @@
+{
+  "title": "ACE Editor",
+  "schema": {
+    "title": "SQL Editor",
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "format": "sql",
+        "options": {
+          "ace": {
+            "theme": "ace/theme/vibrant_ink",
+            "tabSize": 2,
+            "useSoftTabs": true,
+            "wrap": true
+          }
+        }
+      }
+    }
+  },
+  "startval": {
+    "query": "SELECT f.animal_id AS animal_id, \n       f.animal_type AS animal_type, \n       d.animal_description AS animal_description, \n       f.animal_name AS animal_name, \n       'Farm' AS domain, \n       att.animal_type_description AS description \n  \nFROM tutorial.farm f \n  \nLEFT OUTER JOIN tutorial.animal_types att \nON f.animal_type = att.animal_type_id \n  \nLEFT OUTER JOIN tutorial.animal_descriptions d \nON f.animal_description = d.animal_description_id \n  \nUNION ALL \n  \nSELECT w.animal_id AS animal_id, \n       w.animal_type AS animal_type, \n       d.animal_description AS animal_description, \n       w.animal_name AS animal_name, \n       'Wild' AS domain, \n       att.animal_type_description AS description \n  \nFROM tutorial.wild w \n  \nLEFT OUTER JOIN tutorial.animal_types att \nON w.animal_type = att.animal_type_id \n  \nLEFT OUTER JOIN tutorial.animal_descriptions d \nON w.animal_description = d.animal_description_id \n  \nWHERE w.animal_id IN (SELECT animal_id FROM wild WHERE animal_id <= 3)"
+  },
+  "config": {
+    "lib_aceeditor": 1
+  },
+  "code": "var aceScript = document.querySelector('script[src*=\"ace-builds\"]');\nif (aceScript.src && window.ace) {\n  window.ace.config.set('basePath', aceScript.src.replace(/(.*\\/)[^\\/]+$/g, \"$1\"));\n}",
+  "style": "",
+  "desc": "<p>This example demonstrates JSON-Editor's integration with ACE Editor</p>"
+}
