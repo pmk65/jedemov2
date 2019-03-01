@@ -630,7 +630,7 @@
     // Build codeblock to create JSON-Editor instance
     var getCode = function(schema, startval) {
       var opt = 'schema:' + schema + (startval.trim() ? ', startval:' + startval : '');
-      return 'if (jseditor) jseditor.destroy();jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
+      return 'var jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
     };
 
     // Fullscreen Drag'n'Drop upload handlers
@@ -771,18 +771,15 @@
 
               // Update JSON-Editor values from top window
               'window.updateSchemaValuesIframe = function(json) {' +
-              ' if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) {' +
-              '  jseditor.setValue(json);' +
-              ' }' +
+              ' if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) jseditor.setValue(json);' +
               '};' +
               'try{' +
               code +
-
               // Send form output and validation errors to top window
               'if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) {' +
-              '  var catcher = function() { window.top.iframeOutputCatcher(jseditor.getValue(), jseditor.validate()); };' +
-              '  jseditor.addEventListener("ready", catcher, false);' +
-              '  jseditor.addEventListener("change",catcher, false);' +
+              '  var catcher = function() {window.top.iframeOutputCatcher(jseditor.getValue(), jseditor.validate()); };' +
+              '  jseditor.on("ready", catcher);' +
+              '  jseditor.on("change",catcher);' +
               '} else {' +
               '  window.top.iframeOutputCatcher(null, null, 1);' +
               '}' +
@@ -965,7 +962,8 @@
       });
 
 
-      var startVal = aceOutputEditor.getValue() || aceStartvalEditor.getValue();
+      //var startVal = aceOutputEditor.getValue() || aceStartvalEditor.getValue();
+      var startVal = aceStartvalEditor.getValue();
 
       // Get content of ACE editor schema, startval and JavaScript;
       var code = getCode(aceSchemaEditor.getValue(), startVal) + aceCodeEditor.getValue();
