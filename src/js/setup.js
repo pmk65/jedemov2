@@ -775,17 +775,14 @@
               '  jseditor.setValue(json);' +
               ' }' +
               '};' +
-
-              // Dummy upload function to prevent errors
-              'var jseditor;window.JSONEditor.defaults.options.upload = function(type, file, cbs) {};' +
               'try{' +
               code +
 
               // Send form output and validation errors to top window
               'if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) {' +
-              '  jseditor.on("change",function() {' +
-              '    window.top.iframeOutputCatcher(jseditor.getValue(), jseditor.validate());' +
-              '  });' +
+              '  var catcher = function() { window.top.iframeOutputCatcher(jseditor.getValue(), jseditor.validate()); };' +
+              '  jseditor.addEventListener("ready", catcher, false);' +
+              '  jseditor.addEventListener("change",catcher, false);' +
               '} else {' +
               '  window.top.iframeOutputCatcher(null, null, 1);' +
               '}' +
