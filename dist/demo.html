@@ -58,8 +58,8 @@
             <optgroup label="Editor Examples">
               <option value="aceeditor">ACE Editor</option> 
               <option value="base64">Base64 (Multiple Upload)</option>
-              <option value="cleave">Cleave</option>
-              <option value="datetime">Datetime</option>
+              <option value="cleave">Cleave.js</option>
+              <option value="datetime">Datetime (Flatpickr)</option>
               <option value="sceditor">SCEditor</option>
               <option value="select2">Select2</option>
               <option value="selectize">Selectize</option>
@@ -79,6 +79,7 @@
             <optgroup label="Misc Examples">
               <option value="meta_schema">Meta Schema</option>
               <option value="examples">Examples Schema</option>
+              <option value="force-cdn-reload">Force CDN Reload</option>
             </optgroup>
           </select>
         </div>
@@ -303,7 +304,8 @@ console.log('jseditor',jseditor);</div>
       <h3>Custom JavaScript</h3>
       <p>In the JavaScript editor, the instance of the form is available in the variable <strong>jseditor</strong>
       <br>Also the global instance of the JSON-Editor is available in the variable <strong>JSONEditor</strong></p>
-
+      <p>Note: If you destroy the <strong>jseditor</strong> instance in order to regenerate the form in a special way, the <strong>Output</strong> Tab might no longer be updated unless your code includes a call to the function "updateOutput()" inside a JSON-Editor "OnChange" function.</p>
+<p><em>See the "Update Enum" example for an example of usage.</em></p>
       <h4>Special Comments</h4>
       <p>Two special <em>comment functions</em> are available in the JavaScript editor for creating more complex setups.</p>
       <ul>

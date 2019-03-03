@@ -156,7 +156,8 @@
 
     // Theme to use in ACE editor instances
     //var aceTheme = 'ace/theme/github';
-    var aceTheme = 'ace/theme/vibrant_ink';
+    //var aceTheme = 'ace/theme/vibrant_ink';
+    var aceTheme = 'ace/theme/monokai';
 
     // ACE Editor Beautify extension
     var aceBeautify = window.ace.require("ace/ext/beautify"); // get reference to extension
@@ -758,35 +759,46 @@
     // Create page for Iframe
     var createIframeContent = function(code) {
       var options = getJsonEditorOptions();
-      return  '<!DOCTYPE HTML>' +
-              '<html lang="en"><head><title>JSON-Editor Form</title><meta http-equiv="content-type" content="text/html; charset=utf-8">' +
-              '<style>body {margin:0;padding:0;font: normal .9em/1.2 Arial;background-color:#02577a !important;}' +
-              '.inner-row {display: grid;background-color: #fff;position: relative;max-width: 1200px;left:50%;' +
-              'transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);margin:0 0 3rem 0;}' +
-              '</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css" /><script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>' +
-              buildExtFiles(options, code) +
-              buildEditorOptions(options) +
-              '</head><body>' +
-              '<div class="inner-row"><div id="json-editor-form"></div></div><script>' +
-
-              // Update JSON-Editor values from top window
-              'window.updateSchemaValuesIframe = function(json) {' +
-              ' if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) jseditor.setValue(json);' +
-              '};' +
-              'try{' +
-              code +
-              // Send form output and validation errors to top window
-              'if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) {' +
-              '  var catcher = function() {window.top.iframeOutputCatcher(jseditor.getValue(), jseditor.validate()); };' +
-              '  jseditor.on("ready", catcher);' +
-              '  jseditor.on("change",catcher);' +
-              '} else {' +
-              '  window.top.iframeOutputCatcher(null, null, 1);' +
-              '}' +
-
+      return [
+        '<!DOCTYPE HTML>',
+          '<html lang="en">',
+            '<head>',
+              '<title>JSON-Editor Form</title>',
+              '<meta http-equiv="content-type" content="text/html; charset=utf-8">',
+              '<style>',
+                'body {margin:0;padding:0;font: normal .9em/1.2 Arial;background-color:#02577a !important;}',
+                '.inner-row {display: grid;background-color: #fff;position: relative;max-width: 1200px;left:50%;transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);margin:0 0 3rem 0;}',
+              '</style>',
+              '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css" />',
+              '<script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>',
+              buildExtFiles(options, code),
+              buildEditorOptions(options),
+            '</head>',
+            '<body>',
+              '<div class="inner-row"><div id="json-editor-form"></div></div>',
+              '<script>',
+                // Update JSON-Editor values from top window
+                'window.updateSchemaValuesIframe = function(json) {',
+                  'if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) jseditor.setValue(json);',
+                '};',
+                'try{',
+                  code,
+                  'var updateOutput = function() {window.top.iframeOutputCatcher(jseditor.getValue(), jseditor.validate()); };',
+                  // Send form output and validation errors to top window
+                  'if (jseditor instanceof window.JSONEditor && !jseditor.destroyed) {',
+                  //'jseditor.on("ready", catcher);',
+                    'jseditor.on("change",updateOutput);',
+                  '} else {',
+                    'window.top.iframeOutputCatcher(null, null, 1);',
+                  '}',
+                '}',
                 // Send iframe errors to top window
-               '}catch(err){if (window.top.iframeErrorCatcher) window.top.iframeErrorCatcher(err);else console.log(err);};' +
-               '<\/script></body></html>';
+               'catch(err){',
+                'if (window.top.iframeErrorCatcher) window.top.iframeErrorCatcher(err);else console.log(err);',
+               '};',
+              '<\/script>',
+            '</body>',
+          '</html>'].join('\n');
     };
 
     // Update form values in iframe (Currently uses the StartVal editor, but should be from a different source)

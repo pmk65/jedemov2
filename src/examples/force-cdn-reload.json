@@ -1,0 +1,9 @@
+{
+  "title": "Force CDN Reload",
+  "schema": {},
+  "startval": {},
+  "config": {},
+  "code": "// Not a real example. Forces the JavaScript and Stylesheets to update\nvar a = document.querySelectorAll('script, link[rel=\"stylesheet\"]');\nfor (var h in a) {\n  var u = a[h].src || a[h].href;\n  if (u) {\n    var g = u.replace(/(&|\\?)rnd=\\d+/, '');\n    u = g + (g.match(/\\?/) ? '&': '?');\n    u += 'rnd=' + new Date().valueOf();\n    if (a[h].src) a[h].src = u;\n    else a[h].href = u;\n  }\n}",
+  "style": "",
+  "desc": "<p>Not a real example. Forces the JavaScript and Stylesheets to update.</p>"
+}
