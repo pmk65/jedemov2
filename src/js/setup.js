@@ -1108,6 +1108,8 @@
     setEditorPanelButtons(jeEditStartval,aceStartvalEditor);
     setEditorPanelButtons(jeEditCode, aceCodeEditor);
     setEditorPanelButtons(jeEditCSS, aceStyleEditor);
+    setEditorPanelButtons(jeOutput, aceOutputEditor);
+    setEditorPanelButtons(jeValidate, aceValidateEditor);
 
     // Set events on tabs buttons
     jeTabs.addEventListener('click', tabsHandler, false);

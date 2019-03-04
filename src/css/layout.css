@@ -222,8 +222,8 @@
     right: 0px;
     background: #ccc;
     width: 200px;
-    height: 100px;
-    transform: translateY(-100px);
+    height: 90px;
+    transform: translateY(-90px);
     transition: transform 0.4s ease-in-out;
     z-index: 999;
   }
@@ -247,9 +247,13 @@
   .slidedown-menu:hover:after {
     opacity: 1;
   }
-  .box {
-    padding: 20px;
+  .slidedown-menu .box {
+    padding: 10px 20px;
   }
+  .slidedown-menu .box button {
+    width: 100%;
+  }
+
   /* Slide-in panel */
   .panel {
     position: absolute;
