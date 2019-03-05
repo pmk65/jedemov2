@@ -1,0 +1,139 @@
+[
+  {
+    "group": "General Examples",
+    "items": [
+      {
+        "title": "Basic Usage",
+        "file": "basic"
+      },
+      {
+        "title": "Advanced Usage (Ajax)",
+        "file": "advanced"
+      },
+      {
+        "title": "Basic Person (Ajax schema)",
+        "file": "advanced-basic-person"
+      },
+      {
+        "title": "Person (Ajax schema)",
+        "file": "advanced-person"
+      },
+      {
+        "title": "Accident Details",
+        "file": "accident-details"
+      },
+      {
+        "title": "Recursive",
+        "file": "recursive"
+      },
+      {
+        "title": "Payment Method (oneOf)",
+        "file": "oneof-payment-method"
+      },
+      {
+        "title": "Name (oneOf)",
+        "file": "oneof-name"
+      }
+    ]
+  },
+  {
+    "group": "Editor Examples",
+    "items": [
+      {
+        "title": "ACE Editor",
+        "file": "aceeditor"
+      },
+      {
+        "title": "Base64 (Multiple Upload)",
+        "file": "base64"
+      },
+      {
+        "title": "Cleave.js",
+        "file": "cleave"
+      },
+      {
+        "title": "Datetime (Flatpickr)",
+        "file": "datetime"
+      },
+      {
+        "title": "SCEditor",
+        "file": "sceditor"
+      },
+      {
+        "title": "Select2",
+        "file": "select2"
+      },
+      {
+        "title": "Selectize",
+        "file": "selectize"
+      },
+      {
+        "title": "SignaturePad",
+        "file": "signature"
+      },
+      {
+        "title": "SimpleMDE",
+        "file": "simplemde"
+      },
+      {
+        "title": "Star Rating",
+        "file": "starrating"
+      },
+      {
+        "title": "Upload",
+        "file": "upload"
+      }
+    ]
+  },
+  {
+    "group": "JavaScript/CSS Examples",
+    "items": [
+      {
+        "title": "Typeahead Autocomplete",
+        "file": "typeahead"
+      },
+      {
+        "title": "Typeahead Autoprefill",
+        "file": "typeahead2"
+      },
+      {
+        "title": "Modify Enum",
+        "file": "modifyenum"
+      },
+      {
+        "title": "Collapse/Expand All Button",
+        "file": "collapse-expand-all"
+      },
+      {
+        "title": "SaveAsFile Button",
+        "file": "save-result-as-file"
+      },
+      {
+        "title": "Buttons as icon or text only",
+        "file": "buttons-as-icon-or-text-only"
+      }
+    ]
+  },
+  {
+    "group": "Misc Examples",
+    "items": [
+      {
+        "title": "Meta Schema",
+        "file": "meta_schema"
+      },
+      {
+        "title": "Examples Schema",
+        "file": "examples"
+      }
+    ]
+  },
+  {
+    "group": "Other",
+    "items": [
+      {
+        "title": "Force CDN Reload",
+        "file": "force-cdn-reload"
+      }
+    ]
+  }
+]

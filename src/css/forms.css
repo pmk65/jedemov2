@@ -85,6 +85,7 @@
 nav.links .select {
   display: inline-table;
   max-width: 15rem;
+  min-width: 10rem;
   border: 1px solid rgba(0,0,0,.3);
   margin: 0;
 }

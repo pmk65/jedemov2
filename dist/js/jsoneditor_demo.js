@@ -911,6 +911,29 @@
       }
     };
 
+    // Get index of examples and populate selectbox with results
+    var getExamplesIndex = function() {
+      var examplesSort = function(x, y) { return (x.title > y.title) - (x.title < y.title); };
+      var out = '<option value="" selected disabled>Load example</option>';
+      loadFile('examples/index.json', 'application/json', function(cfg) {
+        if (isInvalidJson(cfg)) {
+          jeSchemaLoad.disabled = true;
+          jeSchemaLoad.style.cursor = 'not-allowed';
+          jeSchemaLoad.title = 'No examples available due to invalid index file';
+        }
+        else {
+          JSON.parse(cfg).forEach(function(el) {
+            out += '<optgroup label="' + el.group + '">';
+            el.items.sort(examplesSort).forEach(function(el) {
+              out += '<option value="' + el.file + '">' + el.title + '</option>';
+            });
+            out += '</optgroup>';
+          });
+        }
+        jeSchemaLoad.innerHTML = out;
+      });
+    };
+
     // Extend expand/collapse for details/summary tags, so that only one open is allowed
     var summaryOpenHandler = function(e) {
       if (e.target.nodeName == 'SUMMARY') {
@@ -1156,6 +1179,9 @@
     window.Split(jeSplitPanels[0], jeSplitCfg);
     window.Split(jeSplitPanels[1], jeSplitCfg);
     window.Split(jeSplitPanels[2], jeSplitCfg);
+
+    // Populate examples selectbox
+    getExamplesIndex();
 
     // Update fields from query parameters
     updateFromUrl();

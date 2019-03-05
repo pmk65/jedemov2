@@ -1,0 +1,121 @@
+{
+  "title": "oneOf - Name",
+  "schema": {
+    "type": "object",
+    "options": {
+      "keep_oneof_values": false
+    },
+    "properties": {
+      "type": {
+        "type": "string",
+        "options": {
+          "hidden": true
+        }
+      }
+    },
+    "oneOf": [
+      {
+        "title": "Full Name",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "fullName"
+            ],
+            "options": {
+              "hidden": true
+            }
+          },
+          "fullName": {
+            "type": "string",
+            "title": "Full name"
+          }
+        },
+        "type": "object",
+        "options": {
+          "keep_oneof_values": false
+        }
+      },
+      {
+        "title": "First and Last Name",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "first-last-name"
+            ],
+            "options": {
+              "hidden": true
+            }
+          },
+          "firstName": {
+            "type": "string",
+            "title": "First name"
+          },
+          "lastName": {
+            "type": "string",
+            "title": "Last name"
+          }
+        },
+        "type": "object",
+        "options": {
+          "keep_oneof_values": false
+        }
+      },
+      {
+        "title": "Other name",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "other-name"
+            ],
+            "options": {
+              "hidden": true
+            }
+          },
+          "otherFirstName": {
+            "type": "string"
+          },
+          "otherLastName": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "options": {
+          "keep_oneof_values": false
+        }
+      },
+      {
+        "title": "More name",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "more-name"
+            ],
+            "options": {
+              "hidden": true
+            }
+          },
+          "moreFullName": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "options": {
+          "keep_oneof_values": false
+        }
+      }
+    ]
+  },
+  "startval": {},
+  "config": {},
+  "code": "",
+  "style": "",
+  "desc": "<p>This example shows an example of 'oneOf' usage.</p><p>Source: <a href=\"https://github.com/jdorn/json-editor/issues/619\" target=\"_blank\"  rel=\"noopener noreferrer\">https://github.com/jdorn/json-editor/issues/619</a></p>"
+}

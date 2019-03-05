@@ -1,0 +1,162 @@
+{
+  "title": "oneOf - Payment Method",
+  "schema": {
+    "title": "Payment Method",
+    "oneOf": [
+      {
+        "title": "None",
+        "type": "object",
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "none"
+            ],
+            "options": {
+              "hidden": true
+            }
+          }
+        },
+        "required": [
+          "method"
+        ],
+        "additionalProperties": false,
+        "options": {
+          "hidden": true,
+          "theme": "bootstrap3",
+          "disable_collapse": true,
+          "disable_edit_json": true,
+          "disable_properties": true
+        }
+      },
+      {
+        "title": "Bank EFT",
+        "type": "object",
+        "format": "grid",
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "eft"
+            ],
+            "options": {
+              "hidden": true
+            }
+          },
+          "bankName": {
+            "title": "Bank name",
+            "type": "string",
+            "minLength": 5
+          },
+          "routingNumber": {
+            "title": "Routing number",
+            "type": "string",
+            "minLength": 9
+          },
+          "accountNumber": {
+            "title": "Account number",
+            "type": "string",
+            "minLength": 12
+          }
+        },
+        "required": [
+          "method",
+          "bankName",
+          "routingNumber",
+          "accountNumber"
+        ],
+        "additionalProperties": false,
+        "options": {
+          "theme": "bootstrap3",
+          "disable_collapse": true,
+          "disable_edit_json": true,
+          "disable_properties": true
+        }
+      },
+      {
+        "title": "Credit Card",
+        "type": "object",
+        "format": "grid",
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "creditCard"
+            ],
+            "options": {
+              "hidden": true
+            }
+          },
+          "cardType": {
+            "title": "Card type",
+            "type": "string",
+            "enum": [
+              "Amex",
+              "Discover",
+              "MasterCard",
+              "Visa"
+            ],
+            "options": {
+              "grid_columns": 3
+            }
+          },
+          "cardNumber": {
+            "title": "Card number",
+            "type": "string",
+            "minLength": 15,
+            "maxLength": 16,
+            "options": {
+              "grid_columns": 4
+            }
+          },
+          "expiration": {
+            "title": "Expiration month",
+            "type": "string",
+            "format": "month",
+            "options": {
+              "grid_columns": 3
+            }
+          },
+          "CCV": {
+            "type": "string",
+            "maxLength": 4,
+            "minLength": 3,
+            "pattern": "[0-9]*",
+            "options": {
+              "grid_columns": 2
+            }
+          }
+        },
+        "required": [
+          "method",
+          "cardType",
+          "cardNumber",
+          "expiration",
+          "CCV"
+        ],
+        "additionalProperties": false,
+        "options": {
+          "theme": "bootstrap3",
+          "disable_collapse": true,
+          "disable_edit_json": true,
+          "disable_properties": true
+        }
+      }
+    ],
+    "options": {
+      "theme": "bootstrap3",
+      "disable_collapse": true,
+      "disable_edit_json": true,
+      "disable_properties": true
+    }
+  },
+  "startval": {},
+  "config": {
+    "disable_edit_json": 1,
+    "disable_collapse": 1,
+    "disable_properties": 1
+  },
+  "code": "",
+  "style": "",
+  "desc": "<p>This example shows an example of 'oneOf' usage.</p><p>Source: <a href=\"https://github.com/jdorn/json-editor/issues/315\" target=\"_blank\"  rel=\"noopener noreferrer\">https://github.com/jdorn/json-editor/issues/315</a></p>"    
+}
