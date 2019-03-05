@@ -109,6 +109,10 @@
         "file": "save-result-as-file"
       },
       {
+        "title": "Enum based on previous selection",
+        "file": "enum-based-on-previous"
+      },
+      {
         "title": "Buttons as icon or text only",
         "file": "buttons-as-icon-or-text-only"
       }
