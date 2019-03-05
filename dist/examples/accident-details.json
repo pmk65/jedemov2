@@ -546,8 +546,30 @@
     "description": "",
     "plural_title": ""
   },
-  "startval": {},
-  "config": {},
+  "startval": {
+    "photo": [],
+    "person": [],
+    "vehicle": [],
+    "accidentDetails": {
+      "Severity": "Fatal",
+      "_localId": "162d62fe-46ee-468e-88cf-c827c8a05247",
+      "Main cause": "Vehicle defect",
+      "Description": "",
+      "Num vehicles": "",
+      "Surface type": "Concrete",
+      "Street lights": "Lit",
+      "Collision type": "Head on",
+      "Traffic control": "None",
+      "Surface condition": "Dry",
+      "Num driver casualties": "",
+      "Num passenger casualties": "",
+      "Num pedestrian casualties": ""
+    }
+  },
+  "config": {
+    "required_by_default": 1,
+    "no_additional_properties": 1
+  },
   "style": "",
   "code": "",
   "desc": "Add optional description here. (HTML format)"
