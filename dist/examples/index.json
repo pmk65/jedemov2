@@ -113,6 +113,10 @@
         "file": "enum-based-on-previous"
       },
       {
+        "title": "Dynamically convert Text field to Enum",
+        "file": "convert-text-field-to-enum"
+      },
+      {
         "title": "Buttons as icon or text only",
         "file": "buttons-as-icon-or-text-only"
       }

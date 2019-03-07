@@ -1,0 +1,24 @@
+{
+  "title": "Convert Text field to Enum",
+  "schema": {
+    "title": "Output",
+    "type": "object",
+    "properties": {
+      "sport": {
+        "type": "string",
+        "enum": [
+          "football",
+          "formula1"
+        ]
+      },
+      "keywords": {
+        "type": "string"
+      }
+    }
+  },
+  "startval": {},
+  "config": {},
+  "code": "var keyword_mapping = {\n  \"football\": [\"teams\", \"ball\", \"goal\"], \"formula1\": [\"car\", \"racing\", \"driver\"]};\n\n\njseditor.on('ready', function() {\n\n  jseditor.watch('root.sport', function() {\n    var ed = jseditor.getEditor('root.sport');\n\n    var current_sport = ed.getValue();\n\n    var fc = ed.parent;\n\n    fc.original_schema.properties.keywords[\"enum\"] = keyword_mapping[current_sport];\n    fc.schema.properties.keywords[\"enum\"] = keyword_mapping[current_sport];\n\n    fc.removeObjectProperty('keywords');\n    //delete the cache\n    delete fc.cached_editors.keywords;\n\n    fc.addObjectProperty('keywords');\n\n  });\n\n});",
+  "style": "",
+  "desc": "<p>This example dynamically convert a text field to enum field</p><p>Source: <a href=\"https://github.com/jdorn/json-editor/issues/387\" target=\"_blank\"  rel=\"noopener noreferrer\">https://github.com/jdorn/json-editor/issues/387</a></p"
+}
