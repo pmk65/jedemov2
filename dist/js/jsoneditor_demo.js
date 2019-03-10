@@ -1,7 +1,7 @@
 /**
  * @name JSON-Editor Interactive Playground
  * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
- * @version 0.5.0
+ * @version 0.6.0
  * @author Peter Klein
  * @see https://github.com/pmk65/jedemov2/
  * @license MIT
@@ -194,11 +194,13 @@
     // Example description placeholder
     var jeExampleDesc = document.querySelector('#example-description');
 
-    // Slid-in config panel
+    // Slide-in config panel
     var jeLeftPanel = document.querySelector('#slideleft-panel');
+    var jeRightPanel = document.querySelector('#slideright-panel');
 
     // Buttons
     var jeShowConfig = document.querySelector('#show-config'); // Show config panel
+    var jeShowLoadExample = document.querySelector('#show-load-examples'); // Show load examples panel
     var jeSchemaLoad = document.querySelector('#external-schema'); // Load schema
     var jeExec = document.querySelector('#execute-code'); // Create form from Schema
     var jeDirectLink = document.querySelector('#direct_link'); // Create direct link url
@@ -206,6 +208,7 @@
     var jeTabs = document.querySelector('nav.tabs'); // Tabs (Wrapper, not single buttons)
     var jeDownloadExample = document.querySelector('#download_example');
     var jeUploadExample = document.querySelector('#upload_example');
+    var jeFilesUsed = document.querySelector('#files-used');
 
     var jeFileUpload = document.querySelector('input[type="file"]');
     var jeDropZone = document.querySelector('#dropzone'); // Drag'n'Drop upload zone
@@ -254,7 +257,7 @@
 
     // Click event handler - Close modal box if clicked outside
     var closeModal = function(e) {
-      if (e.target === jeModal) toggleModal();
+      if (e.target === jeModal && jeModal.classList.contains("show-modal")) toggleModal();
     };
 
      // Show JSON error in modal box
@@ -289,6 +292,36 @@
       }));
     };
 
+    // Copy text to clipboard
+    var copyToClipboard = function(txt) {
+      var ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.bottom = '0px';
+      ta.style.left = '0px';
+      document.body.appendChild(ta);
+      ta.select();
+      var res = true;
+      try { document.execCommand('copy'); }
+      catch(err) { res = false; }
+      document.body.removeChild(ta);
+      return res;
+    };
+
+    // Build list of external JavaScript and CSS files included in <head> of page
+    var listExternalFilesUsed = function() {
+      var src = [], tags = jeIframe.document.querySelectorAll('head script[src], head link[rel="stylesheet"]');
+      for (var tag in tags) {
+        if (tags.hasOwnProperty(tag)) {
+          src.push(tags[tag].src || tags[tag].href);
+        }
+      }
+      copyToClipboard(src.sort().join('\n'));
+      jeModalContent.innerHTML = '<h5>List of external JavaScript and CSS files used in current example:</h5>' + src.sort().join('<br>');
+      toggleModal();
+    };
+
     // Update values in schema from output JSON
     var updateSchemaValues = function() {
       // this = aceOutputEditor
@@ -313,7 +346,7 @@
           if (panel.classList.contains('panel-active')) panel.classList.toggle('panel-inactive');
           else panel.classList.add('panel-active');
         }
-        if (panel.classList.contains('panel-inactive')) {
+        if (panel.classList.contains('panel-inactive') && panel.classList.contains('panel-left')) {
           // panel closing
           // Trigger generation of form
           eventFire(jeExec, 'click');
@@ -322,23 +355,6 @@
       panel.addEventListener('click', panelHandler, false);
       if (panelClose) panelClose.addEventListener('click', panelHandler, false);
       return panelHandler;
-    };
-
-    // Copy text to clipboard
-    var copyToClipboard = function(txt) {
-      var ta = document.createElement('textarea');
-      ta.value = txt;
-      ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed';
-      ta.style.bottom = '0px';
-      ta.style.left = '0px';
-      document.body.appendChild(ta);
-      ta.select();
-      var res = true;
-      try { document.execCommand('copy'); }
-      catch(err) { res = false; }
-      document.body.removeChild(ta);
-      return res;
     };
 
     // JSONP request
@@ -904,30 +920,30 @@
     };
 
     // Change event handler - Load selected JSON Schema into editor
-    var loadExampleFiles = function() {
-      var example = this.options[this.selectedIndex].value;
-      if (example) {
-        loadFile('examples/' + example + '.json', 'application/json', updateFromFile);
+    var loadExampleFiles = function(e) {
+      if (e.target.nodeName == 'BUTTON' && e.target.value) {
+        eventClickFire(jeRightPanel); // Close panel
+        loadFile('examples/' + e.target.value + '.json', 'application/json', updateFromFile);
       }
     };
 
     // Get index of examples and populate selectbox with results
     var getExamplesIndex = function() {
-      var examplesSort = function(x, y) { return (x.title > y.title) - (x.title < y.title); };
-      var out = '<option value="" selected disabled>Load example</option>';
+      var out = '', examplesSort = function(x, y) { return (x.title > y.title) - (x.title < y.title); };
       loadFile('examples/index.json', 'application/json', function(cfg) {
         if (isInvalidJson(cfg)) {
-          jeSchemaLoad.disabled = true;
-          jeSchemaLoad.style.cursor = 'not-allowed';
-          jeSchemaLoad.title = 'No examples available due to invalid index file';
+          jeShowLoadExample.disabled = true;
+          jeShowLoadExample.style.cursor = 'not-allowed';
+          jeShowLoadExample.title = 'No examples available due to invalid index file';
         }
         else {
           JSON.parse(cfg).forEach(function(el) {
-            out += '<optgroup label="' + el.group + '">';
+            out += '<details open><summary>' + el.group + '</summary>';
             el.items.sort(examplesSort).forEach(function(el) {
-              out += '<option value="' + el.file + '">' + el.title + '</option>';
+              out += '<button value="' + el.file + '">' + el.title + '</button>';
             });
-            out += '</optgroup>';
+            out += '</details>';
+
           });
         }
         jeSchemaLoad.innerHTML = out;
@@ -1137,17 +1153,28 @@
     // Set events on tabs buttons
     jeTabs.addEventListener('click', tabsHandler, false);
 
+    // Set handler for showing/hiding left panel
+    var panelLeftHandler = setPanelHandler(jeLeftPanel);
+    jeShowConfig.addEventListener('click', panelLeftHandler, false);
+
+    // Set handler for showing/hiding left panel
+    var panelRightHandler = setPanelHandler(jeRightPanel);
+    jeShowLoadExample.addEventListener('click', panelRightHandler, false);
+
     // Set button event for loading external schemas
-    if (window.fetch && window.File && window.FileReader && window.FileList && window.Blob) jeSchemaLoad.addEventListener('change', loadExampleFiles);
+    if (window.fetch && window.File && window.FileReader && window.FileList && window.Blob) {
+      jeSchemaLoad.addEventListener('click', loadExampleFiles, false);
+    }
     else {
-      jeSchemaLoad.disabled = true;
-      jeSchemaLoad.style.cursor = 'not-allowed';
-      jeSchemaLoad.title = 'Not available locally due to CORS policy';
+      jeShowLoadExample.disabled = true;
+      jeShowLoadExample.style.cursor = 'not-allowed';
+      jeShowLoadExample.title = 'Not available locally due to CORS policy';
     }
 
     // Set button event for generating form
     jeExec.addEventListener('click', generateForm, false);
 
+    jeFilesUsed.addEventListener('click', listExternalFilesUsed, false);
     // Create the direct link URL
     jeDirectLink.addEventListener('click', updateDirectLink, false);
     jeUrlReset.addEventListener('click', resetUrl, false);
@@ -1170,10 +1197,6 @@
         jeDropZone.addEventListener(ev,  dragHandler, false);
       });
     }
-
-    // Set handler for showing/hiding left panel
-    var panelHandler = setPanelHandler(jeLeftPanel);
-    jeShowConfig.addEventListener('click', panelHandler, false);
 
     // Set resizable split panels
     window.Split(jeSplitPanels[0], jeSplitCfg);

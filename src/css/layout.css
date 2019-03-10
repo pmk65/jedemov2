@@ -264,6 +264,7 @@
     width: 0;
     overflow: hidden;
     cursor: pointer;
+    z-index: 100;
     --panel-width: 25rem;
     --panel-transition-speed: .3s;
   }
@@ -289,23 +290,41 @@
     cursor: default;
     transition: var(--panel-transition-speed) transform ease-in-out;
     float: left;
-    top:0;
-    left:0;
+  }
+    /* Left side panel */
+  .panel.panel-left .panel-container {
+    top: 0;
+    left: 0;
     width: var(--panel-width);
     height: 100%;
     transform: translate(calc(var(--panel-width) * -1), 0);
-    box-shadow: 3px 0 5px rgba(0,0,0,.2);
-    border-right: 1px solid rgba(0,0,0,.2);
+    box-shadow: 3px 0 5px rgba(0, 0, 0, 0.2);
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
   }
   .panel.panel-left.panel-inactive .panel-container {
     transform: translate(calc(var(--panel-width) * -1), 0) !important;
   }
+  /* Right side panel */
+  .panel.panel-right .panel-container {
+    top: 0;
+    right: 0;
+    width: var(--panel-width);
+    height: 100%;
+    transform: translate(var(--panel-width), 0);
+    box-shadow: -3px 0 5px rgba(0, 0, 0, 0.2);
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .panel.panel-right.panel-inactive .panel-container {
+    transform: translate(var(--panel-width), 0) !important;
+  }
+  /* Expand panel */
   .panel.panel-active .panel-container {
     transform: translate(0, 0);
   }
   .panel .panel-container .panel-contents {
     margin: 1rem;
   }
+  /* Panel Close Button */
   .panel-close-button {
     position: absolute;
     width: 1em;
@@ -317,6 +336,12 @@
     cursor: pointer;
     text-align: center;
     font: normal 1em/1em Arial;
+  }
+
+  #external-schema button {
+    display: block;
+    width: 100%;
+    text-align: left;
   }
 
   /* Busy Overlay */

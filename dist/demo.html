@@ -43,10 +43,8 @@
         <button id="download_example" title="Download current setup"><i class="icon-download"></i>Download</button>
         <button id="upload_example" title="Upload previously saved setup"><i class="icon-upload"></i>Upload</button>
         <input type="file" accept=".json" />
-
-        <div class="select">
-          <select id="external-schema"></select>
-        </div>
+        <button id="files-used" title="List of external JavaScript and CSS files used in current example"><i class="icon-info-circled"></i></button>
+        <button id="show-load-examples" title="Load Example"><i class="icon-upload"></i>Load Example</button>
       </nav>
 
       <nav class="tabs">
@@ -519,6 +517,16 @@ console.log('jseditor',jseditor);</div>
               </label>
             </div>
           </details>
+        </div>
+        <div class="panel-close-button" title="Close panel">&times;</div>
+      </div>
+    </div>
+
+    <div id="slideright-panel" class="panel panel-right">
+      <div class="panel-container">
+        <div class="panel-contents">
+<!--            <select id="external-schema" size="30" style="width: 100%;"></select>   -->
+<div id="external-schema"></div>
         </div>
         <div class="panel-close-button" title="Close panel">&times;</div>
       </div>
