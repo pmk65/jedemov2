@@ -1,0 +1,44 @@
+{
+  "title": "Dynamic Steps",
+  "schema": {
+    "title": "Output",
+    "type": "object",
+    "required": [
+      "step1"
+    ],
+    "properties": {
+      "step1": {
+        "type": "string",
+        "default": "",
+        "propertyOrder": 10,
+        "enum": [
+          "",
+          "football",
+          "formula1"
+        ]
+      },
+      "step2": {
+        "type": "string",
+        "default": "",
+        "propertyOrder": 20
+      },
+      "step3": {
+        "type": "string",
+        "default": "",
+        "propertyOrder": 30
+      },
+      "step4": {
+        "type": "string",
+        "default": "",
+        "propertyOrder": 40
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "display_required_only": 1
+  },
+  "code": "var keyword_mapping = {\n  \"football\": {\n    \"title\": \"Football label\",\n    \"enum\": [\"teams\", \"ball\", \"goal\"],\n    \"enum_titles\": [\"Team\", \"Ball\", \"Goal\"],\n  },\n  \"formula1\": {\n    \"enum\": [\"car\", \"racing\", \"driver\"],\n  },\n  \"car\": {\n    \"title\": \"Car Model\",\n    \"enum\": [\"audi\", \"mercedes\", \"toyota\"],\n  },\n  \"driver\": {\n    \"title\": \"F1 Driver\",\n    \"enum\": [\"magnussen\", \"senna\", \"hamilton\"]\n  },\n  \"teams\": {\n    \"title\": \"Football Team\",\n    \"enum\": [\"tottenham\", \"barcelona\", \"manchester united\"]\n  },\n  \"ball\": {\n    \"enum\": [\"football_\", \"tennisball\", \"handball\"]\n  },\n  \"magnussen\": {\n    \"enum\": [\"jan\", \"kevin\"]\n  }\n\n};\n\nvar chainedFields = ['step1', 'step2', 'step3', 'step4'];\n\nvar createFieldsChain = function(fields, mapping) {\n\n  var updateChain = function(currentField, nextField) {\n    var ed = jseditor.getEditor('root.' + currentField);\n    if (!ed) return;\n\n    var val = ed.getValue(),\n    parent = ed.parent,\n    map = mapping[val];\n\n    if (map !== undefined) {\n      var title = map.title || val,\n      enu = map[\"enum\"],\n      enum_titles = map.enum_titles || enu,\n      poSchema = parent.original_schema.properties[nextField],\n      pSchema = parent.schema.properties[nextField];\n\n      poSchema.title = pSchema.title = title;\n      poSchema[\"enum\"] = pSchema[\"enum\"] = enu;\n\n      if (!poSchema.options) {\n        poSchema.options = pSchema.options = {};\n      }\n      poSchema.options.enum_titles = pSchema.options.enum_titles = enum_titles;\n    }\n\n    parent.removeObjectProperty(nextField);\n    //delete the cache\n    delete parent.cached_editors[nextField];\n\n    if (val === '' || map === undefined) return;\n\n    parent.addObjectProperty(nextField);\n\n  };\n\n  for (var i = 0; i < fields.length-1; i++) {\n    jseditor.watch('root.' + fields[i], updateChain.bind(null, fields[i], fields[i+1]));\n  }\n\n};\n\njseditor.on('ready', function() {\n  createFieldsChain(chainedFields, keyword_mapping);\n});",
+  "style": "",
+  "desc": "<p>Dynamic Steps</p>"
+}

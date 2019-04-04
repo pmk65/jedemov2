@@ -25,6 +25,14 @@
   <!-- Split.js - https://github.com/nathancahill/split/ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.5.10/split.min.js"></script>
 
+  <script>
+  // Here you can override the default external library mappings for testing etc. if needed.
+/*  window.mappingOverride = {
+        jsoneditor: {
+          js: 'file://C:/GITHub/json-editor/dist/jsoneditor.js'
+        }
+      };*/
+  </script>
   <link rel="stylesheet" href="css/jsoneditor_demo.min.css" />
 </head>
 
@@ -49,7 +57,7 @@
 
       <nav class="tabs">
         <button data-content="#content1"><i class="icon-wpforms"></i>Form</button>
-        <button data-content="#content5"><i class="icon-laptop"></i>Output</button>
+        <button data-content="#content5"><i class="icon-laptop"></i>Output<i id="validationstatus" class="icon-certificate"></i></button>
         <button data-content="#content2" class="active"><i class="icon-keyboard"></i>Schema</button>
         <button data-content="#content3"><i class="icon-wrench"></i>JavaScript/CSS</button>
         <button data-content="#content4"><i class="icon-help-circled"></i>Help</button>
@@ -193,7 +201,7 @@
 
   <section id="content3" class="content-row">
     <div class="inner-row">
-      <h2>JavaScript & CSS</h2>
+      <h2 draggable="false">JavaScript & CSS</h2>
 
       <div class="split-parent">
 
@@ -227,7 +235,7 @@ console.log('jseditor',jseditor);</div>
 
   <section id="content4" class="content-row">
     <div class="inner-row">
-      <h2>Help</h2>
+      <h2 draggable="false">Help</h2>
       <div id="example-description"></div>
       <h3>About</h3>
       <p>The <strong>JSON-Editor Interactive Playground</strong> is a page where you can test various setups for the OpenSource JSON Schema parser <a href="https://github.com/json-editor/json-editor#json-editor" target="_blank" rel="noopener noreferrer" title="JSON-Editor"><i class="icon-github-circled"></i>JSON-Editor</a></p>
@@ -254,13 +262,10 @@ console.log('jseditor',jseditor);</div>
         <li><strong><i class="icon-cog"></i>Generate Form</strong> - Generates the output form from the schema.</li>
         <li><strong><i class="icon-link"></i>Direct Link</strong> - Create direct link URL. (A 'shortUrl' will be copied to clipboard)</li>
         <li><strong><i class="icon-unlink"></i>Reset Form</strong> - Resets the playground and clear query parameters.</li>
-        <li><strong><i class="icon-download"></i>Download</strong> - Download the current Schema, Start Values, JavaScript and JSON-Editor settings locally in Playground JSON format.<br><em>Note: If you made a good example that describes functionality not covered in the existing examples, please upload it to the <a href="https://github.com/pmk65/jedemov2/issues/new?title=New Example&body=Write description of your example here." target="_blank" rel="noopener noreferrer" title="Upload example on GitHub"><i class="icon-github-circled"></i>Github page.</a></em></li>
+        <li><strong><i class="icon-download"></i>Download</strong> - Download the current Schema, Start Values, JavaScript and JSON-Editor settings locally in Playground JSON format.<br><em>Note: If you made a good example that describes functionality not covered in the existing examples, please upload it to the <a href="https://github.com/pmk65/jedemov2/issues/new?title=New+Example&body=Write+description+of+your+example+here." target="_blank" rel="noopener noreferrer" title="Upload example on GitHub"><i class="icon-github-circled"></i>Github page.</a></em></li>
         <li><strong><i class="icon-upload"></i>Upload</strong> - Upload a local JSON file in example format, into the Playground. You can also <strong>Drag'n'Drop</strong> the file directly onto the Playground. (Not available on Form Tab)</li>
-      </ul>
-
-      <h4>Other</h4>
-      <ul>
-        <li><strong>Load Example</strong> - Loads a predefined example.</li>
+        <li><strong><i class="icon-info-circled"></i></strong> - Display List of external JavaScript and CSS files used in current example.</li>
+        <li><strong>Load Example</strong> - Opens panel with list of predefined examples to load.</li>
       </ul>
 
       <h3>Custom JavaScript</h3>
@@ -472,7 +477,7 @@ console.log('jseditor',jseditor);</div>
             </div>
           </details>
 
-          <details>
+          <details open>
             <summary>Include External Libraries</summary>
             <div id="ext_lib">
               <label>
@@ -525,8 +530,7 @@ console.log('jseditor',jseditor);</div>
     <div id="slideright-panel" class="panel panel-right">
       <div class="panel-container">
         <div class="panel-contents">
-<!--            <select id="external-schema" size="30" style="width: 100%;"></select>   -->
-<div id="external-schema"></div>
+          <div id="external-schema"></div>
         </div>
         <div class="panel-close-button" title="Close panel">&times;</div>
       </div>

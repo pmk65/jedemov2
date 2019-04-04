@@ -1,7 +1,7 @@
 /**
  * @name JSON-Editor Interactive Playground
  * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
- * @version 0.6.0
+ * @version {{ VERSION }}
  * @author Peter Klein
  * @see https://github.com/pmk65/jedemov2/
  * @license MIT
@@ -12,6 +12,10 @@
 
      // value -> CSS/JavaScript mapping for external files
     var mapping = {
+      jsoneditor: {
+        css: 'https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css',
+        js: 'https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js'
+      },
       theme: {
         bootstrap2: {
           css: 'https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css'
@@ -154,13 +158,33 @@
       }
     };
 
+    var extendObj = function(destination) {
+      var source, i, property;
+      for (i=1; i<arguments.length; i++) {
+        source = arguments[i];
+        for (property in source) {
+          if (!source.hasOwnProperty(property)) continue;
+          if (source[property] && typeof source[property] == 'object' && source[property] !== null) {
+            if (!destination.hasOwnProperty(property)) destination[property] = {};
+            extendObj(destination[property], source[property]);
+          }
+          else {
+            destination[property] = source[property];
+          }
+        }
+      }
+      return destination;
+    };
+
+    if (window.mappingOverride && typeof window.mappingOverride == 'object' && !Array.isArray(window.mappingOverride)) {
+      extendObj(mapping, window.mappingOverride);
+    }
+
     // Theme to use in ACE editor instances
-    //var aceTheme = 'ace/theme/github';
-    //var aceTheme = 'ace/theme/vibrant_ink';
     var aceTheme = 'ace/theme/monokai';
 
     // ACE Editor Beautify extension
-    var aceBeautify = window.ace.require("ace/ext/beautify"); // get reference to extension
+    var aceBeautify = window.ace.require("ace/ext/beautify");
 
     // ACE Editor placeholders
     var jeEditSchema = document.querySelector('#schema');
@@ -212,6 +236,8 @@
 
     var jeFileUpload = document.querySelector('input[type="file"]');
     var jeDropZone = document.querySelector('#dropzone'); // Drag'n'Drop upload zone
+
+    var jeValidationStatus = document.querySelector('#validationstatus');
 
     // Split panels
     var jeSplitCfg = {
@@ -317,8 +343,11 @@
           src.push(tags[tag].src || tags[tag].href);
         }
       }
-      copyToClipboard(src.sort().join('\n'));
-      jeModalContent.innerHTML = '<h5>List of external JavaScript and CSS files used in current example:</h5>' + src.sort().join('<br>');
+      var listToClipboardHandler = function(val) {
+        jeModalContent.innerText = copyToClipboard(val) ? 'List copied to clipboard.' : 'Error: Copy to clipboard failed!';
+      };
+      jeModalContent.innerHTML = '<h5>List of external JavaScript and CSS files used in current example:</h5>' + src.sort().join('<br>') + '<br><br><div class="cbreq"><button id="cbreq-list">Copy list to Clipboard</button></div>';
+      jeModalContent.querySelector('#cbreq-list').addEventListener('click', listToClipboardHandler.bind(null, src.sort().join('\n')), {once: true});
       toggleModal();
     };
 
@@ -413,6 +442,9 @@
         aceOutputEditor.resize();
         // Show validation errors if there are any
         var val = validation_errors.length ? validation_errors : {'schema': 'valid'};
+        jeValidationStatus.classList.remove('schema-invalid');
+        if (validation_errors.length) jeValidationStatus.classList.add('schema-invalid');
+
         aceValidateEditor.setValue(JSON.stringify(val, null, 2));
         aceValidateEditor.session.getSelection().clearSelection();
         aceValidateEditor.resize();
@@ -785,8 +817,8 @@
                 'body {margin:0;padding:0;font: normal .9em/1.2 Arial;background-color:#02577a !important;}',
                 '.inner-row {display: grid;background-color: #fff;position: relative;max-width: 1200px;left:50%;transform: translate(-50%,0);padding: 1rem 2rem;box-shadow: 2px 0 5px rgba(0,0,0,.2);margin:0 0 3rem 0;}',
               '</style>',
-              '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css" />',
-              '<script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"><\/script>',
+              '<link rel="stylesheet" href="' + mapping.jsoneditor.css + '" />',
+              '<script src="' + mapping.jsoneditor.js + '"><\/script>',
               buildExtFiles(options, code),
               buildEditorOptions(options),
             '</head>',
@@ -929,7 +961,8 @@
 
     // Get index of examples and populate selectbox with results
     var getExamplesIndex = function() {
-      var out = '', examplesSort = function(x, y) { return (x.title > y.title) - (x.title < y.title); };
+      var out = '<h2>JSON-Editor Example</h2>',
+          examplesSort = function(x, y) { return (x.title > y.title) - (x.title < y.title); };
       loadFile('examples/index.json', 'application/json', function(cfg) {
         if (isInvalidJson(cfg)) {
           jeShowLoadExample.disabled = true;
@@ -945,20 +978,20 @@
             out += '</details>';
 
           });
+          jeSchemaLoad.innerHTML = out;
         }
-        jeSchemaLoad.innerHTML = out;
       });
     };
 
     // Extend expand/collapse for details/summary tags, so that only one open is allowed
-    var summaryOpenHandler = function(e) {
+/*    var summaryOpenHandler = function(e) {
       if (e.target.nodeName == 'SUMMARY') {
         var details = this.querySelectorAll('details');
         for (var i=0;i<details.length;i++) {
           if (details[i] != e.target.parentNode) details[i].removeAttribute('open');
         }
       }
-    };
+    };*/
 
     // Handler for buttons in editor slidedown panel
     var editorPanelButtonHandler = function(e) {
@@ -1186,7 +1219,7 @@
     jeFileUpload.addEventListener('change', uploadExampleHandler, false);
 
     // Set event handler for details/summary tags
-    jeCfg.addEventListener('click', summaryOpenHandler, false);
+    //jeCfg.addEventListener('click', summaryOpenHandler, false);
 
     // Set Drag'n'Drop handlers
     if (window.File && window.FileReader && window.FileList && window.Blob) {

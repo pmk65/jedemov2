@@ -171,6 +171,18 @@
     height: 0;
   }
 
+  nav.tabs #validationstatus {
+    font-size: 80%;
+    color: #00cc00;
+  }
+  nav.tabs #validationstatus.schema-invalid {
+    color: #cc0000;
+  }
+
+  button i {
+    pointer-events: none;
+  }
+
   /* Modal Popup */
   .modal {
     position: fixed;
@@ -341,6 +353,7 @@
   #external-schema button {
     display: block;
     width: 100%;
+    cursor: pointer; 
     text-align: left;
   }
 
@@ -386,7 +399,7 @@
   .links button {
     outline: none;
     border: 1px solid #444;
-    padding: .3rem .5rem;
+    padding: .4rem .5rem;
     cursor: pointer;
     border-radius: .3rem;
     background-color: var(--tab-bgcolor1);
