@@ -154,6 +154,9 @@
         },
         lib_jquery: {
           js: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js'
+        },
+        lib_dompurify: {
+          js: 'https://cdn.jsdelivr.net/npm/dompurify@latest/dist/purify.min.js'
         }
       }
     };

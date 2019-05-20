@@ -33,6 +33,14 @@
       {
         "title": "Name (oneOf)",
         "file": "oneof-name"
+      },
+      {
+        "title": "Bookstore Schema",
+        "file": "bookstore"
+      },
+      {
+        "title": "JSON Representation of a Europass Document",
+        "file": "europass"
       }
     ]
   },
