@@ -1,14 +1,14 @@
 {
-  "title": "Europass",
-  "schema": {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "id": "http://europass.cedefop.europa.eu/json/schema/v3.3.0/Europass_JSONSchema.json",
-    "description": "A JSON Representation of a Europass Document corresponding to Europass XML 3.3.0",
-    "type": "object",
-    "definitions": {
-      "documentTypeType": {
-        "type": "string",
-        "enum": [
+  "title":"Europass",
+  "schema":{
+    "$schema":"http://json-schema.org/draft-04/schema",
+    "id":"http://europass.cedefop.europa.eu/json/schema/v3.3.0/Europass_JSONSchema.json",
+    "description":"A JSON Representation of a Europass Document corresponding to Europass XML 3.3.0",
+    "type":"object",
+    "definitions":{
+      "documentTypeType":{
+        "type":"string",
+        "enum":[
           "ECV_ESP",
           "ESP",
           "ECV",
@@ -17,26 +17,26 @@
           "EX"
         ]
       },
-      "documentBundleType": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/documentTypeType"
+      "documentBundleType":{
+        "type":"array",
+        "items":{
+          "$ref":"#/definitions/documentTypeType"
         }
       },
-      "preferencesType": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
+      "preferencesType":{
+        "type":"array",
+        "items":{
+          "type":"object",
+          "properties":{
+            "name":{
+              "type":"string"
             },
-            "show": {
-              "type": "boolean"
+            "show":{
+              "type":"boolean"
             },
-            "order": {
-              "type": "string",
-              "enum": [
+            "order":{
+              "type":"string",
+              "enum":[
                 "FirstName Surname",
                 "Surname FirstName",
                 "Title FirstName Surname",
@@ -57,9 +57,9 @@
                 "Place Date"
               ]
             },
-            "format": {
-              "type": "string",
-              "enum": [
+            "format":{
+              "type":"string",
+              "enum":[
                 "s&#xa;z m (c)",
                 "s, z m (c)",
                 "s,m z c",
@@ -83,32 +83,32 @@
                 "numeric/short"
               ]
             },
-            "position": {
-              "type": "string",
-              "enum": [
+            "position":{
+              "type":"string",
+              "enum":[
                 "left-align",
                 "right-align",
                 "middle-align"
               ]
             },
-            "justify": {
-              "type": "boolean"
+            "justify":{
+              "type":"boolean"
             }
           },
-          "additionalProperties": false
+          "additionalProperties":false
         },
-        "minItems": 0
+        "minItems":0
       },
-      "personNameType": {
-        "description": "Describes the name of a person. Consists of a title (optionally), a first-name and surname.",
-        "type": "object",
-        "properties": {
-          "Title": {
-            "type": "object",
-            "properties": {
-              "Code": {
-                "type": "string",
-                "enum": [
+      "personNameType":{
+        "description":"Describes the name of a person. Consists of a title (optionally), a first-name and surname.",
+        "type":"object",
+        "properties":{
+          "Title":{
+            "type":"object",
+            "properties":{
+              "Code":{
+                "type":"string",
+                "enum":[
                   "mr",
                   "ms",
                   "mrs",
@@ -116,302 +116,302 @@
                   "dr"
                 ]
               },
-              "Label": {
-                "type": "string"
+              "Label":{
+                "type":"string"
               }
             }
           },
-          "FirstName": {
-            "type": "string"
+          "FirstName":{
+            "type":"string"
           },
-          "Surname": {
-            "type": "string"
+          "Surname":{
+            "type":"string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "structuredDateType": {
-        "type": "object",
-        "properties": {
-          "Year": {
-            "type": "number"
+      "structuredDateType":{
+        "type":"object",
+        "properties":{
+          "Year":{
+            "type":"number"
           },
-          "Month": {
-            "type": "number"
+          "Month":{
+            "type":"number"
           },
-          "Day": {
-            "type": "number"
+          "Day":{
+            "type":"number"
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "countryType": {
-        "description": "Defines a country. The country is described by a code and a label. E.g. code: FR, label: France.",
-        "type": "object",
-        "properties": {
-          "Code": {
-            "description": "Defines the country code type. The type is defined in the included schema 'EuropassISOCountries'. ",
-            "type": "string",
-            "pattern": "^[A-Z]{2}$"
+      "countryType":{
+        "description":"Defines a country. The country is described by a code and a label. E.g. code: FR, label: France.",
+        "type":"object",
+        "properties":{
+          "Code":{
+            "description":"Defines the country code type. The type is defined in the included schema 'EuropassISOCountries'. ",
+            "type":"string",
+            "pattern":"^[A-Z]{2}$"
           },
-          "Label": {
-            "type": "string"
+          "Label":{
+            "type":"string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "occupationalFieldType": {
-        "description": "The occupational field is described by a code and a label. E.g. code: 41150, label: Secretary.",
-        "type": "object",
-        "properties": {
-          "Code": {
-            "type": "string",
-            "pattern": "^[0-9]{5}$"
+      "occupationalFieldType":{
+        "description":"The occupational field is described by a code and a label. E.g. code: 41150, label: Secretary.",
+        "type":"object",
+        "properties":{
+          "Code":{
+            "type":"string",
+            "pattern":"^[0-9]{5}$"
           },
-          "Label": {
-            "type": "string"
+          "Label":{
+            "type":"string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "periodType": {
-        "type": "object",
-        "properties": {
-          "Period": {
-            "type": "object",
-            "properties": {
-              "From": {
-                "$ref": "#/definitions/structuredDateType"
+      "periodType":{
+        "type":"object",
+        "properties":{
+          "Period":{
+            "type":"object",
+            "properties":{
+              "From":{
+                "$ref":"#/definitions/structuredDateType"
               },
-              "To": {
-                "$ref": "#/definitions/structuredDateType"
+              "To":{
+                "$ref":"#/definitions/structuredDateType"
               },
-              "Current": {
-                "type": "boolean"
+              "Current":{
+                "type":"boolean"
               }
             },
-            "additionalProperties": false
+            "additionalProperties":false
           }
         }
       },
-      "fileDataType": {
-        "type": "object",
-        "properties": {
-          "Name": {
-            "type": "string"
+      "fileDataType":{
+        "type":"object",
+        "properties":{
+          "Name":{
+            "type":"string"
           },
-          "Data": {
-            "type": "string",
-            "contentEncoding": "base64"
+          "Data":{
+            "type":"string",
+            "contentEncoding":"base64"
           },
-          "Metadata": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "Key": {
-                  "type": "string"
+          "Metadata":{
+            "type":"array",
+            "items":{
+              "type":"object",
+              "properties":{
+                "Key":{
+                  "type":"string"
                 },
-                "Value": {
-                  "type": "string"
+                "Value":{
+                  "type":"string"
                 }
               },
-              "additionalProperties": false
+              "additionalProperties":false
             },
-            "minItems": 0
+            "minItems":0
           },
-          "Id": {
-            "type": "string"
+          "Id":{
+            "type":"string"
           }
         }
       },
-      "addressType": {
-        "type": "object",
-        "properties": {
-          "AddressLine": {
-            "type": "string"
+      "addressType":{
+        "type":"object",
+        "properties":{
+          "AddressLine":{
+            "type":"string"
           },
-          "AddressLine2": {
-            "type": "string"
+          "AddressLine2":{
+            "type":"string"
           },
-          "PostalCode": {
-            "type": "string"
+          "PostalCode":{
+            "type":"string"
           },
-          "Municipality": {
-            "type": "string"
+          "Municipality":{
+            "type":"string"
           },
-          "Country": {
-            "$ref": "#/definitions/countryType"
+          "Country":{
+            "$ref":"#/definitions/countryType"
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "websiteType": {
-        "type": "object",
-        "properties": {
-          "Contact": {
-            "type": "string"
+      "websiteType":{
+        "type":"object",
+        "properties":{
+          "Contact":{
+            "type":"string"
           },
-          "Use": {
-            "type": "object",
-            "properties": {
-              "Code": {
-                "type": "string",
-                "enum": [
+          "Use":{
+            "type":"object",
+            "properties":{
+              "Code":{
+                "type":"string",
+                "enum":[
                   "personal",
                   "business",
                   "blog",
                   "portfolio"
                 ]
               },
-              "Label": {
-                "type": "string"
+              "Label":{
+                "type":"string"
               }
             },
-            "additionalProperties": false
+            "additionalProperties":false
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "organisationalWebsiteType": {
-        "type": "object",
-        "properties": {
-          "Contact": {
-            "type": "string"
+      "organisationalWebsiteType":{
+        "type":"object",
+        "properties":{
+          "Contact":{
+            "type":"string"
           },
-          "Use": {
-            "type": "object",
-            "properties": {
-              "Code": {
-                "type": "string",
-                "enum": [
+          "Use":{
+            "type":"object",
+            "properties":{
+              "Code":{
+                "type":"string",
+                "enum":[
                   "business"
                 ]
               }
             },
-            "additionalProperties": false
+            "additionalProperties":false
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "organisationType": {
-        "type": "object",
-        "properties": {
-          "Name": {
-            "type": "string"
+      "organisationType":{
+        "type":"object",
+        "properties":{
+          "Name":{
+            "type":"string"
           },
-          "ContactInfo": {
-            "type": "object",
-            "properties": {
-              "Address": {
-                "type": "object",
-                "properties": {
-                  "Contact": {
-                    "$ref": "#/definitions/addressType"
+          "ContactInfo":{
+            "type":"object",
+            "properties":{
+              "Address":{
+                "type":"object",
+                "properties":{
+                  "Contact":{
+                    "$ref":"#/definitions/addressType"
                   }
                 }
               },
-              "Website": {
-                "$ref": "#/definitions/organisationalWebsiteType"
+              "Website":{
+                "$ref":"#/definitions/organisationalWebsiteType"
               }
             }
           }
         }
       },
-      "referenceToListType": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "idref": {
-              "type": "string"
+      "referenceToListType":{
+        "type":"array",
+        "items":{
+          "type":"object",
+          "properties":{
+            "idref":{
+              "type":"string"
             }
           }
         },
-        "minItems": 0
+        "minItems":0
       },
-      "sectionReferenceToListType": {
-        "type": "object",
-        "properties": {
-          "ReferenceTo": {
-            "$ref": "#/definitions/referenceToListType"
+      "sectionReferenceToListType":{
+        "type":"object",
+        "properties":{
+          "ReferenceTo":{
+            "$ref":"#/definitions/referenceToListType"
           }
         }
       },
-      "genericDocumentationType": {
-        "type": "object",
-        "properties": {
-          "Heading": {
-            "$ref": "#/definitions/documentationHeadingType"
+      "genericDocumentationType":{
+        "type":"object",
+        "properties":{
+          "Heading":{
+            "$ref":"#/definitions/documentationHeadingType"
           },
-          "InterDocument": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "ref": {
-                  "$ref": "#/definitions/documentTypeType"
+          "InterDocument":{
+            "type":"array",
+            "items":{
+              "type":"object",
+              "properties":{
+                "ref":{
+                  "$ref":"#/definitions/documentTypeType"
                 }
               }
             },
-            "minItems": 0
+            "minItems":0
           },
-          "IntraDocument": {
-            "$ref": "#/definitions/referenceToListType"
+          "IntraDocument":{
+            "$ref":"#/definitions/referenceToListType"
           },
-          "ExtraDocument": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "Description": {
-                  "type": "string"
+          "ExtraDocument":{
+            "type":"array",
+            "items":{
+              "type":"object",
+              "properties":{
+                "Description":{
+                  "type":"string"
                 },
-                "href": {
-                  "type": "string"
+                "href":{
+                  "type":"string"
                 }
               }
             },
-            "minItems": 0
+            "minItems":0
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "languageNameType": {
-        "description": "The mother language code is defined in the included schema 'EuropassISOLanguages'.",
-        "type": "object",
-        "properties": {
-          "Description": {
-            "type": "object",
-            "properties": {
-              "Code": {
-                "type": "string"
+      "languageNameType":{
+        "description":"The mother language code is defined in the included schema 'EuropassISOLanguages'.",
+        "type":"object",
+        "properties":{
+          "Description":{
+            "type":"object",
+            "properties":{
+              "Code":{
+                "type":"string"
               },
-              "Label": {
-                "type": "string"
+              "Label":{
+                "type":"string"
               }
             },
-            "additionalProperties": false
+            "additionalProperties":false
           }
         }
       },
-      "genericSkillType": {
-        "allOf": [
+      "genericSkillType":{
+        "allOf":[
           {
-            "$ref": "#/definitions/sectionReferenceToListType"
+            "$ref":"#/definitions/sectionReferenceToListType"
           },
           {
-            "properties": {
-              "Description": {
-                "type": "string"
+            "properties":{
+              "Description":{
+                "type":"string"
               }
             }
           }
         ]
       },
-      "cefrLevelType": {
-        "type": "string",
-        "enum": [
+      "cefrLevelType":{
+        "type":"string",
+        "enum":[
           "A1",
           "A2",
           "B1",
@@ -420,244 +420,244 @@
           "C2"
         ]
       },
-      "ictLevelType": {
-        "type": "string",
-        "enum": [
+      "ictLevelType":{
+        "type":"string",
+        "enum":[
           "A",
           "B",
           "C"
         ]
       },
-      "basicExperienceType": {
-        "type": "object",
-        "allOf": [
+      "basicExperienceType":{
+        "type":"object",
+        "allOf":[
           {
-            "$ref": "#/definitions/periodType"
+            "$ref":"#/definitions/periodType"
           },
           {
-            "properties": {
-              "Description": {
-                "type": "string"
+            "properties":{
+              "Description":{
+                "type":"string"
               }
             }
           },
           {
-            "$ref": "#/definitions/sectionReferenceToListType"
+            "$ref":"#/definitions/sectionReferenceToListType"
           }
         ]
       },
-      "openingSalutationType": {
-        "description": "Defines the opening salutation in a letter. It is described by a code (optional) and a label. E.g. code: salutation_2, label: Dear Mrs.",
-        "type": "object",
-        "properties": {
-          "Code": {
-            "type": "string",
-            "pattern": "^opening-salut-[1-9]{1}([0-9]{1})?(-impersonal)?$"
+      "openingSalutationType":{
+        "description":"Defines the opening salutation in a letter. It is described by a code (optional) and a label. E.g. code: salutation_2, label: Dear Mrs.",
+        "type":"object",
+        "properties":{
+          "Code":{
+            "type":"string",
+            "pattern":"^opening-salut-[1-9]{1}([0-9]{1})?(-impersonal)?$"
           },
-          "Label": {
-            "type": "string"
+          "Label":{
+            "type":"string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "closingSalutationType": {
-        "description": "Defines the closing salutation in a letter. It is described by a code (optional) and a label. E.g. code: closing_salutation_2, label: Your's faithfully.",
-        "type": "object",
-        "properties": {
-          "Code": {
-            "type": "string",
-            "pattern": "^closing-salut-[1-9]{1}([0-9]{1})?$"
+      "closingSalutationType":{
+        "description":"Defines the closing salutation in a letter. It is described by a code (optional) and a label. E.g. code: closing_salutation_2, label: Your's faithfully.",
+        "type":"object",
+        "properties":{
+          "Code":{
+            "type":"string",
+            "pattern":"^closing-salut-[1-9]{1}([0-9]{1})?$"
           },
-          "Label": {
-            "type": "string"
+          "Label":{
+            "type":"string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       },
-      "documentationHeadingType": {
-        "description": "Defines the label to indicate that there are documents accompanying a letter. It is described by a code (optional) and a label. E.g. code: heading_1, label: Enclosed.",
-        "type": "object",
-        "properties": {
-          "Code": {
-            "type": "string",
-            "pattern": "^heading_[1-9]{1}$"
+      "documentationHeadingType":{
+        "description":"Defines the label to indicate that there are documents accompanying a letter. It is described by a code (optional) and a label. E.g. code: heading_1, label: Enclosed.",
+        "type":"object",
+        "properties":{
+          "Code":{
+            "type":"string",
+            "pattern":"^heading_[1-9]{1}$"
           },
-          "Label": {
-            "type": "string"
+          "Label":{
+            "type":"string"
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       }
     },
-    "additionalProperties": false,
-    "properties": {
-      "SkillsPassport": {
-        "type": "object",
-        "description": "Defines a sequence of elements that fully describe a Europass XML document.",
-        "properties": {
-          "Locale": {
-            "title": "the language of this document",
-            "type": "string",
-            "pattern": "^[a-z]{2}$"
+    "additionalProperties":false,
+    "properties":{
+      "SkillsPassport":{
+        "type":"object",
+        "description":"Defines a sequence of elements that fully describe a Europass XML document.",
+        "properties":{
+          "Locale":{
+            "title":"the language of this document",
+            "type":"string",
+            "pattern":"^[a-z]{2}$"
           },
-          "DocumentInfo": {
-            "title": "metadata information about this document",
-            "type": "object",
-            "properties": {
-              "DocumentType": {
-                "$ref": "#/definitions/documentTypeType"
+          "DocumentInfo":{
+            "title":"metadata information about this document",
+            "type":"object",
+            "properties":{
+              "DocumentType":{
+                "$ref":"#/definitions/documentTypeType"
               },
-              "Document": {
-                "$ref": "#/definitions/documentBundleType"
+              "Document":{
+                "$ref":"#/definitions/documentBundleType"
               },
-              "CreationDate": {
-                "type": "string"
+              "CreationDate":{
+                "type":"string"
               },
-              "LastUpdateDate": {
-                "type": "string"
+              "LastUpdateDate":{
+                "type":"string"
               },
-              "XSDVersion": {
-                "type": "string",
-                "pattern": "^V[0-9]\\.[0-9]$"
+              "XSDVersion":{
+                "type":"string",
+                "pattern":"^V[0-9]\\.[0-9]$"
               },
-              "Generator": {
-                "type": "string"
+              "Generator":{
+                "type":"string"
               },
-              "Comment": {
-                "type": "string"
+              "Comment":{
+                "type":"string"
               },
-              "EuropassLogo": {
-                "type": "boolean"
+              "EuropassLogo":{
+                "type":"boolean"
               }
             },
-            "additionalProperties": false
+            "additionalProperties":false
           },
-          "PrintingPreferences": {
-            "title": "Printing preferences",
-            "type": "object",
-            "anyOf": [
+          "PrintingPreferences":{
+            "title":"Printing preferences",
+            "type":"object",
+            "anyOf":[
               {
-                "type": "object",
-                "properties": {
-                  "ECV": {
-                    "$ref": "#/definitions/preferencesType"
+                "type":"object",
+                "properties":{
+                  "ECV":{
+                    "$ref":"#/definitions/preferencesType"
                   }
                 }
               },
               {
-                "type": "object",
-                "properties": {
-                  "ELP": {
-                    "$ref": "#/definitions/preferencesType"
+                "type":"object",
+                "properties":{
+                  "ELP":{
+                    "$ref":"#/definitions/preferencesType"
                   }
                 }
               },
               {
-                "type": "object",
-                "properties": {
-                  "ECL": {
-                    "$ref": "#/definitions/preferencesType"
+                "type":"object",
+                "properties":{
+                  "ECL":{
+                    "$ref":"#/definitions/preferencesType"
                   }
                 }
               },
               {
-                "type": "object",
-                "properties": {
-                  "ESP": {
-                    "$ref": "#/definitions/preferencesType"
+                "type":"object",
+                "properties":{
+                  "ESP":{
+                    "$ref":"#/definitions/preferencesType"
                   }
                 }
               }
             ]
           },
-          "LearnerInfo": {
-            "type": "object",
-            "properties": {
-              "Identification": {
-                "title": "Personal Information",
-                "description": "Contains the personal information of the individual, which includes at least the name, and contact information, demographics and photo.",
-                "type": "object",
-                "properties": {
-                  "PersonName": {
-                    "$ref": "#/definitions/personNameType"
+          "LearnerInfo":{
+            "type":"object",
+            "properties":{
+              "Identification":{
+                "title":"Personal Information",
+                "description":"Contains the personal information of the individual, which includes at least the name, and contact information, demographics and photo.",
+                "type":"object",
+                "properties":{
+                  "PersonName":{
+                    "$ref":"#/definitions/personNameType"
                   },
-                  "ContactInfo": {
-                    "description": "Contains all the available methods of contacting individual.",
-                    "type": "object",
-                    "properties": {
-                      "Address": {
-                        "description": "Defines the residence address of an individual.",
-                        "type": "object",
-                        "properties": {
-                          "Contact": {
-                            "$ref": "#/definitions/addressType"
+                  "ContactInfo":{
+                    "description":"Contains all the available methods of contacting individual.",
+                    "type":"object",
+                    "properties":{
+                      "Address":{
+                        "description":"Defines the residence address of an individual.",
+                        "type":"object",
+                        "properties":{
+                          "Contact":{
+                            "$ref":"#/definitions/addressType"
                           }
                         },
-                        "additionalProperties": false
+                        "additionalProperties":false
                       },
-                      "Email": {
-                        "description": "Defines the email address of an individual.",
-                        "type": "object",
-                        "properties": {
-                          "Contact": {
-                            "type": "string"
+                      "Email":{
+                        "description":"Defines the email address of an individual.",
+                        "type":"object",
+                        "properties":{
+                          "Contact":{
+                            "type":"string"
                           }
                         },
-                        "additionalProperties": false
+                        "additionalProperties":false
                       },
-                      "Telephone": {
-                        "description": "Lists the telephone numbers owned by the individual.",
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "Contact": {
-                              "type": "string"
+                      "Telephone":{
+                        "description":"Lists the telephone numbers owned by the individual.",
+                        "type":"array",
+                        "items":{
+                          "type":"object",
+                          "properties":{
+                            "Contact":{
+                              "type":"string"
                             },
-                            "Use": {
-                              "type": "object",
-                              "properties": {
-                                "Code": {
-                                  "type": "string",
-                                  "enum": [
+                            "Use":{
+                              "type":"object",
+                              "properties":{
+                                "Code":{
+                                  "type":"string",
+                                  "enum":[
                                     "home",
                                     "work",
                                     "mobile"
                                   ]
                                 },
-                                "Label": {
-                                  "type": "string"
+                                "Label":{
+                                  "type":"string"
                                 }
                               }
                             }
                           },
-                          "additionalProperties": false
+                          "additionalProperties":false
                         },
-                        "minItems": 0
+                        "minItems":0
                       },
-                      "Website": {
-                        "description": "Lists the websites that are owned, built by or refer to the individual.",
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/websiteType"
+                      "Website":{
+                        "description":"Lists the websites that are owned, built by or refer to the individual.",
+                        "type":"array",
+                        "items":{
+                          "$ref":"#/definitions/websiteType"
                         },
-                        "minItems": 0
+                        "minItems":0
                       },
-                      "InstantMessaging": {
-                        "description": "Lists the instant messaging accounts numbers owned by the individual.",
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "Contact": {
-                              "type": "string"
+                      "InstantMessaging":{
+                        "description":"Lists the instant messaging accounts numbers owned by the individual.",
+                        "type":"array",
+                        "items":{
+                          "type":"object",
+                          "properties":{
+                            "Contact":{
+                              "type":"string"
                             },
-                            "Use": {
-                              "type": "object",
-                              "properties": {
-                                "Code": {
-                                  "type": "string",
-                                  "enum": [
+                            "Use":{
+                              "type":"object",
+                              "properties":{
+                                "Code":{
+                                  "type":"string",
+                                  "enum":[
                                     "gtalk",
                                     "skype",
                                     "icq",
@@ -666,72 +666,72 @@
                                     "yahoo"
                                   ]
                                 },
-                                "Label": {
-                                  "type": "string"
+                                "Label":{
+                                  "type":"string"
                                 }
                               }
                             }
                           },
-                          "additionalProperties": false
+                          "additionalProperties":false
                         },
-                        "minItems": 0
+                        "minItems":0
                       }
                     },
-                    "additionalProperties": false
+                    "additionalProperties":false
                   },
-                  "Demographics": {
-                    "description": "Contains demographics-related information about the individual. It includes the birthdate, gender and list of nationalities.",
-                    "type": "object",
-                    "properties": {
-                      "Birthdate": {
-                        "$ref": "#/definitions/structuredDateType"
+                  "Demographics":{
+                    "description":"Contains demographics-related information about the individual. It includes the birthdate, gender and list of nationalities.",
+                    "type":"object",
+                    "properties":{
+                      "Birthdate":{
+                        "$ref":"#/definitions/structuredDateType"
                       },
-                      "Gender": {
-                        "type": "object",
-                        "properties": {
-                          "Code": {
-                            "type": "string",
-                            "enum": [
+                      "Gender":{
+                        "type":"object",
+                        "properties":{
+                          "Code":{
+                            "type":"string",
+                            "enum":[
                               "M",
                               "F"
                             ]
                           },
-                          "Label": {
-                            "type": "string"
+                          "Label":{
+                            "type":"string"
                           }
                         }
                       },
-                      "Nationality": {
-                        "description": "Defines a nationality. The nationality is described by a code and is a text only element. E.g. code: DE, label: German.",
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "Code": {
-                              "type": "string",
-                              "pattern": "^[A-Z]{2}$"
+                      "Nationality":{
+                        "description":"Defines a nationality. The nationality is described by a code and is a text only element. E.g. code: DE, label: German.",
+                        "type":"array",
+                        "items":{
+                          "type":"object",
+                          "properties":{
+                            "Code":{
+                              "type":"string",
+                              "pattern":"^[A-Z]{2}$"
                             },
-                            "Label": {
-                              "type": "string"
+                            "Label":{
+                              "type":"string"
                             }
                           },
-                          "additionalProperties": false
+                          "additionalProperties":false
                         },
-                        "minItems": 0
+                        "minItems":0
                       }
                     },
-                    "additionalProperties": false
+                    "additionalProperties":false
                   },
-                  "Photo": {
-                    "allOf": [
+                  "Photo":{
+                    "allOf":[
                       {
-                        "$ref": "#/definitions/fileDataType"
+                        "$ref":"#/definitions/fileDataType"
                       },
                       {
-                        "properties": {
-                          "MimeType": {
-                            "type": "string",
-                            "enum": [
+                        "properties":{
+                          "MimeType":{
+                            "type":"string",
+                            "enum":[
                               "image/jpeg",
                               "image/pjpeg",
                               "image/png",
@@ -742,16 +742,16 @@
                       }
                     ]
                   },
-                  "Signature": {
-                    "allOf": [
+                  "Signature":{
+                    "allOf":[
                       {
-                        "$ref": "#/definitions/fileDataType"
+                        "$ref":"#/definitions/fileDataType"
                       },
                       {
-                        "properties": {
-                          "MimeType": {
-                            "type": "string",
-                            "enum": [
+                        "properties":{
+                          "MimeType":{
+                            "type":"string",
+                            "enum":[
                               "image/jpeg",
                               "image/pjpeg",
                               "image/png",
@@ -764,17 +764,17 @@
                   }
                 }
               },
-              "Headline": {
-                "title": "desired employment/ occupation field",
-                "description": "Contains a headline label for the current document. It is optional and may accommodate various cases.",
-                "type": "object",
-                "properties": {
-                  "Type": {
-                    "type": "object",
-                    "properties": {
-                      "Code": {
-                        "type": "string",
-                        "enum": [
+              "Headline":{
+                "title":"desired employment/ occupation field",
+                "description":"Contains a headline label for the current document. It is optional and may accommodate various cases.",
+                "type":"object",
+                "properties":{
+                  "Type":{
+                    "type":"object",
+                    "properties":{
+                      "Code":{
+                        "type":"string",
+                        "enum":[
                           "preferred_job",
                           "job_applied_for",
                           "studies_applied_for",
@@ -782,64 +782,64 @@
                           "personal_statement"
                         ]
                       },
-                      "Label": {
-                        "type": "string"
+                      "Label":{
+                        "type":"string"
                       }
                     },
-                    "additionalProperties": false
+                    "additionalProperties":false
                   },
-                  "Description": {
-                    "type": "object",
-                    "properties": {
-                      "Code": {
-                        "type": "string",
-                        "pattern": "^[0-9]{5}$"
+                  "Description":{
+                    "type":"object",
+                    "properties":{
+                      "Code":{
+                        "type":"string",
+                        "pattern":"^[0-9]{5}$"
                       },
-                      "Label": {
-                        "type": "string"
+                      "Label":{
+                        "type":"string"
                       }
                     },
-                    "additionalProperties": false
+                    "additionalProperties":false
                   }
                 },
-                "additionalProperties": false
+                "additionalProperties":false
               },
-              "WorkExperience": {
-                "title": "list of work experiences",
-                "description": "Contains an list of work experiences. The order of those experiences is defined by the related printing preferences.",
-                "type": "array",
-                "items": {
-                  "allOf": [
+              "WorkExperience":{
+                "title":"list of work experiences",
+                "description":"Contains an list of work experiences. The order of those experiences is defined by the related printing preferences.",
+                "type":"array",
+                "items":{
+                  "allOf":[
                     {
-                      "$ref": "#/definitions/basicExperienceType"
+                      "$ref":"#/definitions/basicExperienceType"
                     },
                     {
-                      "properties": {
-                        "Position": {
-                          "$ref": "#/definitions/occupationalFieldType"
+                      "properties":{
+                        "Position":{
+                          "$ref":"#/definitions/occupationalFieldType"
                         },
-                        "Activities": {
-                          "type": "string"
+                        "Activities":{
+                          "type":"string"
                         },
-                        "Employer": {
-                          "allOf": [
+                        "Employer":{
+                          "allOf":[
                             {
-                              "$ref": "#/definitions/organisationType"
+                              "$ref":"#/definitions/organisationType"
                             },
                             {
-                              "properties": {
-                                "Sector": {
-                                  "type": "object",
-                                  "properties": {
-                                    "Code": {
-                                      "type": "string",
-                                      "pattern": "^[A-U]{1}$"
+                              "properties":{
+                                "Sector":{
+                                  "type":"object",
+                                  "properties":{
+                                    "Code":{
+                                      "type":"string",
+                                      "pattern":"^[A-U]{1}$"
                                     },
-                                    "Label": {
-                                      "type": "string"
+                                    "Label":{
+                                      "type":"string"
                                     }
                                   },
-                                  "additionalProperties": false
+                                  "additionalProperties":false
                                 }
                               }
                             }
@@ -848,143 +848,143 @@
                       }
                     },
                     {
-                      "$ref": "#/definitions/sectionReferenceToListType"
+                      "$ref":"#/definitions/sectionReferenceToListType"
                     }
                   ]
                 },
-                "minItems": 0
+                "minItems":0
               },
-              "Education": {
-                "title": "list of education experiences",
-                "description": "Contains an list of learning achievements or a training periods (formal or not). The order of those experiences is defined by the related printing preferences.",
-                "type": "array",
-                "items": {
-                  "allOf": [
+              "Education":{
+                "title":"list of education experiences",
+                "description":"Contains an list of learning achievements or a training periods (formal or not). The order of those experiences is defined by the related printing preferences.",
+                "type":"array",
+                "items":{
+                  "allOf":[
                     {
-                      "$ref": "#/definitions/basicExperienceType"
+                      "$ref":"#/definitions/basicExperienceType"
                     },
                     {
-                      "properties": {
-                        "Title": {
-                          "type": "string"
+                      "properties":{
+                        "Title":{
+                          "type":"string"
                         },
-                        "Activities": {
-                          "type": "string"
+                        "Activities":{
+                          "type":"string"
                         },
-                        "Organisation": {
-                          "$ref": "#/definitions/organisationType"
+                        "Organisation":{
+                          "$ref":"#/definitions/organisationType"
                         },
-                        "Field": {
-                          "type": "object",
-                          "properties": {
-                            "Code": {
-                              "type": "string",
-                              "pattern": "^[0-9]{2}$"
+                        "Field":{
+                          "type":"object",
+                          "properties":{
+                            "Code":{
+                              "type":"string",
+                              "pattern":"^[0-9]{2}$"
                             },
-                            "Label": {
-                              "type": "string"
+                            "Label":{
+                              "type":"string"
                             }
                           },
-                          "additionalProperties": false
+                          "additionalProperties":false
                         },
-                        "Level": {
-                          "type": "object",
-                          "properties": {
-                            "Code": {
-                              "type": "string",
-                              "pattern": "^[1-8]{1}$"
+                        "Level":{
+                          "type":"object",
+                          "properties":{
+                            "Code":{
+                              "type":"string",
+                              "pattern":"^[1-8]{1}$"
                             },
-                            "Label": {
-                              "type": "string"
+                            "Label":{
+                              "type":"string"
                             }
                           },
-                          "additionalProperties": false
+                          "additionalProperties":false
                         }
                       }
                     },
                     {
-                      "$ref": "#/definitions/sectionReferenceToListType"
+                      "$ref":"#/definitions/sectionReferenceToListType"
                     }
                   ]
                 },
-                "minItems": 0
+                "minItems":0
               },
-              "Skills": {
-                "title": "Skills",
-                "description": "Contains a sequence of skills and competences that the learner has acquired during any formal or informal experience.",
-                "type": "object",
-                "properties": {
-                  "Linguistic": {
-                    "type": "object",
-                    "properties": {
-                      "MotherTongue": {
-                        "type": "array",
-                        "items": {
-                          "allOf": [
+              "Skills":{
+                "title":"Skills",
+                "description":"Contains a sequence of skills and competences that the learner has acquired during any formal or informal experience.",
+                "type":"object",
+                "properties":{
+                  "Linguistic":{
+                    "type":"object",
+                    "properties":{
+                      "MotherTongue":{
+                        "type":"array",
+                        "items":{
+                          "allOf":[
                             {
-                              "$ref": "#/definitions/languageNameType"
+                              "$ref":"#/definitions/languageNameType"
                             },
                             {
-                              "$ref": "#/definitions/sectionReferenceToListType"
+                              "$ref":"#/definitions/sectionReferenceToListType"
                             }
                           ]
                         },
-                        "minItems": 0
+                        "minItems":0
                       },
-                      "ForeignLanguage": {
-                        "type": "array",
-                        "items": {
-                          "allOf": [
+                      "ForeignLanguage":{
+                        "type":"array",
+                        "items":{
+                          "allOf":[
                             {
-                              "$ref": "#/definitions/languageNameType"
+                              "$ref":"#/definitions/languageNameType"
                             },
                             {
-                              "properties": {
-                                "ProficiencyLevel": {
-                                  "type": "object",
-                                  "properties": {
-                                    "Listening": {
-                                      "$ref": "#/definitions/cefrLevelType"
+                              "properties":{
+                                "ProficiencyLevel":{
+                                  "type":"object",
+                                  "properties":{
+                                    "Listening":{
+                                      "$ref":"#/definitions/cefrLevelType"
                                     },
-                                    "Reading": {
-                                      "$ref": "#/definitions/cefrLevelType"
+                                    "Reading":{
+                                      "$ref":"#/definitions/cefrLevelType"
                                     },
-                                    "SpokenInteraction": {
-                                      "$ref": "#/definitions/cefrLevelType"
+                                    "SpokenInteraction":{
+                                      "$ref":"#/definitions/cefrLevelType"
                                     },
-                                    "SpokenProduction": {
-                                      "$ref": "#/definitions/cefrLevelType"
+                                    "SpokenProduction":{
+                                      "$ref":"#/definitions/cefrLevelType"
                                     },
-                                    "Writing": {
-                                      "$ref": "#/definitions/cefrLevelType"
+                                    "Writing":{
+                                      "$ref":"#/definitions/cefrLevelType"
                                     }
                                   },
-                                  "additionalProperties": false
+                                  "additionalProperties":false
                                 },
-                                "Experience": {
-                                  "description": "Describes a list of linguistic experiences",
-                                  "type": "array",
-                                  "items": {
-                                    "allOf": [
+                                "Experience":{
+                                  "description":"Describes a list of linguistic experiences",
+                                  "type":"array",
+                                  "items":{
+                                    "allOf":[
                                       {
-                                        "$ref": "#/definitions/basicExperienceType"
+                                        "$ref":"#/definitions/basicExperienceType"
                                       },
                                       {
-                                        "properties": {
-                                          "Area": {
-                                            "type": "object",
-                                            "properties": {
-                                              "Code": {
-                                                "type": "string",
-                                                "enum": [
+                                        "properties":{
+                                          "Area":{
+                                            "type":"object",
+                                            "properties":{
+                                              "Code":{
+                                                "type":"string",
+                                                "enum":[
                                                   "studying_training_language",
                                                   "work_language",
                                                   "living_traveling_language",
                                                   "mediating_groups_language"
                                                 ]
                                               },
-                                              "Label": {
-                                                "type": "string"
+                                              "Label":{
+                                                "type":"string"
                                               }
                                             }
                                           }
@@ -992,111 +992,111 @@
                                       }
                                     ]
                                   },
-                                  "minItems": 0
+                                  "minItems":0
                                 },
-                                "Certificate": {
-                                  "description": "Describes a list of linguistic certificates",
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "Title": {
-                                        "type": "string"
+                                "Certificate":{
+                                  "description":"Describes a list of linguistic certificates",
+                                  "type":"array",
+                                  "items":{
+                                    "type":"object",
+                                    "properties":{
+                                      "Title":{
+                                        "type":"string"
                                       },
-                                      "AwardingBody": {
-                                        "type": "string"
+                                      "AwardingBody":{
+                                        "type":"string"
                                       },
-                                      "Date": {
-                                        "$ref": "#/definitions/structuredDateType"
+                                      "Date":{
+                                        "$ref":"#/definitions/structuredDateType"
                                       },
-                                      "Level": {
-                                        "$ref": "#/definitions/cefrLevelType"
+                                      "Level":{
+                                        "$ref":"#/definitions/cefrLevelType"
                                       }
                                     },
-                                    "additionalProperties": false
+                                    "additionalProperties":false
                                   },
-                                  "minItems": 0
+                                  "minItems":0
                                 }
                               }
                             },
                             {
-                              "$ref": "#/definitions/sectionReferenceToListType"
+                              "$ref":"#/definitions/sectionReferenceToListType"
                             }
                           ]
                         },
-                        "minItems": 0
+                        "minItems":0
                       }
                     }
                   },
-                  "Communication": {
-                    "$ref": "#/definitions/genericSkillType"
+                  "Communication":{
+                    "$ref":"#/definitions/genericSkillType"
                   },
-                  "Organisational": {
-                    "$ref": "#/definitions/genericSkillType"
+                  "Organisational":{
+                    "$ref":"#/definitions/genericSkillType"
                   },
-                  "JobRelated": {
-                    "$ref": "#/definitions/genericSkillType"
+                  "JobRelated":{
+                    "$ref":"#/definitions/genericSkillType"
                   },
-                  "Computer": {
-                    "description": "Describes a person's computer skills, including self assesement and c ertifications if applicable",
-                    "type": "object",
-                    "allOf": [
+                  "Computer":{
+                    "description":"Describes a person's computer skills, including self assesement and c ertifications if applicable",
+                    "type":"object",
+                    "allOf":[
                       {
-                        "properties": {
-                          "Description": {
-                            "type": "string"
+                        "properties":{
+                          "Description":{
+                            "type":"string"
                           },
-                          "ProficiencyLevel": {
-                            "type": "object",
-                            "properties": {
-                              "Information": {
-                                "$ref": "#/definitions/ictLevelType"
+                          "ProficiencyLevel":{
+                            "type":"object",
+                            "properties":{
+                              "Information":{
+                                "$ref":"#/definitions/ictLevelType"
                               },
-                              "Communication": {
-                                "$ref": "#/definitions/ictLevelType"
+                              "Communication":{
+                                "$ref":"#/definitions/ictLevelType"
                               },
-                              "ContentCreation": {
-                                "$ref": "#/definitions/ictLevelType"
+                              "ContentCreation":{
+                                "$ref":"#/definitions/ictLevelType"
                               },
-                              "Safety": {
-                                "$ref": "#/definitions/ictLevelType"
+                              "Safety":{
+                                "$ref":"#/definitions/ictLevelType"
                               },
-                              "ProblemSolving": {
-                                "$ref": "#/definitions/ictLevelType"
+                              "ProblemSolving":{
+                                "$ref":"#/definitions/ictLevelType"
                               }
                             },
-                            "additionalProperties": false
+                            "additionalProperties":false
                           },
-                          "Certificate": {
-                            "description": "Describes a list of computer certificates",
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "Title": {
-                                  "type": "string"
+                          "Certificate":{
+                            "description":"Describes a list of computer certificates",
+                            "type":"array",
+                            "items":{
+                              "type":"object",
+                              "properties":{
+                                "Title":{
+                                  "type":"string"
                                 }
                               },
-                              "additionalProperties": false
+                              "additionalProperties":false
                             },
-                            "minItems": 0
+                            "minItems":0
                           }
                         }
                       },
                       {
-                        "$ref": "#/definitions/sectionReferenceToListType"
+                        "$ref":"#/definitions/sectionReferenceToListType"
                       }
                     ]
                   },
-                  "Driving": {
-                    "allOf": [
+                  "Driving":{
+                    "allOf":[
                       {
-                        "properties": {
-                          "Description": {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "enum": [
+                        "properties":{
+                          "Description":{
+                            "type":"array",
+                            "items":{
+                              "type":"string",
+                              "enum":[
                                 "A",
                                 "B",
                                 "C",
@@ -1112,38 +1112,38 @@
                                 "D1E"
                               ]
                             },
-                            "minItems": 0
+                            "minItems":0
                           }
                         }
                       },
                       {
-                        "$ref": "#/definitions/sectionReferenceToListType"
+                        "$ref":"#/definitions/sectionReferenceToListType"
                       }
                     ]
                   },
-                  "Other": {
-                    "$ref": "#/definitions/genericSkillType"
+                  "Other":{
+                    "$ref":"#/definitions/genericSkillType"
                   }
                 },
-                "additionalProperties": false
+                "additionalProperties":false
               },
-              "Achievement": {
-                "title": "Achievements",
-                "description": "Contains a list of additional information about the various achievements of an individual, such as participation to conferences, workshops, memberships to organisations, list of publications, etc.",
-                "type": "array",
-                "items": {
-                  "allOf": [
+              "Achievement":{
+                "title":"Achievements",
+                "description":"Contains a list of additional information about the various achievements of an individual, such as participation to conferences, workshops, memberships to organisations, list of publications, etc.",
+                "type":"array",
+                "items":{
+                  "allOf":[
                     {
-                      "$ref": "#/definitions/sectionReferenceToListType"
+                      "$ref":"#/definitions/sectionReferenceToListType"
                     },
                     {
-                      "properties": {
-                        "Title": {
-                          "type": "object",
-                          "properties": {
-                            "Code": {
-                              "type": "string",
-                              "enum": [
+                      "properties":{
+                        "Title":{
+                          "type":"object",
+                          "properties":{
+                            "Code":{
+                              "type":"string",
+                              "enum":[
                                 "honors_awards",
                                 "publications",
                                 "presentations",
@@ -1159,46 +1159,46 @@
                                 "certifications"
                               ]
                             },
-                            "Label": {
-                              "type": "string"
+                            "Label":{
+                              "type":"string"
                             }
                           }
                         },
-                        "Description": {
-                          "type": "string"
+                        "Description":{
+                          "type":"string"
                         }
                       }
                     }
                   ]
                 },
-                "minItems": 0
+                "minItems":0
               },
-              "ReferenceTo": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "idref": {
-                      "type": "string"
+              "ReferenceTo":{
+                "type":"array",
+                "items":{
+                  "type":"object",
+                  "properties":{
+                    "idref":{
+                      "type":"string"
                     }
                   }
                 },
-                "minItems": 0
+                "minItems":0
               }
             }
           },
-          "Attachment": {
-            "type": "array",
-            "items": {
-              "allOf": [
+          "Attachment":{
+            "type":"array",
+            "items":{
+              "allOf":[
                 {
-                  "$ref": "#/definitions/fileDataType"
+                  "$ref":"#/definitions/fileDataType"
                 },
                 {
-                  "properties": {
-                    "MimeType": {
-                      "type": "string",
-                      "enum": [
+                  "properties":{
+                    "MimeType":{
+                      "type":"string",
+                      "enum":[
                         "image/jpeg",
                         "image/pjpeg",
                         "image/png",
@@ -1206,107 +1206,107 @@
                         "application/pdf"
                       ]
                     },
-                    "Description": {
-                      "type": "string"
+                    "Description":{
+                      "type":"string"
                     }
                   }
                 }
               ]
             },
-            "minItems": 0
+            "minItems":0
           },
-          "CoverLetter": {
-            "type": "object",
-            "properties": {
-              "Addressee": {
-                "type": "object",
-                "properties": {
-                  "PersonName": {
-                    "$ref": "#/definitions/personNameType"
+          "CoverLetter":{
+            "type":"object",
+            "properties":{
+              "Addressee":{
+                "type":"object",
+                "properties":{
+                  "PersonName":{
+                    "$ref":"#/definitions/personNameType"
                   },
-                  "Position": {
-                    "$ref": "#/definitions/occupationalFieldType"
+                  "Position":{
+                    "$ref":"#/definitions/occupationalFieldType"
                   },
-                  "Organisation": {
-                    "$ref": "#/definitions/organisationType"
+                  "Organisation":{
+                    "$ref":"#/definitions/organisationType"
                   }
                 },
-                "additionalProperties": false
+                "additionalProperties":false
               },
-              "Letter": {
-                "type": "object",
-                "properties": {
-                  "Localisation": {
-                    "type": "object",
-                    "properties": {
-                      "Date": {
-                        "$ref": "#/definitions/structuredDateType"
+              "Letter":{
+                "type":"object",
+                "properties":{
+                  "Localisation":{
+                    "type":"object",
+                    "properties":{
+                      "Date":{
+                        "$ref":"#/definitions/structuredDateType"
                       },
-                      "Place": {
-                        "type": "object",
-                        "properties": {
-                          "Municipality": {
-                            "type": "string"
+                      "Place":{
+                        "type":"object",
+                        "properties":{
+                          "Municipality":{
+                            "type":"string"
                           },
-                          "Country": {
-                            "$ref": "#/definitions/countryType"
+                          "Country":{
+                            "$ref":"#/definitions/countryType"
                           }
                         },
-                        "additionalProperties": false
+                        "additionalProperties":false
                       }
                     },
-                    "additionalProperties": false
+                    "additionalProperties":false
                   },
-                  "SubjectLine": {
-                    "type": "string"
+                  "SubjectLine":{
+                    "type":"string"
                   },
-                  "OpeningSalutation": {
-                    "type": "object",
-                    "properties": {
-                      "Salutation": {
-                        "$ref": "#/definitions/openingSalutationType"
+                  "OpeningSalutation":{
+                    "type":"object",
+                    "properties":{
+                      "Salutation":{
+                        "$ref":"#/definitions/openingSalutationType"
                       },
-                      "PersonName": {
-                        "$ref": "#/definitions/personNameType"
+                      "PersonName":{
+                        "$ref":"#/definitions/personNameType"
                       }
                     },
-                    "additionalProperties": false
+                    "additionalProperties":false
                   },
-                  "Body": {
-                    "type": "object",
-                    "properties": {
-                      "Opening": {
-                        "type": "string"
+                  "Body":{
+                    "type":"object",
+                    "properties":{
+                      "Opening":{
+                        "type":"string"
                       },
-                      "MainBody": {
-                        "type": "string"
+                      "MainBody":{
+                        "type":"string"
                       },
-                      "Closing": {
-                        "type": "string"
+                      "Closing":{
+                        "type":"string"
                       }
                     },
-                    "additionalProperties": false
+                    "additionalProperties":false
                   },
-                  "ClosingSalutation": {
-                    "$ref": "#/definitions/closingSalutationType"
+                  "ClosingSalutation":{
+                    "$ref":"#/definitions/closingSalutationType"
                   }
                 },
-                "additionalProperties": false
+                "additionalProperties":false
               },
-              "Documentation": {
-                "$ref": "#/definitions/genericDocumentationType"
+              "Documentation":{
+                "$ref":"#/definitions/genericDocumentationType"
               }
             },
-            "additionalProperties": false
+            "additionalProperties":false
           }
         },
-        "additionalProperties": false
+        "additionalProperties":false
       }
     }
   },
-  "startval": {},
-  "config": {},
-  "code": "",
-  "style": "",
-  "desc": "<p>A JSON Representation of a Europass Document corresponding to Europass XML 3.3.0. Source: <a href=\"https://interop.europass.cedefop.europa.eu/sites/default/files/2018-12/europass-json-schema-v3.3.0.json\">https://interop.europass.cedefop.europa.eu</a></p>"
+  "startval":{},
+  "config":{},
+  "code":"",
+  "style":"",
+  "desc":"<p>A JSON Representation of a Europass Document corresponding to Europass XML 3.3.0. Source: <a href=\"https://interop.europass.cedefop.europa.eu/sites/default/files/2018-12/europass-json-schema-v3.3.0.json\">https://interop.europass.cedefop.europa.eu</a></p>"
 }
