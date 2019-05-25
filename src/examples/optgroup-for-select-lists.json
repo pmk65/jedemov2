@@ -1,0 +1,42 @@
+{
+  "title": "Optgroup for select lists",
+  "schema": {
+    "title": "Animal",
+    "type": "object",
+    "properties": {
+      "animal": {
+        "type": "string",
+        "enum": [
+          "###Theropods",
+          "tyran",
+          "velo",
+          "deino",
+          "###Sauropods",
+          "diplo",
+          "salt",
+          "apat"
+        ],
+        "default": "tyran"
+      },
+      "animal2": {
+        "type": "string",
+        "enum": [
+          "###Theropods",
+          "tyran",
+          "velo",
+          "deino",
+          "###Sauropods",
+          "diplo",
+          "salt",
+          "apat"
+        ],
+        "default": "tyran"
+      }
+    }
+  },
+  "startval": {},
+  "config": {},
+  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\n\n// Convert \"select\" list \"option\" tags with value prefixed by ### into \"optgroup\" tags\nvar setOptGroups = function() {\n\n  // Get array of editor keys where input_type = \"select\" and attribute \"optgrup\" not set\n  var selectEditorKeys = Object.keys(jseditor.editors).filter(function(ed) {\n    return jseditor.editors[ed].input_type === \"select\" && !jseditor.editors[ed].input.getAttribute('optgroup');\n  });\n\n  selectEditorKeys.forEach(function(key) {\n\n    // Prevent the function from selecting the same element again\n    jseditor.editors[key].input.setAttribute('optgroup', 1);\n\n    // Get option tags prefixed with ### chars\n    var opt = Array.from(jseditor.editors[key].input.querySelectorAll('option')).filter(function(tag) {\n      return /^###/.test(tag.value);\n    });\n\n    opt.forEach(function(tag) {\n      var oGroup = document.createElement('optgroup');\n      oGroup.label = tag.value.replace(/^###/g, \"\");\n      tag.parentNode.insertBefore(oGroup, tag.nextSibling);\n      //tag.parentNode.removeChild(tag); // Delete prefixed option tag\n      tag.style.display = \"none\"; // Hide prefixed option tag\n    });\n\n  });\n\n}\n\njseditor.on('ready', function() {\n\n  setOptGroups();\n\n});",
+  "style": "",
+  "desc": "<p>This example shows how to add optgroup tags to select lists (enum) by prefixing enum value with ###.</p>"
+}

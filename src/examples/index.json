@@ -127,6 +127,14 @@
       {
         "title": "Buttons as icon or text only",
         "file": "buttons-as-icon-or-text-only"
+      },
+      {
+        "title": "Dynamically convert a text field to enum field",
+        "file": "dynamically-convert-text-field-to-enum-field"
+      },
+      {
+        "title": "Optgroup for select lists",
+        "file": "optgroup-for-select-lists"
       }
     ]
   },
