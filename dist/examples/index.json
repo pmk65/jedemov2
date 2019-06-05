@@ -35,6 +35,10 @@
         "file": "oneof-name"
       },
       {
+        "title": "Dependencies",
+        "file": "dependencies"
+      },
+      {
         "title": "Bookstore Schema",
         "file": "bookstore"
       },

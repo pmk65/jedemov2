@@ -1,0 +1,82 @@
+{
+  "title": "Dependencies",
+  "schema": {
+    "title": "Dependencies",
+    "type": "object",
+    "format": "grid",
+    "properties": {
+      "_text": {
+        "title": "Dependencies Example",
+        "type": "string",
+        "format": "hidden",
+        "description": "<p>This example shows the use of the <strong>dependencies</strong> option, where you can have a field depend on the value of another field.</p><p>This works by creating all dependant element and then hide/show the selected one. So this feature works best if fields are placed vertically.</p>",
+        "options": {
+          "grid_columns": 12
+        }
+      },
+      "category": {
+        "title": "Category",
+        "type": "string",
+        "enum": [
+          "Chocolates",
+          "Vegetables",
+          "Icecreams"
+        ]
+      },
+      "subcategory1": {
+        "title": "Subcategory",
+        "type": "string",
+        "enum": [
+          "Dark chocolate",
+          "Milk chocolate",
+          "White chocolate",
+          "Gianduja chocolate"
+        ],
+        "options": {
+          "dependencies": {
+            "category": "Chocolates"
+          },
+          "grid_columns": 12
+        }
+      },
+      "subcategory2": {
+        "title": "Subcategory",
+        "type": "string",
+        "enum": [
+          "Broccoli",
+          "Cabbage",
+          "Carrot",
+          "Tomato"
+        ],
+        "options": {
+          "dependencies": {
+            "category": "Vegetables"
+          },
+          "grid_columns": 12
+        }
+      },
+      "subcategory3": {
+        "title": "Subcategory",
+        "type": "string",
+        "enum": [
+          "Frozen yogurt",
+          "Booza",
+          "Ice milk"
+        ],
+        "options": {
+          "dependencies": {
+            "category": "Icecreams"
+          },
+          "grid_columns": 12
+        }
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "lib_dompurify": 1
+  },
+  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "style": "",
+  "desc": "<p>This example shows the use of the <strong>dependencies</strong> option, where you can have a field depend on the value of another field.</p><p>This works by creating all dependant element and then hide/show the selected one. So this feature works best if fields are placed vertically.</p>"
+}
