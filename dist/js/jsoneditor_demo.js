@@ -673,7 +673,7 @@
           var el = document.querySelector('#'+ id);
           if (el) {
             if (el.tagName == 'SELECT') el.value = params[id];
-            else if (el.tagName == 'INPUT') el.checked = true;
+            else if (el.tagName == 'INPUT') el.checked = Boolean(el.value);
           }
         }
       }
