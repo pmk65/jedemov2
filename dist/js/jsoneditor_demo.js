@@ -900,9 +900,7 @@
     var loadFromLocalStorage = function() {
       if (window.localStorage) {
         var data = window.localStorage.getItem('jeplayground');
-        if (data.length) {
-          updateFromFile(data);
-        }
+        if (data) updateFromFile(data);
       }
     };
 
