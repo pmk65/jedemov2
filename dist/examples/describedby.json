@@ -1,0 +1,105 @@
+{
+  "title": "DescribedBy Editor Example",
+  "schema": {
+    "type": "object",
+    "title": "Property for Sale",
+    "properties": {
+      "propertyName": {
+        "type": "string",
+        "title": "Property Name",
+        "description": "The name of the property being sold",
+        "minLength": 5
+      },
+      "propertyType": {
+        "type": "string",
+        "title": "Property Type",
+        "enum": [
+          "house",
+          "car",
+          "yacht"
+        ]
+      },
+      "propertyTypeOptions": {
+        "type": "object",
+        "title": "Property Options",
+        "watch": {
+          "propertyType": "propertyType"
+        },
+        "links": [
+          {
+            "rel": "describedBy",
+            "href": "#/definitions/{{propertyType}}"
+          }
+        ]
+      }
+    },
+    "required": [
+      "propertyName",
+      "propertyType"
+    ],
+    "definitions": {
+      "house": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "rooms": {
+            "type": "integer",
+            "title": "Number Of Rooms"
+          }
+        }
+      },
+      "car": {
+        "properties": {
+          "brand": {
+            "type": "string",
+            "title": "Brand",
+            "enum": [
+              "Audi",
+              "BMW",
+              "Chevrolet",
+              "Opel",
+              "Mitsubishi"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "title": "Color",
+            "format": "color"
+          },
+          "year": {
+            "type": "string",
+            "title": "Build Year"
+          }
+        }
+      },
+      "yacht": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "year": {
+            "type": "integer",
+            "title": "Year"
+          },
+          "yachtLength": {
+            "type": "integer",
+            "title": "Length"
+          }
+        }
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+  },
+  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "style": "",
+  "desc": "<p>This example shows the use of the DescribedBy editor</p>"
+}

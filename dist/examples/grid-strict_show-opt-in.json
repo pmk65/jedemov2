@@ -1,0 +1,100 @@
+{
+  "title": "Grid-strict format example with show_opt-in",
+  "schema": {
+    "title": "Data Types",
+    "type": "object",
+    "format": "grid-strict",
+    "required": [
+      "number",
+      "boolean"
+    ],
+    "properties": {
+      "string": {
+        "title": "string",
+        "type": "string",
+        "minLength": 5,
+        "options": {
+          "grid_columns": 4
+        }
+      },
+      "number": {
+        "title": "number",
+        "type": "number",
+        "options": {
+          "grid_columns": 4
+        }
+      },
+      "boolean": {
+        "title": "boolean",
+        "type": "boolean",
+        "options": {
+          "grid_columns": 4,
+          "grid_break": true
+        }
+      },
+      "array": {
+        "title": "array",
+        "type": "array",
+        "options": {
+          "grid_columns": 6
+        },
+        "items": {
+          "title": "string",
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "object",
+        "format": "grid-strict",
+        "required": [
+          "array",
+          "string"
+        ],
+        "options": {
+          "grid_columns": 6
+        },
+        "properties": {
+          "string": {
+            "title": "string",
+            "type": "string",
+            "options": {
+              "grid_columns": 4
+            }
+          },
+          "number": {
+            "title": "number",
+            "type": "number",
+            "options": {
+              "grid_columns": 4
+            }
+          },
+          "boolean": {
+            "title": "boolean",
+            "type": "boolean",
+            "options": {
+              "grid_columns": 4
+            }
+          },
+          "array": {
+            "title": "array",
+            "type": "array",
+            "options": {
+              "grid_columns": 12
+            },
+            "items": {
+              "title": "string",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "show_opt_in": 1
+  },
+  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "style": "",
+  "desc": "<p>This example shows the use of the <strong>grid_strict</strong> format with <strong><em>show_opt_in</em></strong> option set.</p>"
+}

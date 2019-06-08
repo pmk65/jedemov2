@@ -1,0 +1,36 @@
+{
+  "title": "Radio Buttons Example",
+  "schema": {
+    "title": "radio buttons editor examples",
+    "type": "object",
+    "format": "grid",
+    "properties": {
+      "radio": {
+        "type": "string",
+        "format": "radio",
+        "title": "Radio Buttons",
+        "description": "Active Radio Buttons",
+        "enum": [
+          "Home",
+          "Work"
+        ]
+      },
+      "radio1": {
+        "type": "string",
+        "format": "radio",
+        "title": "Radio Buttons",
+        "readonly": true,
+        "description": "Disabled/Readonly Radio Buttons",
+        "enum": [
+          "Home",
+          "Work"
+        ]
+      }
+    }
+  },
+  "startval": {},
+  "config": {},
+  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "style": "",
+  "desc": "<p>This example shows the use of the <strong>radio</strong> format.</p>"
+}

@@ -500,8 +500,10 @@
           els = jeCfg.querySelectorAll('input[type="checkbox"]' + exclude + ',select' + exclude);
       Array.from(els).forEach(function(el) {  // from() unsupported in IE
         if (el.tagName == 'SELECT') options[el.id] = el.value;
-        else if (el.checked) options[el.value] = 1;//el.checked;
+        else options[el.value] = el.checked | 0;
+        //else if (el.checked) options[el.value] = 1;//el.checked;
       });
+
       return options;
     };
 
@@ -549,6 +551,7 @@
     // Clear query parameters from URL
     var resetUrl = function(e) {
       if (confirm('Clear URL query parameters?')) {
+        if (window.localStorage) window.localStorage.setItem('jeplayground', '');
         updateDirectLink(e);
       }
     };
@@ -602,7 +605,7 @@
         if (cfg.hasOwnProperty(id)) {
           var el = jeCfg.querySelector('#' + id);
           if (el) {
-            if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[id];
+            if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = Boolean(cfg[id]);
             else if (el.nodeName == 'SELECT') el.value = cfg[id];
           }
         }
@@ -682,7 +685,7 @@
     // Build codeblock to create JSON-Editor instance
     var getCode = function(schema, startval) {
       var opt = 'schema:' + schema + (startval.trim() ? ', startval:' + startval : '');
-      return 'var jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
+      return 'if (jseditor) jseditor.destroy();var jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
     };
 
     // Fullscreen Drag'n'Drop upload handlers
@@ -771,9 +774,8 @@
      // Build list of external files to include in Iframe
     var buildExtFiles = function(options, code) {
       var jsFiles = [], cssFiles = [], extFiles = '', map, styles = aceStyleEditor.getValue().trim();
-
       for (var i in options) {
-        if (options.hasOwnProperty(i) && (mapping.ext_lib[i] || mapping[i] && mapping[i][options[i]])) {
+        if (options.hasOwnProperty(i) && options[i] && (mapping.ext_lib[i] || mapping[i] && mapping[i][options[i]])) {
           map = mapping.ext_lib[i] || mapping[i][options[i]];
           if (map.js) jsFiles = jsFiles.concat(typeof map.js == 'string' ? [map.js] : map.js);
           if (map.css) cssFiles = cssFiles.concat(typeof map.css == 'string' ? [map.css] : map.css);
@@ -892,6 +894,30 @@
         reader.readAsText(file);
       }
 
+    };
+
+    // Load Schema, Start Value, JavaScript Styles and Config options from Browser LocalStorage
+    var loadFromLocalStorage = function() {
+      if (window.localStorage) {
+        var data = window.localStorage.getItem('jeplayground');
+        if (data.length) {
+          updateFromFile(data);
+        }
+      }
+    };
+
+    // Save Schema, Start Value, JavaScript Styles and Config options in Browser LocalStorage
+    var saveToLocalStorage = function() {
+      if (window.localStorage) {
+        window.localStorage.setItem('jeplayground',JSON.stringify({
+          "schema" : parseJson(aceSchemaEditor.getValue()),
+          "startval": parseJson(aceStartvalEditor.getValue()),
+          "config": getJsonEditorOptions(),
+          "code": aceCodeEditor.getValue().trim(),
+          "style": aceStyleEditor.getValue().trim(),
+          "desc": ""
+        }, null, 2));
+      }
     };
 
     // Save Schema, Start Value, JavaScript Styles and Config options in examples schema format
@@ -1061,11 +1087,28 @@
       jeIframeEl.onload = function() { window.URL.revokeObjectURL(bData); };
       jeIframeEl.src = window.URL.createObjectURL(bData);
 */
+
+      // Iframe needs to be regenerated to prevent windows object from being cached
+      // https://stackoverflow.com/questions/42065729/clean-the-cache-of-iframe
+      var newIframeEl = document.createElement('iframe'),
+          parent = jeIframeEl.parentNode,
+          nextSibling = jeIframeEl.nextSibling;
+
+      newIframeEl.className = jeIframeEl.className;
+      newIframeEl.id = jeIframeEl.id;
+
+      parent.removeChild(jeIframeEl);
+      parent.insertBefore(newIframeEl, nextSibling);
+
+      jeIframeEl = newIframeEl;
+      jeIframe = jeIframeEl.contentWindow || ( jeIframeEl.contentDocument.document || jeIframeEl.contentDocument);
+
       // document.write() seems to be the only way if you want reliable path info from window.loctation. See test example: https://codepen.io/pmk/pen/wOwoyW
       jeIframe.document.open();
       jeIframe.document.write(createIframeContent(code));
       jeIframe.document.close();
 
+      saveToLocalStorage();
    };
 
     /* Setup */
@@ -1243,9 +1286,12 @@
     getExamplesIndex();
 
     // Update fields from query parameters
-    updateFromUrl();
+    if (window.location.search) {
+      updateFromUrl();
+      // Trigger generation of form
+      eventFire(jeExec, 'click');
+    }
+    else loadFromLocalStorage();
 
-    // Trigger generation of form
-    eventFire(jeExec, 'click');
 
 })();

@@ -277,7 +277,7 @@
     overflow: hidden;
     cursor: pointer;
     z-index: 100;
-    --panel-width: 25rem;
+    --panel-width: 30rem;
     --panel-transition-speed: .3s;
   }
   .panel.panel-active {

@@ -68,6 +68,22 @@
         "file": "datetime"
       },
       {
+        "title": "DescribedBy",
+        "file": "describedby"
+      },
+      {
+        "title": "Grid Strict format",
+        "file": "grid-strict"
+      },
+      {
+        "title": "Grid Strict format with show_opt_in",
+        "file": "grid-strict_show-opt-in"
+      },
+      {
+        "title": "Radio Buttons",
+        "file": "radio"
+      },
+      {
         "title": "SCEditor",
         "file": "sceditor"
       },
