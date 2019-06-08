@@ -500,7 +500,7 @@
           els = jeCfg.querySelectorAll('input[type="checkbox"]' + exclude + ',select' + exclude);
       Array.from(els).forEach(function(el) {  // from() unsupported in IE
         if (el.tagName == 'SELECT') options[el.id] = el.value;
-        else options[el.value] = el.checked | 0;
+        else options[el.value] = el.checked || 0;
         //else if (el.checked) options[el.value] = 1;//el.checked;
       });
 
@@ -605,7 +605,7 @@
         if (cfg.hasOwnProperty(id)) {
           var el = jeCfg.querySelector('#' + id);
           if (el) {
-            if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = Boolean(cfg[id]);
+            if (el.nodeName == 'INPUT' && el.type == 'checkbox') el.checked = cfg[id] || 0;
             else if (el.nodeName == 'SELECT') el.value = cfg[id];
           }
         }
@@ -673,7 +673,7 @@
           var el = document.querySelector('#'+ id);
           if (el) {
             if (el.tagName == 'SELECT') el.value = params[id];
-            else if (el.tagName == 'INPUT') el.checked = Boolean(el.value);
+            else if (el.tagName == 'INPUT') el.checked = params[id] == "1" ? true : false;
           }
         }
       }
