@@ -340,7 +340,7 @@
 
     // Build list of external JavaScript and CSS files included in <head> of page
     var listExternalFilesUsed = function() {
-      var src = [], tags = jeIframe.document.querySelectorAll('head script[src], head link[rel="stylesheet"]');
+      var src = [], tags = jeIframe.document.querySelectorAll('head script:not([src=""]), head link[rel="stylesheet"]:not([href=""])');
       for (var tag in tags) {
         if (tags.hasOwnProperty(tag)) {
           src.push(tags[tag].src || tags[tag].href);
@@ -789,8 +789,8 @@
       cssFiles = uniqueArray(cssFiles);
       jsFiles = uniqueArray(jsFiles);
 
-      if (cssFiles) extFiles += '<link rel="stylesheet" href="' + cssFiles.join('" /><link rel="stylesheet" href="') + '" />';
-      if (jsFiles) extFiles += '<script src="' + jsFiles.join('"><\/script><script src="') + '"><\/script>';
+      if (cssFiles.length) extFiles += '<link rel="stylesheet" href="' + cssFiles.join('" /><link rel="stylesheet" href="') + '" />';
+      if (jsFiles.length) extFiles += '<script src="' + jsFiles.join('"><\/script><script src="') + '"><\/script>';
 
       if (styles !== '') extFiles += '<style>' + styles +'</style>';
 
