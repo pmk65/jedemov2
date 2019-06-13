@@ -14,7 +14,7 @@
     var mapping = {
       jsoneditor: {
         css: 'https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/css/jsoneditor.min.css',
-        js: 'https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js'
+        js: 'https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.js'
       },
       theme: {
         bootstrap2: {
