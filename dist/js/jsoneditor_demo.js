@@ -500,7 +500,7 @@
           els = jeCfg.querySelectorAll('input[type="checkbox"]' + exclude + ',select' + exclude);
       Array.from(els).forEach(function(el) {  // from() unsupported in IE
         if (el.tagName == 'SELECT') options[el.id] = el.value;
-        else options[el.value] = el.checked || 0;
+        else options[el.value] = el.checked ? 1 : 0;
         //else if (el.checked) options[el.value] = 1;//el.checked;
       });
 
