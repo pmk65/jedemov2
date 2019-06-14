@@ -1,0 +1,93 @@
+{
+  "title": "Array Example",
+  "schema": {
+    "$id": "https://example.com/arrays.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "A representation of a person, company, organization, or place",
+    "type": "object",
+    "properties": {
+      "fruits": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "vegetables": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/veggie"
+        }
+      }
+    },
+    "definitions": {
+      "veggie": {
+        "type": "object",
+        "required": [
+          "veggieName",
+          "veggieLike"
+        ],
+        "properties": {
+          "veggieName": {
+            "type": "string",
+            "description": "The name of the vegetable."
+          },
+          "veggieLike": {
+            "type": "boolean",
+            "description": "Do I like this vegetable?"
+          }
+        }
+      }
+    }
+  },
+  "startval": {
+    "fruits": [
+      "apple",
+      "orange",
+      "pear"
+    ],
+    "vegetables": [
+      {
+        "veggieName": "potato",
+        "veggieLike": true
+      },
+      {
+        "veggieName": "broccoli",
+        "veggieLike": false
+      }
+    ]
+  },
+  "config": {
+    "required_by_default": 1,
+    "no_additional_properties": 0,
+    "display_required_only": 0,
+    "keep_oneof_values": 0,
+    "ajax": 0,
+    "ajaxCredentials": 0,
+    "show_opt_in": 0,
+    "disable_edit_json": 0,
+    "disable_collapse": 0,
+    "disable_properties": 0,
+    "disable_array_add": 0,
+    "disable_array_reorder": 0,
+    "disable_array_delete": 0,
+    "enable_array_copy": 0,
+    "array_controls_top": 0,
+    "disable_array_delete_all_rows": 0,
+    "disable_array_delete_last_row": 0,
+    "prompt_before_delete": 0,
+    "lib_aceeditor": 0,
+    "lib_sceditor": 0,
+    "lib_simplemde": 0,
+    "lib_select2": 0,
+    "lib_selectize": 0,
+    "lib_flatpickr": 0,
+    "lib_signaturepad": 0,
+    "lib_mathjs": 0,
+    "lib_cleavejs": 0,
+    "lib_jquery": 0,
+    "lib_dompurify": 1
+  },
+  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "style": "",
+  "desc": "Add optional description here. (HTML format)"
+}
