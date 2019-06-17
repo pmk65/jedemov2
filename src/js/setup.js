@@ -79,10 +79,13 @@
           js: 'https://cdn.jsdelivr.net/npm/ejs@latest/lib/ejs.min.js'
         },
         handlebars: {
-          js: 'https://cdn.jsdelivr.net/npm/handlebars@latest/lib/index.min.js'
+          js: 'https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js'
         },
         hogan: {
           js: 'https://cdn.jsdelivr.net/npm/hogan-updated@latest/hogan.min.js'
+        },
+        lodash: {
+          js: 'https://cdn.jsdelivr.net/npm/lodash@latest/lodash.min.js'
         },
         markup: {
           js: 'https://cdn.jsdelivr.net/npm/markup-js@latest/src/markup.min.js'
@@ -523,18 +526,20 @@
         };
 
         if (window.location.protocol !== 'file:') {
-          loadJSONP('https://is.gd/create.php?format=json&url=' + encodeURIComponent(url), function(data) {
-            // Clipboard actions not allowed here since it's a callback event and not an "User generated event"
-            jeModalContent.innerHTML = '<div class="cbreq"><h3>Direct Link Generated</h3><button id="cbreq-url">Copy Url to Clipboard</button> <button id="cbreq-shorturl">Copy ShortUrl to Clipboard</button></div>';
-            jeModalContent.querySelector('#cbreq-url').addEventListener('click', urlToClipboardHandler.bind(null, url), {once: true});
-            jeModalContent.querySelector('#cbreq-shorturl').addEventListener('click', urlToClipboardHandler.bind(null, data.shorturl), {once: true});
-            toggleModal();
-          });
+          var encUrl = encodeURIComponent(url);
+          if (encUrl.length < 5000) {
+            loadJSONP('https://is.gd/create.php?format=json&url=' + encUrl, function(data) {
+              // Clipboard actions not allowed here since it's a callback event and not an "User generated event"
+              jeModalContent.innerHTML = '<div class="cbreq"><h3>Direct Link Generated</h3><button id="cbreq-url">Copy Url to Clipboard</button> <button id="cbreq-shorturl">Copy ShortUrl to Clipboard</button></div>';
+              jeModalContent.querySelector('#cbreq-url').addEventListener('click', urlToClipboardHandler.bind(null, url), {once: true});
+              jeModalContent.querySelector('#cbreq-shorturl').addEventListener('click', urlToClipboardHandler.bind(null, data.shorturl), {once: true});
+              toggleModal();
+            });
 
-          if (window.history) {
-            window.history.replaceState('', window.title, url);
+            if (window.history) {
+              window.history.replaceState('', window.title, url);
+            }
           }
-
         }
         else {
           urlToClipboardHandler(url);
