@@ -68,6 +68,10 @@
         "file": "cleave"
       },
       {
+        "title": "Colors (Watch)",
+        "file": "colors"
+      },
+      {
         "title": "Datetime (Flatpickr)",
         "file": "datetime"
       },
