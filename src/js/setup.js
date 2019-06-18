@@ -23,7 +23,7 @@
         bootstrap3: {
           css: 'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/css/bootstrap.min.css',
           js: [
-            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
             'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/js/bootstrap.min.js'
           ]
         },
@@ -42,7 +42,7 @@
         foundation6: {
           css: 'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-float.min.css',
           js: [
-            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
             'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js'
           ]
         },
@@ -52,7 +52,7 @@
         materialize: {
           css: 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css',
           js: [
-            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'
           ]
         }
