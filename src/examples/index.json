@@ -118,6 +118,10 @@
       {
         "title": "Upload",
         "file": "upload"
+      },
+      {
+        "title": "Various methods of setting enum data",
+        "file": "static-enum-methods"
       }
     ]
   },

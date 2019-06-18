@@ -1,0 +1,99 @@
+{
+  "title": "Static enum methods",
+  "schema": {
+    "$id": "https://example.com/arrays.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Static enum methods",
+    "description": "Example of different static <strong>enum</strong> methods",
+    "type": "object",
+    "properties": {
+      "example1": {
+        "type": "string",
+        "title": "Example 1",
+        "description": "Using [<strong>enum</strong>] - (key and value are the same)",
+        "enum": [
+          "Red",
+          "Green",
+          "Blue"
+        ]
+      },
+      "example2": {
+        "type": "string",
+        "title": "Example 2",
+        "description": "Using [<strong>enum + enum_titles</strong>] - (key and value can be different)",
+        "enum": [
+          "#FF0000",
+          "#00FF00",
+          "#0000FF"
+        ],
+        "options": {
+          "enum_titles": [
+            "Red",
+            "Green",
+            "Blue"
+          ]
+        }
+      },
+      "example3": {
+        "type": "string",
+        "title": "Example 3",
+        "description": "Using [<strong>enumSource</strong>] - (key and value can be different)",
+        "enumSource": [
+          {
+            "source": [
+              {
+                "value": "#F00",
+                "key": "Red"
+              },
+              {
+                "value": "#0F0",
+                "key": "Green"
+              },
+              {
+                "value": "#00F",
+                "key": "Blue"
+              }
+            ],
+            "title": "{{item.key}}",
+            "value": "{{item.value}}"
+          }
+        ]
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "required_by_default": 1,
+    "no_additional_properties": 0,
+    "display_required_only": 0,
+    "keep_oneof_values": 1,
+    "ajax": 0,
+    "ajaxCredentials": 0,
+    "show_opt_in": 0,
+    "disable_edit_json": 0,
+    "disable_collapse": 0,
+    "disable_properties": 0,
+    "disable_array_add": 0,
+    "disable_array_reorder": 0,
+    "disable_array_delete": 0,
+    "enable_array_copy": 0,
+    "array_controls_top": 0,
+    "disable_array_delete_all_rows": 0,
+    "disable_array_delete_last_row": 0,
+    "prompt_before_delete": 1,
+    "lib_aceeditor": 0,
+    "lib_sceditor": 0,
+    "lib_simplemde": 0,
+    "lib_select2": 0,
+    "lib_selectize": 0,
+    "lib_flatpickr": 0,
+    "lib_signaturepad": 0,
+    "lib_mathjs": 0,
+    "lib_cleavejs": 0,
+    "lib_jquery": 0,
+    "lib_dompurify": 1
+  },
+  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "style": "",
+  "desc": "<p>This example demonstrates various static methods of setting enum data.</p>"
+}
