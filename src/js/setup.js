@@ -22,7 +22,10 @@
         },
         bootstrap3: {
           css: 'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/css/bootstrap.min.css',
-          js: 'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/js/bootstrap.min.js'
+          js: [
+            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/js/bootstrap.min.js'
+          ]
         },
         bootstrap4: {
           css: 'https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css'
