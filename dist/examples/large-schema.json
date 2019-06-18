@@ -1,0 +1,4755 @@
+{
+  "title": "Large Schema",
+  "schema": {
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "id": "http://www.healthcatalyst.com/schema/prb-config-schema.json",
+    "title": "Registry Builder Configuration",
+    "options": {
+      "disable_collapse": true,
+      "disable_properties": true
+    },
+    "type": "object",
+    "properties": {
+      "$schema": {
+        "type": "string",
+        "options": {
+          "hidden": true
+        }
+      },
+      "edw": {
+        "$ref": "#/definitions/edwConfig",
+        "propertyOrder": 1,
+        "options": {
+          "collapsed": true
+        }
+      },
+      "uiSettings": {
+        "$ref": "#/definitions/uiSettingsConfig",
+        "propertyOrder": 2,
+        "options": {
+          "collapsed": true
+        }
+      },
+      "grains": {
+        "$ref": "#/definitions/grains",
+        "propertyOrder": 3,
+        "options": {
+          "collapsed": true,
+          "disable_array_delete_last_row": true
+        }
+      },
+      "valueSetSettings": {
+        "$ref": "#/definitions/valueSetSettings",
+        "propertyOrder": 4,
+        "options": {
+          "collapsed": true
+        }
+      }
+    },
+    "required": [
+      "edw",
+      "grains"
+    ],
+    "additionalProperties": false,
+    "definitions": {
+      "edwConfig": {
+        "type": "object",
+        "title": "EDW",
+        "format": "grid",
+        "description": "foobar",
+        "properties": {
+          "connectionString": {
+            "type": "string",
+            "options": {
+              "grid_columns": 12
+            },
+            "description": "foobar"
+          },
+          "commandTimeout": {
+            "type": "integer",
+            "format": "number",
+            "options": {
+              "grid_columns": 2
+            },
+            "description": "foobar"
+          },
+          "disableRegistries": {
+            "type": "boolean",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 12
+            }
+          }
+        },
+        "required": [
+          "connectionString",
+          "commandTimeout"
+        ],
+        "additionalProperties": false
+      },
+      "uiSettingsConfig": {
+        "type": "object",
+        "title": "UI Settings",
+        "format": "grid",
+        "description": "foobar",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 8
+            }
+          },
+          "basicUserMinResultCount": {
+            "type": "integer",
+            "format": "number",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 4
+            }
+          },
+          "logo": {
+            "$ref": "#/definitions/imageType",
+            "options": {
+              "grid_columns": 12,
+              "collapsed": true
+            }
+          }
+        },
+        "required": [
+          "title",
+          "logo"
+        ],
+        "additionalProperties": false
+      },
+      "valueSetSettings": {
+        "type": "object",
+        "title": "Value Sets",
+        "format": "grid",
+        "description": "foobar",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 12
+            }
+          },
+          "terminologyUrl": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 12
+            }
+          },
+          "authorityDescription": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 6
+            }
+          },
+          "clientCode": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 6
+            }
+          }
+        },
+        "required": [
+          "enabled",
+          "terminologyUrl",
+          "authorityDescription",
+          "clientCode"
+        ],
+        "additionalProperties": false
+      },
+      "grains": {
+        "title": "Filter Grains",
+        "format": "tabs",
+        "type": "array",
+        "description": "foobar",
+        "items": {
+          "$ref": "#/definitions/grain"
+        },
+        "additionalProperties": false
+      },
+      "results": {
+        "title": "Ruleset Result Columns",
+        "type": "object",
+        "description": "foobar",
+        "properties": {
+          "columns": {
+            "title": "Columns",
+            "type": "array",
+            "format": "tabs",
+            "options": {
+              "disable_collapse": true,
+              "disable_array_delete_last_row": true
+            },
+            "items": {
+              "$ref": "#/definitions/column"
+            }
+          }
+        },
+        "required": [
+          "columns"
+        ],
+        "additionalProperties": false
+      },
+      "column": {
+        "headerTemplate": "{{self.title}}",
+        "type": "object",
+        "options": {
+          "disable_collapse": true
+        },
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "column": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "alias": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "includeInSearch": {
+            "type": "boolean",
+            "description": "foobar"
+          }
+        },
+        "required": [
+          "title",
+          "column",
+          "includeInSearch"
+        ],
+        "additionalProperties": false
+      },
+      "grain": {
+        "title": "Filter Grain",
+        "headerTemplate": "{{self.grainKey}}",
+        "type": "object",
+        "description": "foobar",
+        "properties": {
+          "grainKey": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 5
+            }
+          },
+          "entityName": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 5
+            }
+          },
+          "entityIdField": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 5
+            }
+          },
+          "results": {
+            "$ref": "#/definitions/results",
+            "options": {
+              "grid_columns": 12
+            }
+          },
+          "uiName": {
+            "$ref": "#/definitions/grainName"
+          },
+          "filterTypes": {
+            "$ref": "#/definitions/filterTypes"
+          }
+        },
+        "required": [
+          "entityName",
+          "entityIdField",
+          "uiName",
+          "filterTypes"
+        ],
+        "additionalProperties": false
+      },
+      "grainName": {
+        "title": "Grain Name",
+        "type": "object",
+        "format": "grid",
+        "description": "foobar",
+        "properties": {
+          "singular": {
+            "type": "string",
+            "options": {
+              "grid_columns": 6
+            }
+          },
+          "plural": {
+            "type": "string",
+            "options": {
+              "grid_columns": 6
+            }
+          }
+        },
+        "required": [
+          "singular",
+          "plural"
+        ],
+        "additionalProperties": false
+      },
+      "imageType": {
+        "title": "Application Logo",
+        "type": "object",
+        "description": "foobar",
+        "properties": {
+          "location": {
+            "type": "string"
+          },
+          "base64": {
+            "type": "string",
+            "format": "textarea"
+          }
+        },
+        "additionalProperties": false
+      },
+      "filterTypes": {
+        "title": "Filter Types",
+        "format": "tabs",
+        "type": "array",
+        "description": "foobar",
+        "items": {
+          "$ref": "#/definitions/filterType"
+        }
+      },
+      "filterType": {
+        "title": "Filter Type",
+        "headerTemplate": "{{self.name}}",
+        "type": "object",
+        "format": "grid",
+        "options": {
+          "disable_collapse": true
+        },
+        "properties": {
+          "isMainGrain": {
+            "title": "Main-Grained Filter",
+            "type": "boolean",
+            "description": "foobar",
+            "format": "checkbox",
+            "options": {
+              "grid_columns": 12
+            }
+          },
+          "disabledForScenes": {
+            "$ref": "#/definitions/filterDisabledForScenes",
+            "options": {
+              "grid_columns": 6
+            }
+          },
+          "disabledForFilters": {
+            "$ref": "#/definitions/filterDisabledForFilters",
+            "options": {
+              "grid_columns": 6
+            }
+          },
+          "uiIndex": {
+            "type": "integer",
+            "format": "number",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 2
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 5
+            }
+          },
+          "filterTypeKey": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 5
+            }
+          },
+          "comments": {
+            "$ref": "#/definitions/comments"
+          },
+          "helpText": {
+            "$ref": "#/definitions/helpText"
+          },
+          "filterJoins": {
+            "type": "array",
+            "title": "Filter Joins",
+            "description": "foobar",
+            "options": {
+              "collapsed": true,
+              "grid_columns": 12
+            },
+            "items": {
+              "$ref": "#/definitions/filterJoin"
+            }
+          },
+          "filterCriteria": {
+            "type": "array",
+            "title": "Additonal Filter Criteria",
+            "description": "foobar",
+            "options": {
+              "collapsed": true,
+              "grid_columns": 12
+            },
+            "items": {
+              "title": "Criterion",
+              "type": "string",
+              "pattern": "\\S"
+            }
+          },
+          "filterComponents": {
+            "title": "Filter Components",
+            "description": "foobar",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/filterComponent"
+            },
+            "format": "tabs",
+            "options": {
+              "collapsed": true,
+              "grid_columns": 12,
+              "disable_array_delete_last_row": true
+            }
+          },
+          "uiFilterComponentGroups": {
+            "title": "Filter Component Groups",
+            "description": "foobar",
+            "type": "array",
+            "format": "tabs",
+            "options": {
+              "collapsed": true,
+              "disable_array_delete_last_row": true
+            },
+            "items": {
+              "$ref": "#/definitions/uiFilterComponentGroup"
+            }
+          },
+          "aggregates": {
+            "title": "Advanced Aggregate Functions",
+            "description": "foobar",
+            "options": {
+              "collapsed": true,
+              "grid_columns": 12
+            },
+            "type": "object",
+            "properties": {
+              "count": {
+                "title": "Count",
+                "description": "foobar",
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "description": "foobar",
+                    "type": "boolean"
+                  },
+                  "distinctFieldOptions": {
+                    "title": "Count Distinct",
+                    "description": "foobar",
+                    "options": {
+                      "collapsed": true
+                    },
+                    "type": "array",
+                    "format": "tabs",
+                    "items": {
+                      "$ref": "#/definitions/configuredField"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "isMainGrain",
+          "name",
+          "filterJoins",
+          "filterTypeKey",
+          "uiIndex",
+          "disabledForScenes",
+          "disabledForFilters"
+        ],
+        "additionalProperties": false
+      },
+      "configuredField": {
+        "title": "Configured Field",
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "title": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "fieldName": {
+            "type": "string",
+            "description": "foobar"
+          }
+        },
+        "required": [
+          "key",
+          "title",
+          "fieldName"
+        ]
+      },
+      "uiFilterComponentGroup": {
+        "title": "Component Group",
+        "type": "object",
+        "options": {
+          "disable_collapse": true,
+          "remove_empty_properties": true
+        },
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "filterComponentKeys": {
+            "title": "Component Keys",
+            "type": "array",
+            "description": "foobar",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "filterComponentKeys"
+        ]
+      },
+      "filterComponent": {
+        "title": "Filter Component",
+        "headerTemplate": "{{self.uiConfig.name}}",
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/definitions/multiSelectFilterComponent"
+          },
+          {
+            "$ref": "#/definitions/valueSetMultiSelectFilterComponent"
+          },
+          {
+            "$ref": "#/definitions/mixedMultiSelectFilterComponent"
+          },
+          {
+            "$ref": "#/definitions/singleSelectFilterComponent"
+          },
+          {
+            "$ref": "#/definitions/dateRangeFilterComponent"
+          },
+          {
+            "$ref": "#/definitions/rangeFilterComponent"
+          }
+        ],
+        "required": [
+          "typeKey"
+        ]
+      },
+      "multiSelectFilterComponent": {
+        "title": "MultiSelect",
+        "description": "foobar",
+        "options": {
+          "disable_collapse": true
+        },
+        "properties": {
+          "filterComponentKey": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "typeKey": {
+            "type": "string",
+            "options": {
+              "hidden": true
+            },
+            "description": "foobar",
+            "enum": [
+              "MultiSelect"
+            ]
+          },
+          "uiConfig": {
+            "title": "UI Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "codeIsSignificant": {
+                "type": "boolean",
+                "description": "foobar"
+              },
+              "allowCSV": {
+                "type": "boolean",
+                "description": "foobar"
+              },
+              "isMacro": {
+                "type": "boolean",
+                "description": "foobar"
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              },
+              "helpText": {
+                "$ref": "#/definitions/helpText"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ]
+          },
+          "config": {
+            "title": "Component Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "valueSelector": {
+                "title": "Value Selector",
+                "type": "string",
+                "description": "foobar"
+              },
+              "selectOptions": {
+                "options": {
+                  "collapsed": false
+                },
+                "$ref": "#/definitions/filterComponentSelectOptions"
+              },
+              "dependsOn": {
+                "options": {
+                  "collapsed": true
+                },
+                "$ref": "#/definitions/dependsOn"
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "valueSelector",
+              "selectOptions"
+            ]
+          },
+          "disabledForScenes": {
+            "$ref": "#/definitions/componentDisabledForScenes"
+          },
+          "disabledForFilters": {
+            "$ref": "#/definitions/componentDisabledForFilters"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "filterComponentKey",
+          "typeKey",
+          "config",
+          "uiConfig",
+          "disabledForScenes",
+          "disabledForFilters"
+        ]
+      },
+      "valueSetMultiSelectFilterComponent": {
+        "title": "Value Set MultiSelect",
+        "description": "foobar",
+        "options": {
+          "disable_collapse": true
+        },
+        "properties": {
+          "filterComponentKey": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "typeKey": {
+            "type": "string",
+            "options": {
+              "hidden": true
+            },
+            "description": "foobar",
+            "enum": [
+              "ValueSetMultiSelect"
+            ]
+          },
+          "uiConfig": {
+            "title": "UI Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "codeIsSignificant": {
+                "type": "boolean",
+                "description": "foobar"
+              },
+              "allowCSV": {
+                "type": "boolean",
+                "description": "foobar"
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              },
+              "helpText": {
+                "$ref": "#/definitions/helpText"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ]
+          },
+          "config": {
+            "title": "Component Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "valueSelector": {
+                "title": "Value Selector",
+                "type": "string",
+                "description": "foobar"
+              },
+              "valueSetCodeCriteria": {
+                "options": {
+                  "collapsed": true
+                },
+                "title": "Value Set Code Criteria",
+                "type": "array",
+                "description": "foobar",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "comments": {
+                      "$ref": "#/definitions/comments"
+                    },
+                    "codeSystemGuid": {
+                      "type": "string",
+                      "description": "foobar"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "codeSystemGuid"
+                  ]
+                }
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "valueSelector",
+              "valueSetCodeCriteria"
+            ]
+          },
+          "disabledForScenes": {
+            "$ref": "#/definitions/componentDisabledForScenes"
+          },
+          "disabledForFilters": {
+            "$ref": "#/definitions/componentDisabledForFilters"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "filterComponentKey",
+          "typeKey",
+          "config",
+          "uiConfig",
+          "disabledForScenes",
+          "disabledForFilters"
+        ]
+      },
+      "mixedMultiSelectFilterComponent": {
+        "title": "Mixed Type MultiSelect",
+        "description": "foobar",
+        "options": {
+          "disable_collapse": true
+        },
+        "properties": {
+          "filterComponentKey": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "typeKey": {
+            "type": "string",
+            "options": {
+              "hidden": true
+            },
+            "description": "foobar",
+            "enum": [
+              "MixedMultiSelect"
+            ]
+          },
+          "uiConfig": {
+            "title": "UI Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "numericName": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "textName": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              },
+              "helpText": {
+                "$ref": "#/definitions/helpText"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ]
+          },
+          "config": {
+            "title": "Component Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "comments": {
+                "$ref": "#/definitions/comments"
+              },
+              "textValueSelector": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "numberValueSelector": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "dependsOn": {
+                "options": {
+                  "collapsed": true
+                },
+                "$ref": "#/definitions/dependsOn"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "textValueSelector",
+              "numberValueSelector",
+              "dependsOn"
+            ]
+          },
+          "disabledForScenes": {
+            "$ref": "#/definitions/componentDisabledForScenes"
+          },
+          "disabledForFilters": {
+            "$ref": "#/definitions/componentDisabledForFilters"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "filterComponentKey",
+          "typeKey",
+          "config",
+          "uiConfig",
+          "disabledForScenes",
+          "disabledForFilters"
+        ]
+      },
+      "rangeFilterComponent": {
+        "title": "Number Range",
+        "description": "foobar",
+        "options": {
+          "disable_collapse": true
+        },
+        "properties": {
+          "filterComponentKey": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "typeKey": {
+            "type": "string",
+            "options": {
+              "hidden": true
+            },
+            "description": "foobar",
+            "enum": [
+              "NumberRange"
+            ]
+          },
+          "uiConfig": {
+            "title": "UI Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "max": {
+                "type": "number",
+                "description": "foobar"
+              },
+              "min": {
+                "type": "number",
+                "description": "foobar"
+              },
+              "unit": {
+                "options": {
+                  "collapsed": true
+                },
+                "$ref": "#/definitions/unit"
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              },
+              "helpText": {
+                "$ref": "#/definitions/helpText"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ]
+          },
+          "config": {
+            "title": "Component Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "comments": {
+                "$ref": "#/definitions/comments"
+              },
+              "valueSelector": {
+                "title": "Value Selector",
+                "type": "string",
+                "description": "foobar"
+              },
+              "selectOptions": {
+                "options": {
+                  "collapsed": false
+                },
+                "$ref": "#/definitions/filterComponentSelectOptions"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "valueSelector",
+              "selectOptions"
+            ]
+          },
+          "disabledForScenes": {
+            "$ref": "#/definitions/componentDisabledForScenes"
+          },
+          "disabledForFilters": {
+            "$ref": "#/definitions/componentDisabledForFilters"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "filterComponentKey",
+          "typeKey",
+          "config",
+          "uiConfig",
+          "disabledForScenes",
+          "disabledForFilters"
+        ]
+      },
+      "singleSelectFilterComponent": {
+        "title": "Single Select",
+        "description": "foobar",
+        "options": {
+          "disable_collapse": true
+        },
+        "properties": {
+          "filterComponentKey": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "typeKey": {
+            "type": "string",
+            "description": "foobar",
+            "enum": [
+              "Select",
+              "Registry"
+            ]
+          },
+          "uiConfig": {
+            "title": "UI Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "placeholderText": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              },
+              "helpText": {
+                "$ref": "#/definitions/helpText"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ]
+          },
+          "config": {
+            "title": "Component Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "valueSelector": {
+                "title": "Value Selector",
+                "type": "string",
+                "description": "foobar"
+              },
+              "selectOptions": {
+                "options": {
+                  "collapsed": false
+                },
+                "$ref": "#/definitions/filterComponentSelectOptions"
+              },
+              "dependsOn": {
+                "options": {
+                  "collapsed": true
+                },
+                "$ref": "#/definitions/dependsOn"
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "valueSelector",
+              "selectOptions"
+            ]
+          },
+          "disabledForScenes": {
+            "$ref": "#/definitions/componentDisabledForScenes"
+          },
+          "disabledForFilters": {
+            "$ref": "#/definitions/componentDisabledForFilters"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "filterComponentKey",
+          "typeKey",
+          "config",
+          "uiConfig",
+          "disabledForScenes",
+          "disabledForFilters"
+        ]
+      },
+      "dateRangeFilterComponent": {
+        "title": "Temporal Constraint",
+        "description": "foobar",
+        "options": {
+          "disable_collapse": true
+        },
+        "properties": {
+          "filterComponentKey": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "typeKey": {
+            "type": "string",
+            "options": {
+              "hidden": true
+            },
+            "description": "foobar",
+            "enum": [
+              "TemporalConstraint"
+            ]
+          },
+          "uiConfig": {
+            "title": "UI Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "foobar"
+              },
+              "displayMode": {
+                "type": "string",
+                "description": "foobar",
+                "enum": [
+                  "Default",
+                  "Age"
+                ]
+              },
+              "comments": {
+                "$ref": "#/definitions/comments"
+              },
+              "helpText": {
+                "$ref": "#/definitions/helpText"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ]
+          },
+          "config": {
+            "title": "Component Configuration",
+            "options": {
+              "collapsed": true
+            },
+            "type": "object",
+            "properties": {
+              "dateSelector": {
+                "type": "string"
+              },
+              "dependsOn": {
+                "options": {
+                  "collapsed": true
+                },
+                "$ref": "#/definitions/dependsOn"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "dateSelector"
+            ]
+          },
+          "disabledForScenes": {
+            "$ref": "#/definitions/componentDisabledForScenes"
+          },
+          "disabledForFilters": {
+            "$ref": "#/definitions/componentDisabledForFilters"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "filterComponentKey",
+          "typeKey",
+          "config",
+          "uiConfig",
+          "disabledForScenes",
+          "disabledForFilters"
+        ]
+      },
+      "filterComponentSelectOptions": {
+        "type": "object",
+        "title": "Value Options Source",
+        "description": "foobar",
+        "properties": {
+          "comments": {
+            "$ref": "#/definitions/comments"
+          },
+          "table": {
+            "$ref": "#/definitions/nonEmptyOrWhiteSpaceString",
+            "description": "foobar"
+          },
+          "codeSelector": {
+            "$ref": "#/definitions/nonEmptyOrWhiteSpaceString",
+            "description": "foobar"
+          },
+          "titleSelector": {
+            "$ref": "#/definitions/nonEmptyOrWhiteSpaceString",
+            "description": "foobar"
+          }
+        },
+        "required": [
+          "table",
+          "codeSelector",
+          "titleSelector"
+        ],
+        "additionalProperties": false
+      },
+      "filterJoin": {
+        "type": "object",
+        "format": "grid",
+        "title": "Filter Join",
+        "options": {
+          "remove_empty_properties": true
+        },
+        "properties": {
+          "joinTargetName": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 4
+            }
+          },
+          "joinIdField": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 4
+            }
+          },
+          "sourceIdField": {
+            "type": "string",
+            "description": "foobar",
+            "options": {
+              "grid_columns": 4
+            }
+          }
+        },
+        "required": [
+          "joinTargetName",
+          "joinIdField"
+        ]
+      },
+      "comments": {
+        "type": "string",
+        "title": "Comments",
+        "format": "textarea",
+        "propertyOrder": 1001,
+        "description": "foobar",
+        "options": {
+          "grid_columns": 12
+        }
+      },
+      "helpText": {
+        "type": "string",
+        "title": "Help Text",
+        "format": "textarea",
+        "propertyOrder": 1000,
+        "description": "foobar",
+        "options": {
+          "grid_columns": 12
+        }
+      },
+      "unit": {
+        "type": "object",
+        "title": "Unit",
+        "description": "foobar",
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "description": "foobar"
+          },
+          "isPrefix": {
+            "type": "boolean",
+            "description": "foobar"
+          }
+        },
+        "required": [
+          "symbol",
+          "isPrefix"
+        ]
+      },
+      "dependsOn": {
+        "type": "object",
+        "title": "Dependencies",
+        "options": {
+          "collapsed": true
+        },
+        "description": "foobar",
+        "properties": {
+          "forData": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "foobar"
+          }
+        },
+        "required": [
+          "forData"
+        ]
+      },
+      "nonEmptyOrWhiteSpaceString": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": ".*\\S.*"
+      },
+      "componentDisabledForScenes": {
+        "title": "Disabled for Scenes",
+        "description": "foobar",
+        "type": "boolean",
+        "format": "checkbox"
+      },
+      "componentDisabledForFilters": {
+        "title": "Disabled for Filters",
+        "description": "foobar",
+        "type": "boolean",
+        "format": "checkbox"
+      },
+      "filterDisabledForScenes": {
+        "title": "Disabled for Scenes",
+        "description": "foobar",
+        "type": "boolean",
+        "format": "checkbox"
+      },
+      "filterDisabledForFilters": {
+        "title": "Disabled for Filters",
+        "description": "foobar",
+        "type": "boolean",
+        "format": "checkbox"
+      }
+    }
+  },
+  "startval": {
+    "$schema": "foobar",
+    "edw": {
+      "connectionString": "foobar",
+      "commandTimeout": 300
+    },
+    "uiSettings": {
+      "title": "foobar",
+      "logo": {
+        "base64": "foobar"
+      }
+    },
+    "grains": [
+      {
+        "grainKey": "foobar",
+        "entityName": "foobar",
+        "entityIdField": "foobar",
+        "results": {
+          "columns": [
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            },
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            },
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            },
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": false
+            },
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "includeInSearch": true,
+              "alias": "foobar"
+            }
+          ]
+        },
+        "uiName": {
+          "singular": "foobar",
+          "plural": "foobar"
+        },
+        "filterTypes": [
+          {
+            "isMainGrain": true,
+            "uiIndex": 0,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": true,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": true,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": true,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": true,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar",
+                  "foobar",
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 1,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ]
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 2,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "isMacro": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "comments": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 3,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ]
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 4,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  },
+                  "dependsOn": {
+                    "forData": []
+                  },
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MixedMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "numericName": "foobar",
+                  "textName": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "textValueSelector": "foobar",
+                  "numberValueSelector": "foobar",
+                  "dependsOn": {
+                    "forData": [
+                      "foobar"
+                    ]
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 5,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 6,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  },
+                  "dependsOn": {
+                    "forData": []
+                  },
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "comments": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar",
+                  "dependsOn": {
+                    "forData": []
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 7,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ]
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 8,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [
+              "foobar"
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "Registry",
+                "uiConfig": {
+                  "name": "foobar",
+                  "placeholderText": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 9,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "Select",
+                "uiConfig": {
+                  "name": "foobar",
+                  "placeholderText": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "NumberRange",
+                "uiConfig": {
+                  "name": "foobar",
+                  "unit": {
+                    "symbol": "foobar",
+                    "isPrefix": false
+                  }
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 10,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MixedMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "numericName": "foobar",
+                  "textName": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "comments": "foobar",
+                  "textValueSelector": "foobar",
+                  "numberValueSelector": "foobar",
+                  "dependsOn": {
+                    "forData": [
+                      "foobar"
+                    ]
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 11,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  },
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "isMacro": true
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          }
+        ]
+      },
+      {
+        "grainKey": "foobar",
+        "entityName": "foobar",
+        "entityIdField": "foobar",
+        "results": {
+          "columns": [
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            },
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            },
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            }
+          ]
+        },
+        "uiName": {
+          "singular": "foobar",
+          "plural": "foobar"
+        },
+        "filterTypes": [
+          {
+            "isMainGrain": false,
+            "uiIndex": 0,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar",
+                  "foobar",
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 1,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ]
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 2,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "isMacro": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "comments": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 3,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ],
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 4,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  },
+                  "dependsOn": {
+                    "forData": []
+                  },
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MixedMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "numericName": "foobar",
+                  "textName": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "textValueSelector": "foobar",
+                  "numberValueSelector": "foobar",
+                  "dependsOn": {
+                    "forData": [
+                      "foobar"
+                    ]
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 5,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 6,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  },
+                  "dependsOn": {
+                    "forData": []
+                  },
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "comments": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar",
+                  "dependsOn": {
+                    "forData": []
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 7,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ]
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 8,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [
+              "foobar"
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "Registry",
+                "uiConfig": {
+                  "name": "foobar",
+                  "placeholderText": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 10,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MixedMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "numericName": "foobar",
+                  "textName": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "comments": "foobar",
+                  "textValueSelector": "foobar",
+                  "numberValueSelector": "foobar",
+                  "dependsOn": {
+                    "forData": [
+                      "foobar"
+                    ]
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          }
+        ]
+      },
+      {
+        "grainKey": "foobar",
+        "entityName": "foobar",
+        "entityIdField": "foobar",
+        "results": {
+          "columns": [
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            },
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            },
+            {
+              "title": "foobar",
+              "column": "foobar",
+              "alias": "foobar",
+              "includeInSearch": true
+            }
+          ]
+        },
+        "uiName": {
+          "singular": "foobar",
+          "plural": "foobar"
+        },
+        "filterTypes": [
+          {
+            "isMainGrain": false,
+            "uiIndex": 0,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar",
+                  "foobar",
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 1,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ]
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 2,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "isMacro": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "comments": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 3,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ],
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 4,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  },
+                  "dependsOn": {
+                    "forData": []
+                  },
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MixedMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "numericName": "foobar",
+                  "textName": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "textValueSelector": "foobar",
+                  "numberValueSelector": "foobar",
+                  "dependsOn": {
+                    "forData": [
+                      "foobar"
+                    ]
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 5,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 6,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  },
+                  "dependsOn": {
+                    "forData": []
+                  },
+                  "comments": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false,
+                  "isMacro": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "comments": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar",
+                  "dependsOn": {
+                    "forData": []
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  },
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 7,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "comments": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "ValueSetMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": true,
+                  "allowCSV": true,
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "valueSetCodeCriteria": [
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    },
+                    {
+                      "comments": "foobar",
+                      "codeSystemGuid": "foobar"
+                    }
+                  ]
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "aggregates": {
+              "count": {
+                "enabled": true,
+                "distinctFieldOptions": [
+                  {
+                    "key": "foobar",
+                    "title": "foobar",
+                    "fieldName": "foobar"
+                  }
+                ]
+              }
+            },
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 8,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              }
+            ],
+            "filterCriteria": [
+              "foobar"
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "Registry",
+                "uiConfig": {
+                  "name": "foobar",
+                  "placeholderText": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          },
+          {
+            "isMainGrain": false,
+            "uiIndex": 10,
+            "name": "foobar",
+            "filterTypeKey": "foobar",
+            "helpText": "foobar",
+            "filterJoins": [
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar"
+              },
+              {
+                "joinTargetName": "foobar",
+                "joinIdField": "foobar",
+                "sourceIdField": "foobar"
+              }
+            ],
+            "filterComponents": [
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "codeIsSignificant": false,
+                  "allowCSV": false
+                },
+                "config": {
+                  "valueSelector": "foobar",
+                  "selectOptions": {
+                    "comments": "foobar",
+                    "table": "foobar",
+                    "codeSelector": "foobar",
+                    "titleSelector": "foobar"
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "TemporalConstraint",
+                "uiConfig": {
+                  "name": "foobar",
+                  "displayMode": "foobar"
+                },
+                "config": {
+                  "dateSelector": "foobar"
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              },
+              {
+                "filterComponentKey": "foobar",
+                "typeKey": "MixedMultiSelect",
+                "uiConfig": {
+                  "name": "foobar",
+                  "numericName": "foobar",
+                  "textName": "foobar",
+                  "comments": "foobar",
+                  "helpText": "foobar"
+                },
+                "config": {
+                  "comments": "foobar",
+                  "textValueSelector": "foobar",
+                  "numberValueSelector": "foobar",
+                  "dependsOn": {
+                    "forData": [
+                      "foobar"
+                    ]
+                  }
+                },
+                "disabledForScenes": false,
+                "disabledForFilters": false
+              }
+            ],
+            "uiFilterComponentGroups": [
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar",
+                  "foobar"
+                ]
+              },
+              {
+                "label": "foobar",
+                "filterComponentKeys": [
+                  "foobar"
+                ]
+              }
+            ],
+            "disabledForScenes": false,
+            "disabledForFilters": false
+          }
+        ]
+      }
+    ],
+    "valueSetSettings": {
+      "enabled": false,
+      "terminologyUrl": "foobar",
+      "authorityDescription": "foobar",
+      "clientCode": "foobar"
+    }
+  },
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "bootstrap3",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "required_by_default": 0,
+    "no_additional_properties": 0,
+    "display_required_only": 0,
+    "keep_oneof_values": 1,
+    "ajax": 0,
+    "ajaxCredentials": 0,
+    "show_opt_in": 0,
+    "disable_edit_json": 0,
+    "disable_collapse": 0,
+    "disable_properties": 0,
+    "disable_array_add": 0,
+    "disable_array_reorder": 0,
+    "disable_array_delete": 0,
+    "enable_array_copy": 0,
+    "array_controls_top": 0,
+    "disable_array_delete_all_rows": 0,
+    "disable_array_delete_last_row": 0,
+    "prompt_before_delete": 1,
+    "lib_aceeditor": 0,
+    "lib_sceditor": 0,
+    "lib_simplemde": 0,
+    "lib_select2": 0,
+    "lib_selectize": 0,
+    "lib_flatpickr": 0,
+    "lib_signaturepad": 0,
+    "lib_mathjs": 0,
+    "lib_cleavejs": 0,
+    "lib_jquery": 0,
+    "lib_dompurify": 0
+  },
+  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "style": "",
+  "desc": "Add optional description here. (HTML format)"
+}
