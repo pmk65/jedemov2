@@ -186,12 +186,12 @@
         "file": "meta_schema"
       },
       {
-        "title": "Meta Schema",
-        "file": "meta_schema"
-      },
-      {
         "title": "Large Schema (4 sec. render time)",
         "file": "large-schema"
+      },
+      {
+        "title": "Examples Schema",
+        "file": "examples"
       }
     ]
   },
