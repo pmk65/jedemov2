@@ -1,7 +1,7 @@
 /**
  * @name JSON-Editor Interactive Playground
  * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
- * @version 1.0.1
+ * @version 1.0.2
  * @author Peter Klein
  * @see https://github.com/pmk65/jedemov2/
  * @license MIT
@@ -22,7 +22,10 @@
         },
         bootstrap3: {
           css: 'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/css/bootstrap.min.css',
-          js: 'https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js'
+          js: [
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/js/bootstrap.min.js'
+          ]
         },
         bootstrap4: {
           css: 'https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css'
@@ -39,7 +42,7 @@
         foundation6: {
           css: 'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-float.min.css',
           js: [
-            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
             'https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js'
           ]
         },
@@ -49,9 +52,9 @@
         materialize: {
           css: 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css',
           js: [
-                'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'
-            ]
+            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'
+          ]
         }
       },
       iconlib: {
