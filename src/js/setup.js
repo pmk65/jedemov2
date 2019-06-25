@@ -127,6 +127,10 @@
             'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/formats/xhtml.js'
           ]
         },
+        lib_choices: {
+          css: 'https://cdn.jsdelivr.net/npm/choices.js@latest/public/assets/styles/choices.min.css',
+          js: 'https://cdn.jsdelivr.net/npm/choices.js@latest/public/assets/scripts/choices.min.js'
+        },
         lib_simplemde: {
           css: 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css',
           js: 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js'
