@@ -625,6 +625,10 @@
               window.history.replaceState('', window.title, url);
             }
           }
+          else {
+            urlToClipboardHandler(url);
+            toggleModal();
+          }
         }
         else {
           urlToClipboardHandler(url);
