@@ -32,6 +32,6 @@
     "ajax": 1
   },
   "style": "",
-  "code": "",
+  "code": "// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",   
   "desc": "<p>External schema for the Advanced example.</p>"
 }

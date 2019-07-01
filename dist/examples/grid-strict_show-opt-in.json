@@ -94,7 +94,7 @@
   "config": {
     "show_opt_in": 1
   },
-  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "code": "// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",       
   "style": "",
   "desc": "<p>This example shows the use of the <strong>grid_strict</strong> format with <strong><em>show_opt_in</em></strong> option set.</p>"
 }

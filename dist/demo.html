@@ -82,7 +82,9 @@
         <div id="split-panel1">
           <div class="slidedown-menu">
             <div class="box">
-               <button data-action="beautify">Beautify Schema</button>
+              <button data-action="search">Search</button>
+              <button data-action="replace">Replace</button>
+              <button data-action="beautify">Beautify Schema</button>
               <button data-action="clear">Delete All</button>
               <button data-action="wordwrap">Toggle WordWrap</button> 
             </div>
@@ -93,6 +95,8 @@
 
           <div class="slidedown-menu">
             <div class="box">
+              <button data-action="search">Search</button>
+              <button data-action="replace">Replace</button>
               <button data-action="beautify">Beautify Startval</button>
               <button data-action="clear">Delete All</button>
               <button data-action="wordwrap">Toggle WordWrap</button>
@@ -115,18 +119,25 @@
         <div id="split-panel3">
           <div class="slidedown-menu">
             <div class="box">
+              <button data-action="search">Search</button>
+              <button data-action="replace">Replace</button>
               <button data-action="beautify">Beautify JavaScript</button>
               <button data-action="clear">Delete All</button>
               <button data-action="wordwrap">Toggle WordWrap</button>
             </div>
           </div>
-          <div id="editor">// The JSONEditor instance is available in the variable "jseditor"
-console.log('jseditor',jseditor);</div>
+          <div id="editor">
+// The following lines are mandatory and readonly. You can add custom code above and below.
+if (jseditor instanceof window.JSONEditor) jseditor.destroy();
+jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"), jedata);
+</div>
         </div>
 
         <div id="split-panel4">
           <div class="slidedown-menu">
             <div class="box">
+              <button data-action="search">Search</button>
+              <button data-action="replace">Replace</button>
               <button data-action="beautify">Beautify CSS</button>
               <button data-action="clear">Delete All</button>
               <button data-action="wordwrap">Toggle WordWrap</button>
@@ -176,10 +187,10 @@ console.log('jseditor',jseditor);</div>
       </ul>
 
       <h3>Custom JavaScript</h3>
-      <p>In the JavaScript editor, the instance of the form is available in the variable <strong>jseditor</strong>
+      <p>In the JavaScript editor, the instance of the form is available in the variable <strong>jseditor</strong> and the schema and startval (if present) are available in the variable <strong>jedata</strong>
       <br>Also the global instance of the JSON-Editor is available in the variable <strong>JSONEditor</strong></p>
-      <p>Note: If you destroy the <strong>jseditor</strong> instance in order to regenerate the form in a special way, the <strong>Output</strong> Tab might no longer be updated unless your code includes a call to the function "updateOutput()" inside a JSON-Editor "OnChange" function.</p>
-<p><em>See the "Modify Enum" example for an example of usage.</em></p>
+      <p>You can add custom JavaScript code above and below the mandatory (readonly) lines.</p>
+
       <h4>Special Comments</h4>
       <p>Two special <em>comment functions</em> are available in the JavaScript editor for creating more complex setups.</p>
       <ul>
@@ -302,7 +313,7 @@ console.log('jseditor',jseditor);</div>
                 <option value="ejs">Ejs</option>
                 <option value="handlebars">Handlebars</option>
                 <option value="hogan">Hogan</option>
-                <option value="lodash">Lodash</option>       
+                <option value="lodash">Lodash</option>
                 <option value="markup">Markup</option>
                 <option value="mustache">Mustache</option>
                 <option value="swig">Swig</option>
@@ -423,6 +434,10 @@ console.log('jseditor',jseditor);</div>
               <label>
                 <input type="checkbox" id="lib_selectize" value="lib_selectize">
                 <span>Selectize</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_choices" value="lib_choices">
+                <span>Choices.js</span>
               </label>
               <label>
                 <input type="checkbox" id="lib_flatpickr" value="lib_flatpickr">

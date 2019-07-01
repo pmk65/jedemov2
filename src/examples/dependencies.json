@@ -132,7 +132,7 @@
     "lib_jquery": 0,
     "lib_dompurify": 1
   },
-  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "code": "// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",       
   "style": "",
   "desc": "<p>This example shows the use of the <strong>dependencies</strong> option, where you can have a field depend on the value of another field.</p><p>This works by creating all dependant element and then hide/show the selected one. So this feature works best if fields are placed vertically.</p>"
 }

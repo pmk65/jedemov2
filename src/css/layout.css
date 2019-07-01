@@ -234,8 +234,8 @@
     right: 0px;
     background: #ccc;
     width: 200px;
-    height: 90px;
-    transform: translateY(-90px);
+    height: 130px;
+    transform: translateY(-130px);
     transition: transform 0.4s ease-in-out;
     z-index: 999;
   }

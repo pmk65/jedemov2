@@ -136,6 +136,20 @@ details summary::-webkit-details-marker {
 details summary:focus {
   outline: none;
 }
+/* Ace Editor */
+.readonly-highlight {
+    background-color: #FF0;
+    opacity: 0.1;
+    position: absolute;
+}
+.ace_search.right {
+  border-right: none;
+ border-left: 0 none;
+ border-radius: 0px 0px 5px 0px;
+ left: 0;
+ right: auto;
+}
+
 @keyframes open-summary {
   0%    {opacity: 0; margin-left: 0px}
   100%  {opacity: 1; margin-left: 0px}

@@ -2,7 +2,7 @@
   "name": "@pmk65/jedemov2",
   "title": "JSONEditor Interactive Demo v2",
   "description": "JSON Schema based editor demo",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "main": "dist/jsoneditor.js",
   "author": {
     "name": "Peter Klein",

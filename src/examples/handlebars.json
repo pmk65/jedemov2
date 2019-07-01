@@ -1,0 +1,96 @@
+{
+  "title": "Handlebars",
+  "schema": {
+    "type": "object",
+    "format": "grid",
+    "title": "Simple Calculator",
+    "properties": {
+      "_text": {
+        "type": "string",
+        "format": "hidden",
+        "description": "<p>This example demonstrates usage of <a href=\"https://handlebarsjs.com/\" target=\"_blank\">Handlebars</a> template engine.<p><p>The calculator result is generated using a small Handlebars helper function (See the JavaScript Tab)</p>",
+        "options": {
+          "compact": true,
+          "grid_columns": 12
+        }
+      },
+      "number1": {
+        "type": "number",
+        "title": "Number",
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "operator": {
+        "type": "string",
+        "title": "Operator",
+        "enum": [
+          "+",
+          "-",
+          "*",
+          "/"
+        ],
+        "options": {
+          "grid_columns": 1
+        }
+      },
+      "number2": {
+        "type": "number",
+        "title": "Number",
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "result": {
+        "type": "string",
+        "title": "Result",
+        "template": "{{{calcHelper num1 num2 opr}}}",
+        "watch": {
+          "num1": "root.number1",
+          "num2": "root.number2",
+          "opr": "root.operator"
+        },
+        "options": {
+          "grid_columns": 5
+        }
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "template": "handlebars", 
+    "required_by_default": 1,
+    "no_additional_properties": 0,
+    "display_required_only": 0,
+    "keep_oneof_values": 1,
+    "ajax": 0,
+    "ajaxCredentials": 0,
+    "show_opt_in": 0,
+    "disable_edit_json": 0,
+    "disable_collapse": 0,
+    "disable_properties": 0,
+    "disable_array_add": 0,
+    "disable_array_reorder": 0,
+    "disable_array_delete": 0,
+    "enable_array_copy": 0,
+    "array_controls_top": 0,
+    "disable_array_delete_all_rows": 0,
+    "disable_array_delete_last_row": 0,
+    "prompt_before_delete": 1,
+    "lib_aceeditor": 0,
+    "lib_sceditor": 0,
+    "lib_simplemde": 0,
+    "lib_select2": 0,
+    "lib_selectize": 0,
+    "lib_choices": 0,
+    "lib_flatpickr": 0,
+    "lib_signaturepad": 0,
+    "lib_mathjs": 0,
+    "lib_cleavejs": 0,
+    "lib_jquery": 0,
+    "lib_dompurify": 1
+  },
+  "code": "// Handlebars helper function\nHandlebars.registerHelper(\"calcHelper\", function(num1, num2, opr) {\n  if (opr == '+') return num1 + num2;\n  else if (opr == '-') return num1 - num2;\n  else if (opr == '*') return num1 * num2;\n  else if (opr == '/') return num1 / num2;\n  else return '';\n});\n\n// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",
+  "style": "",
+  "desc": "Add optional description here. (HTML format)"
+}

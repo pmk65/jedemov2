@@ -199,6 +199,9 @@
     // ACE Editor Beautify extension
     var aceBeautify = window.ace.require("ace/ext/beautify");
 
+    // ACE Range addon
+    var aceRange = window.ace.require("ace/range").Range;
+
     // ACE Editor placeholders
     var jeEditSchema = document.querySelector('#schema');
     var jeEditStartval = document.querySelector('#startval');
@@ -282,6 +285,15 @@
 
     /* Helper functions */
 
+    // filter function for objects
+    Object.filter = function( obj, predicate) {
+      var result = {}, key;
+      for (key in obj) {
+        if (obj.hasOwnProperty(key) && predicate(obj[key])) result[key] = obj[key];
+      }
+      return result;
+    };
+
     // Tests if JSON schema is invalid. Returns errormsg if invalid
     var isInvalidJson = function(code) {
       try { JSON.parse(code); }
@@ -348,6 +360,72 @@
       return res;
     };
 
+    // Locked text
+    var getLockedText = function() {
+      return  ['// The following lines are mandatory and readonly. You can add custom code above and below.',
+               'if (jseditor instanceof window.JSONEditor) jseditor.destroy();',
+               'jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"), jedata);'].join('\n');
+    };
+
+
+    // Get object of intersecting locked markers in Ace Editor
+    var getIntersectMarkers = function(newRange, keyString) {
+      return Object.filter(aceCodeEditor.getSession().getMarkers(true), function(marker) {
+        return marker.clazz == 'readonly-highlight' && marker.range.intersects(newRange) &&
+               !(marker.range.isStart(newRange.end.row, newRange.end.column) && keyString !== 'delete') &&
+               !(marker.range.isEnd(newRange.start.row, newRange.start.column) && keyString !== 'backspace');
+      });
+    };
+
+    // Get object of locked markers inside coords in Ace Editor
+    var getInsideMarkers = function(row, column) {
+      return Object.filter(aceCodeEditor.getSession().getMarkers(true), function(marker) {
+        return marker.clazz == 'readonly-highlight' &&  marker.range.inside(row, column);
+      });
+    };
+
+    // Get object of all locked markers in Ace Editor
+    var getAllMarkers = function() {
+      return Object.filter(aceCodeEditor.getSession().getMarkers(true), function(marker) {
+        return marker.clazz == 'readonly-highlight';
+      });
+    };
+
+    // Create anchored range and marker in Ace Editor
+    var lockPosition = function(startRow, starColumn, endRow, endColumn) {
+      var range = new aceRange(startRow - 1, starColumn, endRow, endColumn),
+          session = aceCodeEditor.getSession();
+      range.collapseRows();
+      range.id = session.addMarker(range, "readonly-highlight", 'line', true);
+      range.start = session.doc.createAnchor(range.start);
+      range.end = session.doc.createAnchor(range.end);
+      range.end.$insertRight = true;
+      return range;
+    };
+
+    var lockText = function() {
+      var markers = getAllMarkers(), id;
+      // Remove existing locked markers
+      for (id in markers) aceCodeEditor.getSession().removeMarker(id);
+
+      var range = aceCodeEditor.find(getLockedText(), {caseSensitive: true});
+
+      // Lock text
+      if (range) {
+        var endRow = aceCodeEditor.getSession().getLength() - 1,
+            endColumn = aceCodeEditor.getSession().getLine(endRow).length;
+
+        // Add a linefeed if this is the last content in document
+        // Otherwise last locked line will be in "text" and not "line" mode
+        if (endRow ==  range.end.row && endColumn ==  range.end.column) {
+          aceCodeEditor.getSession().insert({row: endRow +1,column: 0}, '\n');
+        }
+
+        lockPosition(range.start.row + 1, range.start.column, range.end.row + 1, range.end.column);
+        aceCodeEditor.getSession().getSelection().clearSelection();
+      }
+    };
+    
     // Build list of external JavaScript and CSS files included in <head> of page
     var listExternalFilesUsed = function() {
       var src = [], tags = jeIframe.document.querySelectorAll('head script:not([src=""]), head link[rel="stylesheet"]:not([href=""])');
@@ -565,6 +643,7 @@
       if (confirm('Clear URL query parameters?')) {
         if (window.localStorage) window.localStorage.setItem('jeplayground', '');
         updateDirectLink(e);
+        aceCodeEditor.setValue('\n' + getLockedText() + '\n');
       }
     };
 
@@ -604,6 +683,7 @@
       aceCodeEditor.setValue(code);
       aceCodeEditor.session.getSelection().clearSelection();
       aceCodeEditor.resize();
+      lockText();
 
       aceStyleEditor.setValue(style);
       aceStyleEditor.session.getSelection().clearSelection();
@@ -636,6 +716,7 @@
         try {
           aceCodeEditor.setValue(JSON.parse(window.LZString.decompressFromBase64(decodeURIComponent(params.code))));
           aceCodeEditor.session.getSelection().clearSelection();
+          lockText();
         }
         catch(err) {
           console.log('Error parsing Javascript data from URL parameter.', err);
@@ -697,7 +778,8 @@
     // Build codeblock to create JSON-Editor instance
     var getCode = function(schema, startval) {
       var opt = 'schema:' + schema + (startval.trim() ? ', startval:' + startval : '');
-      return 'if (jseditor) jseditor.destroy();var jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
+      return 'var jseditor, jedata = {' + opt + '};';
+//      return 'if (jseditor) jseditor.destroy();var jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"),{' + opt + '});';
     };
 
     // Fullscreen Drag'n'Drop upload handlers
@@ -1038,14 +1120,25 @@
       if (e.target.dataset.action) {
         e.preventDefault();
         switch (e.target.dataset.action.toLowerCase()) {
+          case 'search':
+            this.execCommand("find");
+          break;
+          case 'replace':
+            this.execCommand("replace");
+          break;
           case 'beautify':
             aceBeautify.beautify(this.session);
+            if (this.id === 'editor6') lockText(); // id editor6 = aceCodeEditor
           break;
           case 'wordwrap':
             this.setOption('wrap',  this.getOption('wrap') == 'off');
           break;
           case 'clear': {
-            this.setValue('');
+            if (this.id === 'editor6') {
+              this.setValue('\n' + getLockedText() + '\n');
+              lockText();
+            }
+            else this.setValue('');
             this.session.getSelection().clearSelection();
             break;
           }
@@ -1121,6 +1214,29 @@
       saveToLocalStorage();
    };
 
+   // Create ACE Editor instance
+   var createEditor = function(el, options) {
+    var replaceCmd = {
+      name: 'replace',
+      bindKey: {win: 'Ctrl-R', mac: 'Command-Option-F'},
+      exec: function(editor) {
+        window.ace.config.loadModule("ace/ext/searchbox", function(e) {e.Search(editor, true);});
+      },
+      readOnly: true
+    }, ed = window.ace.edit(el);
+
+    ed.setOptions({theme: aceTheme});
+    ed.session.setOptions(extendObj({},{
+      tabSize: 2,
+      useSoftTabs: true
+    }, options));
+    ed.renderer.setOptions({minLines: 40, maxLines: 40});
+    // Change replace shortcut from Ctrl-H to Ctrl-R
+    ed.commands.addCommand(replaceCmd);
+
+    return ed;
+  };
+
     /* Setup */
 
     // Add modal box events
@@ -1128,101 +1244,79 @@
     window.addEventListener("click", closeModal);
 
     // Setup ACE editor for editing Schema
-    aceSchemaEditor = window.ace.edit(jeEditSchema);
-    aceSchemaEditor.setOptions({
-      theme: aceTheme
-    });
-    aceSchemaEditor.session.setOptions({
-      mode: 'ace/mode/json',
-      tabSize: 2,
-      useSoftTabs: true
-    });
-    aceSchemaEditor.renderer.setOptions({
-      minLines: 40,
-      maxLines: 40
-    });
+    aceSchemaEditor = createEditor(jeEditSchema, {mode: 'ace/mode/json'});
 
     // Setup ACE editor for editing Schema start values
-    aceStartvalEditor = window.ace.edit(jeEditStartval);
-    aceStartvalEditor.setOptions({
-      theme: aceTheme
-    });
-    aceStartvalEditor.session.setOptions({
-      mode: 'ace/mode/json',
-      tabSize: 2,
-      useSoftTabs: true
-    });
-    aceStartvalEditor.renderer.setOptions({
-      minLines: 40,
-      maxLines: 40
-    });
+    aceStartvalEditor = createEditor(jeEditStartval, {mode: 'ace/mode/json'});
 
     // Setup ACE editor for editing output values
-    aceOutputEditor = window.ace.edit(jeOutput);
-    aceOutputEditor.setOptions({
-      theme: aceTheme
-    });
-    aceOutputEditor.session.setOptions({
-      mode: 'ace/mode/json',
-      tabSize: 2,
-      useSoftTabs: true
-    });
-    aceOutputEditor.renderer.setOptions({
-      minLines: 40,
-      maxLines: 40
-    });
+    aceOutputEditor = createEditor(jeOutput, {mode: 'ace/mode/json'});
 
     // Setup ACE editor for displayiong validation results
-    aceValidateEditor = window.ace.edit(jeValidate);
-    aceValidateEditor.setOptions({
-      readOnly: true,
-      theme: aceTheme
-    });
-    aceValidateEditor.session.setOptions({
-      mode: 'ace/mode/json',
-      tabSize: 2,
-      useSoftTabs: true
-    });
-    aceValidateEditor.renderer.setOptions({
-      minLines: 40,
-      maxLines: 40
+    aceValidateEditor = createEditor(jeValidate, {mode: 'ace/mode/json'});
+
+    // Setup ACE editor for editing CSS
+    aceStyleEditor = createEditor(jeEditCSS, {
+      mode: 'ace/mode/css',
+      wrap: true,
+      useWrapMode: true,
+      indentedSoftWrap: true
     });
 
     // Setup ACE editor for editing JavaScript
-    aceCodeEditor = window.ace.edit(jeEditCode);
-    aceCodeEditor.setOptions({
-      theme: aceTheme
-    });
-    aceCodeEditor.session.setOptions({
+    aceCodeEditor = createEditor(jeEditCode, {
       mode: 'ace/mode/javascript',
-      tabSize: 2,
       wrap: true,
-      useSoftTabs: true,
       useWrapMode: true,
       indentedSoftWrap: true
-    });
-    aceCodeEditor.renderer.setOptions({
-      minLines: 40,
-      maxLines: 40
     });
 
-    // Setup ACE editor for editing CSS
-    aceStyleEditor = window.ace.edit(jeEditCSS);
-    aceStyleEditor.setOptions({
-      theme: aceTheme
+    // Fix to make the marker positions update correctly
+    // https://github.com/ajaxorg/ace/issues/3687
+    aceCodeEditor.on("change", aceCodeEditor.$onChangeFrontMarker);
+
+    // Intercept keypress
+    aceCodeEditor.keyBinding.addKeyboardHandler({
+      handleKeyboard : function(data, hash, keyString, keyCode, event) {
+        if (hash === -1 || keyCode === -1 || (keyCode === 67 && hash === 1) || (keyCode <= 40 && keyCode >= 37)) return false;
+        var newRange = aceCodeEditor.getSelectionRange(), block = Object.keys(getIntersectMarkers(newRange, keyString)).length > 0;
+        if (keyString == 'return' && block) aceCodeEditor.selection.moveTo(newRange.end.row + 1, 0);
+        return block ? {command:"null", passEvent:false} : false;
+      }
     });
-    aceStyleEditor.session.setOptions({
-      mode: 'ace/mode/css',
-      tabSize: 2,
-      wrap: true,
-      useSoftTabs: true,
-      useWrapMode: true,
-      indentedSoftWrap: true
-    });
-    aceStyleEditor.renderer.setOptions({
-      minLines: 40,
-      maxLines: 40
-    });
+
+    // Prevent cutting text into the locked range using context menu
+    aceCodeEditor.on('cut',function(e) {
+      if (Object.keys(getIntersectMarkers(e)).length) e.setEnd(e.start.row, e.start.column);
+    }, false);
+
+    // Prevent pasting text into the locked range using context menu
+    aceCodeEditor.on('paste',function(e) {
+      if (Object.keys(getIntersectMarkers(aceCodeEditor.getSelectionRange())).length)  e.text = '';
+    }, false);
+
+    // Override default ace editor instance $tryReplace function
+    // Prevent replace function from overwriting the locked range
+    aceCodeEditor.$tryReplace = (function(orgFunc) {
+      return function(newRange) {
+        return Object.keys(getIntersectMarkers(newRange)).length ? null : orgFunc.apply(this, arguments);
+      };
+    })(aceCodeEditor.$tryReplace);
+
+    // Override default session moveText function
+    // Prevent moving text into the locked range
+    var session = aceCodeEditor.getSession();
+    session.moveText = (function(orgFunc) {
+      return function(fromRange, toPosition) {
+        // Is toPosition inside any markers?
+        var block = Object.keys(getInsideMarkers(toPosition.row, toPosition.column)).length > 0;
+           // Does the content being moved contain any markers?
+        if (!block) block = Object.keys(getIntersectMarkers(fromRange)).length > 0;
+        return block ? fromRange : orgFunc.apply(this, arguments);
+      };
+    })(session.moveText);
+
+    lockText();
 
     // Show error if JSON schema or startval is invalid
     aceSchemaEditor.on("blur", showModalError.bind(aceSchemaEditor));

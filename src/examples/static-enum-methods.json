@@ -58,6 +58,46 @@
             "value": "{{item.value}}"
           }
         ]
+      },
+      "example4": {
+        "type": "string",
+        "format": "radio",
+        "title": "Example 4",
+        "description": "Using [<strong>enum</strong>] - with <strong>format: \"radio\"</strong>",
+        "enum": [
+          "Red",
+          "Green",
+          "Blue"
+        ]
+      },
+      "example5": {
+        "type": "array",
+        "title": "Example 5",
+        "description": "As <strong>type: \"array\"</strong>",
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": [
+            "Red",
+            "Green",
+            "Blue"
+          ]
+        }
+      },
+      "example6": {
+        "type": "array",
+        "format": "select",
+        "title": "Example 6",  
+        "description": "As <strong>type: \"array\"</strong> with <strong>format: \"select\"</strong>",
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": [
+            "Red",
+            "Green",
+            "Blue"
+          ]
+        }
       }
     }
   },
@@ -93,7 +133,7 @@
     "lib_jquery": 0,
     "lib_dompurify": 1
   },
-  "code": "// The JSONEditor instance is available in the variable \"jseditor\"\nconsole.log('jseditor',jseditor);",
+  "code": "// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",
   "style": "",
   "desc": "<p>This example demonstrates various static methods of setting enum data.</p>"
 }
