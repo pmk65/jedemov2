@@ -612,6 +612,7 @@
 
         if (window.location.protocol !== 'file:') {
           var encUrl = encodeURIComponent(url);
+          console.log('encUrl', encUrl, encUrl.length);
           if (encUrl.length < 5000) {
             loadJSONP('https://is.gd/create.php?format=json&url=' + encUrl, function(data) {
               // Clipboard actions not allowed here since it's a callback event and not an "User generated event"

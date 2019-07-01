@@ -1,7 +1,7 @@
 /**
  * @name JSON-Editor Interactive Playground
  * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
- * @version 1.1.0
+ * @version {{ VERSION }}
  * @author Peter Klein
  * @see https://github.com/pmk65/jedemov2/
  * @license MIT
@@ -612,6 +612,7 @@
 
         if (window.location.protocol !== 'file:') {
           var encUrl = encodeURIComponent(url);
+          console.log('encUrl', encUrl, encUrl.length);
           if (encUrl.length < 5000) {
             loadJSONP('https://is.gd/create.php?format=json&url=' + encUrl, function(data) {
               // Clipboard actions not allowed here since it's a callback event and not an "User generated event"
