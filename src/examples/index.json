@@ -49,6 +49,10 @@
       {
         "title": "JSON Representation of a Europass Document",
         "file": "europass"
+      },
+      {
+        "title": "Two Column Layout",
+        "file": "two-column-layout"
       }
     ]
   },
@@ -58,6 +62,10 @@
       {
         "title": "ACE Editor",
         "file": "aceeditor"
+      },
+      {
+        "title": "Autocomplete Editor",
+        "file": "autocomplete"
       },
       {
         "title": "Base64 (Multiple Upload)",
@@ -92,6 +100,10 @@
         "file": "grid-strict_show-opt-in"
       },
       {
+        "title": "Jodit WYSIWYG Editor",
+        "file": "jodit"
+      },
+      {
         "title": "Radio Buttons",
         "file": "radio"
       },
@@ -120,7 +132,7 @@
         "file": "starrating"
       },
       {
-        "title": "Upload (Not working)",
+        "title": "Upload",
         "file": "upload"
       },
       {
@@ -205,6 +217,27 @@
       {
         "title": "Examples Schema",
         "file": "examples"
+      }
+    ]
+  },
+  {
+    "group": "Test Cases",
+    "items": [
+      {
+        "title": "Select",
+        "file": "select-test"
+      },
+      {
+        "title": "Choices",
+        "file": "choices-test"
+      },
+      {
+        "title": "Select2",
+        "file": "select2-test"
+      },
+      {
+        "title": "Selectize",
+        "file": "selectize-test"
       }
     ]
   },

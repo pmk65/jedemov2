@@ -1,0 +1,269 @@
+{
+  "title": "Choices Test",
+  "schema": {
+    "type": "object",
+    "title": "Choices Text",
+    "required": [
+      "_text1",
+      "_text2",
+      "single",
+      "watch",
+      "singleint",
+      "single2",
+      "singleint2",
+      "multi",
+      "font",
+      "possibleFonts"
+    ],
+    "properties": {
+      "_text1": {
+        "type": "string",
+        "format": "hidden",
+        "description": "<h4>Testing startValue and setValue() with valid and invalid values</h4>",
+        "options": {
+          "compact": true,
+          "grid_columns": 12
+        }
+      },
+      "single": {
+        "type": "string",
+        "format": "choices",
+        "title": "Single choices - Type: string - addItems: false",
+        "description": "Single String Choices - startVal: 'red' - setValue Valid: 'green'",
+        "enum": [
+          "black",
+          "red",
+          "green",
+          "blue",
+          "white"
+        ],
+        "options": {
+          "grid_columns": 6,
+          "choices": {
+            "addItems": true
+          },
+          "enum_titles": [
+            "Black",
+            "Red",
+            "Green",
+            "Blue",
+            "White"
+          ]
+        }
+      },
+      "watch": {
+        "type": "string",
+        "description": "Watching Single select property",
+        "watch": {
+          "single": "root.single"
+        },
+        "template": "{{single}}",
+        "options": {
+          "grid_columns": 6
+        }
+      },
+      "singleint": {
+        "type": "integer",
+        "format": "choices",
+        "description": "Single Integer Choices - startVal: 2 ('Red') - setValue Valid: 3 ('green')",
+        "title": "Single choices - Type: integer - addItems: false",
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "options": {
+          "grid_columns": 6,
+          "choices": {
+            "addItems": true
+          },
+          "enum_titles": [
+            "Black",
+            "Red",
+            "Green",
+            "Blue",
+            "White"
+          ]
+        }
+      },
+      "single2": {
+        "type": "string",
+        "format": "choices",
+        "title": "Single choices - Type: string - addItems: true",
+        "description": "Single String Choices - startVal: 'red' - setValue Valid: 'green'",
+        "enum": [
+          "black",
+          "red",
+          "green",
+          "blue",
+          "white"
+        ],
+        "options": {
+          "grid_columns": 6,
+          "choices": {
+            "addItems": true
+          },
+          "enum_titles": [
+            "Black",
+            "Red",
+            "Green",
+            "Blue",
+            "White"
+          ]
+        }
+      },
+      "singleint2": {
+        "type": "integer",
+        "format": "choices",
+        "description": "Single Integer Choices - startVal: 2 ('Red') - setValue Valid: 3 ('green')",
+        "title": "Single choices - Type: integer - addItems: true",
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "options": {
+          "grid_columns": 6,
+          "choices": {
+            "addItems": true
+          },
+          "enum_titles": [
+            "Black",
+            "Red",
+            "Green",
+            "Blue",
+            "White"
+          ]
+        }
+      },
+      "multi": {
+        "type": "array",
+        "uniqueItems": true,
+        "format": "choices",
+        "options": {
+          "grid_columns": 12,
+          "choices": {
+            "addItems": true
+          }
+        },
+        "title": "Multiselect choices - Type: string",
+        "description": "Multiselect Choices - startVal: 'bold'- setValue Valid: 'italic'",
+        "items": {
+          "type": "string",
+          "enum": [
+            "bold",
+            "italic",
+            "smallcaps"
+          ],
+          "options": {
+            "enum_titles": [
+              "Bold",
+              "Italic",
+              "SmallCaps"
+            ]
+          }
+        }
+      },
+      "_text2": {
+        "type": "string",
+        "format": "hidden",
+        "description": "<h4>Testing error validation messages and property watching</h4>",
+        "options": {
+          "compact": true,
+          "grid_columns": 12
+        }
+      },
+      "font": {
+        "type": "string",
+        "format": "choices",
+        "description": "Watching Multiselect Choices property <strong>possibleFonts</strong>",
+        "enumSource": "possible_fonts",
+        "watch": {
+          "possible_fonts": "root.possibleFonts"
+        },
+        "options": {
+          "grid_columns": 6
+        }
+      },
+      "possibleFonts": {
+        "type": "array",
+        "uniqueItems": true,
+        "format": "choices",
+        "minItems": 2,
+        "description": "Error message test - Must have minimum 2 items selected",
+        "options": {
+          "grid_columns": 6
+        },
+        "items": {
+          "type": "string",
+          "enum": [
+            "Arial",
+            "Times",
+            "Courier",
+            "Helvetica",
+            "Comic Sans",
+            "Open Sans"
+          ]
+        },
+        "default": [
+          "Arial",
+          "Times",
+          "Helvetica",
+          "Comic Sans"
+        ]
+      }
+    }
+  },
+  "startval": {
+    "single": "red",
+    "singleint": 2,
+    "multi": [
+      "bold"
+    ]
+  },
+  "config": {
+    "theme": "bootstrap3",
+    "iconlib": "fontawesome4",
+    "object_layout": "grid",
+    "template": "default",
+    "show_errors": "always",
+    "required_by_default": 1,
+    "no_additional_properties": 0,
+    "display_required_only": 0,
+    "keep_oneof_values": 1,
+    "ajax": 0,
+    "ajaxCredentials": 0,
+    "show_opt_in": 0,
+    "disable_edit_json": 0,
+    "disable_collapse": 0,
+    "disable_properties": 0,
+    "disable_array_add": 0,
+    "disable_array_reorder": 0,
+    "disable_array_delete": 0,
+    "enable_array_copy": 0,
+    "array_controls_top": 0,
+    "disable_array_delete_all_rows": 0,
+    "disable_array_delete_last_row": 0,
+    "prompt_before_delete": 1,
+    "lib_aceeditor": 0,
+    "lib_autocomplete": 0,
+    "lib_sceditor": 0,
+    "lib_simplemde": 0,
+    "lib_select2": 0,
+    "lib_selectize": 0,
+    "lib_choices": 1,
+    "lib_flatpickr": 0,
+    "lib_signaturepad": 0,
+    "lib_mathjs": 0,
+    "lib_cleavejs": 0,
+    "lib_jquery": 0,
+    "lib_dompurify": 1
+  },
+  "code": "// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);\n\n\n\njseditor.on('ready', function() {\n\n  // Create buttom and insert it after the root header\n  var button = jseditor.root.getButton('SetValue Valid','','SetValue Valid');\n  var button_holder = jseditor.root.theme.getHeaderButtonHolder();\n  button_holder.appendChild(button);\n  jseditor.root.header.parentNode.insertBefore(button_holder, jseditor.root.header.nextSibling);\n\n  button.addEventListener('click', function(e) {\n\n    e.preventDefault();\n    e.stopPropagation();\n      \n    var single = jseditor.getEditor('root.single');\n    if (single) {\n      single.setValue('green');\n    }\n\n    var singleint = jseditor.getEditor('root.singleint');\n    if (singleint) {\n      singleint.setValue(3);\n    }\n\n    var single2 = jseditor.getEditor('root.single2');\n    if (single2) {\n      single2.setValue('green');\n    }\n    \n    var multi = jseditor.getEditor('root.multi');\n    if (multi) {\n      multi.setValue(['italic', 'bold']);\n      //multi.addValue(['italic', 'bold']);\n      //multi.removeValue(['bold']);\n    }\n  });\n\n    // Create buttom and insert it after the root header\n  var button2 = jseditor.root.getButton('SetValue Invalid','','SetValue Invalid');\n  var button_holder2 = jseditor.root.theme.getHeaderButtonHolder();\n  button_holder2.appendChild(button2);\n  jseditor.root.header.parentNode.insertBefore(button_holder2, jseditor.root.header.nextSibling);\n\n  button2.addEventListener('click', function(e) {\n\n    e.preventDefault();\n    e.stopPropagation();\n      \n    var single = jseditor.getEditor('root.single');\n    if (single) {\n      single.setValue('orange');\n    }\n\n    var single2 = jseditor.getEditor('root.single2');\n    if (single2) {\n      single2.setValue('orange');\n    }\n    \n    var singleint = jseditor.getEditor('root.singleint');\n    if (singleint) {\n      singleint.setValue(9);\n    }\n    \n    var multi = jseditor.getEditor('root.multi');\n    if (multi) {\n      multi.setValue(['italic bold', 'italic']);\n    }\n    \n    \n  });\n});",
+  "style": "",
+  "desc": "Add optional description here. (HTML format)"
+}
