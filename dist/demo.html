@@ -273,6 +273,7 @@ jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"), je
                 <option value="foundation5">Foundation 5</option>
                 <option value="foundation6">Foundation 6</option>
                 <option value="materialize">Materialize</option>
+                <option value="tailwind">Tailwind</option>
               </select>
             </div>
           </div>
@@ -349,6 +350,10 @@ jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"), je
                 <input type="checkbox" id="display_required_only" value="display_required_only">
                 <span>Display only required object properties</span>
               </label>
+              <label title="remove_empty_properties">
+                <input type="checkbox" id="remove_empty_properties" value="remove_empty_properties">
+                <span>Remove empty properties.</span>
+              </label>
               <label title="keep_oneof_values">
                 <input type="checkbox" id="keep_oneof_values" value="keep_oneof_values" checked>
                 <span>Makes oneOf copy properties over when switching</span>
@@ -420,6 +425,10 @@ jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"), je
                 <span>Ace Editor</span>
               </label>
               <label>
+                <input type="checkbox" id="lib_autocomplete" value="lib_autocomplete">
+                <span>Autocomplete Editor</span>
+              </label>
+              <label>
                 <input type="checkbox" id="lib_sceditor" value="lib_sceditor">
                 <span>SCEditor</span>
               </label>
@@ -454,6 +463,10 @@ jseditor = new window.JSONEditor(document.querySelector("#json-editor-form"), je
               <label>
                 <input type="checkbox" id="lib_cleavejs" value="lib_cleavejs">
                 <span>Cleave.js</span>
+              </label>
+              <label>
+                <input type="checkbox" id="lib_jodit" value="lib_jodit">
+                <span>Jodit</span>
               </label>
               <label>
                 <input type="checkbox" id="lib_jquery" value="lib_jquery">

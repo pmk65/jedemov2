@@ -55,6 +55,10 @@
             'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'
           ]
+        },
+        tailwind: {
+          css: 'https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css'
+          //css: 'https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css'
         }
       },
       iconlib: {
@@ -111,11 +115,19 @@
           'https://cdn.jsdelivr.net/npm/ace-builds@latest/src-noconflict/mode-javascript.js'
           ]
         },
+        lib_autocomplete: {
+          js: 'https://cdn.jsdelivr.net/npm/@trevoreyre/autocomplete-js@latest/dist/autocomplete.min.js',
+          css: 'https://cdn.jsdelivr.net/npm/@trevoreyre/autocomplete-js@latest/dist/style.css'
+        },
         lib_cleavejs: {
           js: [
           'https://cdn.jsdelivr.net/npm/cleave.js@latest/dist/cleave.min.js',
           'https://cdn.jsdelivr.net/npm/cleave.js@latest/dist/addons/cleave-phone.i18n.min.js'
           ]
+        },
+        lib_jodit: {
+          js: 'https://cdn.jsdelivr.net/npm/jodit@latest/build/jodit.min.js',
+          css: 'https://cdn.jsdelivr.net/npm/jodit@latest/build/jodit.min.css'
         },
         lib_sceditor: {
           css: 'https://cdn.jsdelivr.net/npm/sceditor@latest/minified/themes/default.min.css',
@@ -138,7 +150,8 @@
         lib_select2: {
           css: 'https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/css/select2.min.css',
           js: [
-            'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+            //'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+            'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js',
             'https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/js/select2.min.js'
           ]
         },
