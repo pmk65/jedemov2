@@ -1,7 +1,7 @@
 /**
  * @name JSON-Editor Interactive Playground
  * @description The JSON-Editor Interactive Playground is a page where you can test various setups for the JSON Schema parser JSON-Editor
- * @version 1.1.0
+ * @version {{ VERSION }}
  * @author Peter Klein
  * @see https://github.com/pmk65/jedemov2/
  * @license MIT
