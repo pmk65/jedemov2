@@ -1,5 +1,5 @@
 {
-  "title": "Autocomplete Editor",
+  "title": "Autocomplete",
   "schema": {
     "type": "object",
     "title": "Autocomplete example",
@@ -8,7 +8,7 @@
         "type": "string",
         "format": "hidden",
         "title": "Autocomplete example",
-        "description": "<p>This example shows how to create an autocomplete editor using the <a href=\"https://autocomplete.trevoreyre.com/#/javascript-component\" target=\"_blank\">autocomplete</a> library. The setup for each lookup engine is defined in a special callback list.</p>",
+        "description": "<p>This example shows various setups using the autocomplete editor, based on the <a href=\"https://autocomplete.trevoreyre.com/#/javascript-component\" target=\"_blank\">autocomplete</a> library. The setup for each lookup engine is defined in a special callback list.</p>",
         "options": {
           "grid_columns": 12
         }
@@ -21,7 +21,6 @@
         "options": {
           "grid_columns": 6,
           "autocomplete": {
-            "url": "https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srsearch=",
             "search": "search_wikipedia",
             "getResultValue": "getResultValue_wikipedia",
             "renderResult": "renderResult_wikipedia",
@@ -37,7 +36,6 @@
         "options": {
           "grid_columns": 6,
           "autocomplete": {
-            "url": "https://dawa.aws.dk/vejnavne/autocomplete?q=",
             "search": "search_dawa",
             "getResultValue": "getResultValue_dawa",
             "autoSelect": true
@@ -52,12 +50,42 @@
         "options": {
           "grid_columns": 6,
           "autocomplete": {
-            "url": "https://restcountries.eu/rest/v2/name/",
             "search": "search_restcountries",
             "getResultValue": "getResultValue_restcountries",
             "renderResult": "renderResult_restcountries",
             "autoSelect": true
           }
+        }
+      },
+      "text4": {
+        "type": "string",
+        "format": "autocomplete",
+        "title": "Local form lookup (Font names from 'possibleFonts' array)",
+        "description": "Enter a text of minimum 1 characters. (Try 'a')",
+        "options": {
+          "grid_columns": 6,
+          "autocomplete": {
+            "search": "search_local",
+            "autoSelect": true
+          }
+        }
+      },
+      "possibleFonts": {
+        "type": "array",
+        "format": "table",
+        "items": {
+          "type": "string"
+        },
+        "default": [
+          "Arial",
+          "Arial Black",
+          "Times",
+          "Tahoma",
+          "Helvetica",
+          "Comic Sans"
+        ],
+        "options": {
+          "collapsed": true
         }
       }
     }
@@ -65,13 +93,14 @@
   "startval": {},
   "config": {
     "theme": "bootstrap3",
-    "iconlib": "bootstrap3",
+    "iconlib": "fontawesome3",
     "object_layout": "grid",
     "template": "default",
-    "show_errors": "always",
-    "required_by_default": 1,
+    "show_errors": "change",
+    "required_by_default": 0,
     "no_additional_properties": 0,
     "display_required_only": 0,
+    "remove_empty_properties": 0,
     "keep_oneof_values": 1,
     "ajax": 0,
     "ajaxCredentials": 0,
@@ -98,10 +127,11 @@
     "lib_signaturepad": 0,
     "lib_mathjs": 0,
     "lib_cleavejs": 0,
+    "lib_jodit": 0,
     "lib_jquery": 0,
     "lib_dompurify": 1
   },
-  "code": "// includeCSS(\"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.css\")\n\n\n// Global callback list\nwindow.JSONEditor.defaults.callbacks = {\n  \"autocomplete\": {\n    // This is callback functions for the \"autocomplete\" editor\n    // In the schema you refer to the callback function by key\n    // Note: 1st parameter in callback is ALWAYS a reference to the current editor.\n    // So you need to add a variable to the callback to hold this (like the\n    // \"jseditor_editor\" variable in the examples below.)\n\n    // Setup for DAWA lookup\n    \"search_dawa\": function search(jseditor_editor, input) {\n      var url = jseditor_editor.autocomplete_url + encodeURI(input);\n\n      return new Promise(function (resolve) {\n        if (input.length < 3) {\n          return resolve([]);\n        }\n\n        fetch(url).then(function (response) {\n          return response.json();\n        }).then(function (data) {\n          resolve(data);\n        });\n      });\n    },\n    \"getResultValue_dawa\": function getResultValue(jseditor_editor, result) {\n      return result.tekst;\n    },\n\n    // Setup for Wikipedia lookup\n    \"search_wikipedia\": function search(jseditor_editor, input) {\n      var url = jseditor_editor.autocomplete_url + encodeURI(input);\n\n      return new Promise(function (resolve) {\n        if (input.length < 3) {\n          return resolve([]);\n        }\n\n        fetch(url).then(function (response) {\n          return response.json();\n        }).then(function (data) {\n          resolve(data.query.search);\n        });\n      });\n    },\n    \"getResultValue_wikipedia\": function getResultValue(jseditor_editor, result) {\n      return result.title;\n    },\n    \"renderResult_wikipedia\": function(jseditor_editor, result, props) {\n      return ['<li ' + props + '>',\n        '<div class=\"wiki-title\">' + result.title + '</div>',\n        '<div class=\"wiki-snippet\"><small>' + result.snippet + '<small></div>',\n        '</li>'].join('');\n    },\n\n    // Setup for restcountries.eu contries lookup\n    \"search_restcountries\": function search(jseditor_editor, input) {\n      var url = jseditor_editor.autocomplete_url + encodeURI(input);\n\n      return new Promise(function (resolve) {\n        if (input.length < 3) {\n          return resolve([]);\n        }\n\n        fetch(url).then(function (response) {\n          return response.json();\n        }).then(function (data) {\n          if (!Array.isArray(data)) data = [];\n          resolve(data);\n        });\n      });\n    },\n    \"getResultValue_restcountries\": function getResultValue(jseditor_editor, result) {\n      return result.name;\n    },\n    \"renderResult_restcountries\": function(jseditor_editor, result, props) {\n      return ['<li ' + props + '>',\n        '<div class=\"countries-title\">',\n        '<span class=\"flag-icon flag-icon-' + result.alpha2Code.toLowerCase() + '\"></span> ' + result.name + '</div>',\n        '<div class=\"countries-snippet\"><small>Capital: ' + result.capital + '<small></div>',\n        '</li>'].join('');\n    }\n  }\n};\n\n// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",
+  "code": "// includeCSS(\"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.css\")\n\n\n// Global callback list\nwindow.JSONEditor.defaults.callbacks = {\n  \"autocomplete\": {\n    // This is callback functions for the \"autocomplete\" editor\n    // In the schema you refer to the callback function by key\n    // Note: 1st parameter in callback is ALWAYS a reference to the current editor.\n    // So you need to add a variable to the callback to hold this (like the\n    // \"jseditor_editor\" variable in the examples below.)\n\n    // Lookup using data from form\n    \"search_local\": function search(jseditor_editor, input) {\n      var ed = jseditor_editor.jsoneditor.getEditor('root.possibleFonts');\n      if (input.length < 1 || !ed) {\n        return [];\n      }\n      var data = ed.getValue();\n      return data.filter(function(item) {\n        return item.toLowerCase().startsWith(input.toLowerCase());\n      });\n    },\n    \n    // Setup for DAWA lookup\n    \"search_dawa\": function search(jseditor_editor, input) {\n      var url = 'https://dawa.aws.dk/vejnavne/autocomplete?q=' + encodeURI(input);\n\n      return new Promise(function(resolve) {\n        if (input.length < 3) {\n          return resolve([]);\n        }\n\n        fetch(url).then(function(response) {\n          return response.json();\n        }).then(function (data) {\n          resolve(data);\n        });\n      });\n    },\n    \"getResultValue_dawa\": function getResultValue(jseditor_editor, result) {\n      return result.tekst;\n    },\n\n    // Setup for Wikipedia lookup\n    \"search_wikipedia\": function search(jseditor_editor, input) {\n      var url = 'https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srsearch=' + encodeURI(input);\n\n      return new Promise(function (resolve) {\n        if (input.length < 3) {\n          return resolve([]);\n        }\n\n        fetch(url).then(function (response) {\n          return response.json();\n        }).then(function (data) {\n          resolve(data.query.search);\n        });\n      });\n    },\n    \"getResultValue_wikipedia\": function getResultValue(jseditor_editor, result) {\n      return result.title;\n    },\n    \"renderResult_wikipedia\": function(jseditor_editor, result, props) {\n      return ['<li ' + props + '>',\n        '<div class=\"wiki-title\">' + result.title + '</div>',\n        '<div class=\"wiki-snippet\"><small>' + result.snippet + '<small></div>',\n        '</li>'].join('');\n    },\n\n    // Setup for restcountries.eu contries lookup\n    \"search_restcountries\": function search(jseditor_editor, input) {\n      var url = 'https://restcountries.eu/rest/v2/name/' + encodeURI(input);\n\n      return new Promise(function (resolve) {\n        if (input.length < 3) {\n          return resolve([]);\n        }\n\n        fetch(url).then(function (response) {\n          return response.json();\n        }).then(function (data) {\n          if (!Array.isArray(data)) data = [];\n          resolve(data);\n        });\n      });\n    },\n    \"getResultValue_restcountries\": function getResultValue(jseditor_editor, result) {\n      return result.name;\n    },\n    \"renderResult_restcountries\": function(jseditor_editor, result, props) {\n      return ['<li ' + props + '>',\n        '<div class=\"countries-title\">',\n        '<span class=\"flag-icon flag-icon-' + result.alpha2Code.toLowerCase() + '\"></span> ' + result.name + '</div>',\n        '<div class=\"countries-snippet\"><small>Capital: ' + result.capital + '<small></div>',\n        '</li>'].join('');\n    }\n  }\n};\n\n// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",
   "style": "",
   "desc": "Add optional description here. (HTML format)"
 }
