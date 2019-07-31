@@ -58,7 +58,12 @@
         },
         tailwind: {
           css: 'https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css'
-          //css: 'https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css'
+        },
+        spectre: {
+          css: [
+          'https://cdn.jsdelivr.net/npm/spectre.css@latest/dist/spectre.min.css',
+          'https://cdn.jsdelivr.net/npm/spectre.css@latest/dist/spectre-exp.min.css'
+          ]
         }
       },
       iconlib: {
@@ -79,6 +84,9 @@
         },
         materialicons: {
           css: 'https://fonts.googleapis.com/icon?family=Material+Icons'
+        },
+        spectre: {
+          css: 'https://cdn.jsdelivr.net/npm/spectre.css@latest/dist/spectre-icons.min.css'
         }
       },
       template: {
