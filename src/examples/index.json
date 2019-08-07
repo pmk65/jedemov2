@@ -72,8 +72,12 @@
         "file": "base64"
       },
       {
-        "title": "Buttons",
+        "title": "Button editor",
         "file": "button-editor"
+      },
+      {
+        "title": "Info editor",
+        "file": "info-editor"
       },
       {
         "title": "Choices.js",
