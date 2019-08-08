@@ -246,6 +246,10 @@
       {
         "title": "Selectize",
         "file": "selectize-test"
+      },
+      {
+        "title": "Spectre Theme",
+        "file": "spectre-theme-tester"
       }
     ]
   },
