@@ -11,7 +11,7 @@
     "properties": {
       "info": {
         "format": "info",
-        "description": "This testcase shows the use of the <strong>button editor</strong>. The <strong>button editor</strong> is a special editor that leaves no footprint in the form results.<br><br>You can see the callback functions defined for the buttons on the Playground JavaScript/CSS Tab<ul><li>The next and previous buttons trigger the Tabs.</li><li>The submit button is disabled until all form entries are valid (Fill in a value in the Zip field).</li>"
+        "description": "This testcase shows the use of the <strong>Button editor</strong>. The <strong>Button editor</strong> is a special editor that leaves no footprint in the form results.<br><br>You can see the callback functions defined for the buttons on the Playground JavaScript/CSS Tab<ul><li>The <em>next</em> and <em>previous</em> buttons trigger the Tabs switching.</li><li>The <em>submit</em> button is disabled until all form entries are valid (Fill in a value in the Zip field).</li>"
       },
       "objectcasecategories": {
         "type": "object",
@@ -78,7 +78,8 @@
                       "Female"
                     ],
                     "options": {
-                      "grid_columns": 4
+                      "grid_columns": 4,
+                      "layout": "horizontal"
                     }
                   },
                   "birthday": {
@@ -88,7 +89,7 @@
                     "options": {
                       "grid_columns": 8,
                       "flatpickr": {
-                        "showToggleButton": true
+                        "wrap": true
                       }
                     }
                   },
@@ -119,13 +120,23 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "format": "email"
+                    "format": "email",
+                    "title": "Email address"
                   },
                   "phone": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "tel",
+                    "title": "Phone number",
+                    "options": {
+                      "cleave": {
+                        "phone": true,
+                        "phoneRegionCode": "US",
+                        "delimiter": "-"
+                      }
+                    }
                   },
                   "prev": {
-                    "type": "button",
+                    "format": "button",
                     "title": "Previous",
                     "options": {
                       "grid_columns": 6,
@@ -136,7 +147,7 @@
                     }
                   },
                   "next": {
-                    "type": "button",
+                    "format": "button",
                     "title": "Next",
                     "options": {
                       "grid_columns": 6,
@@ -176,7 +187,11 @@
                     "title": "Zipcode",
                     "minLength": 2,
                     "options": {
-                      "grid_columns": 4
+                      "grid_columns": 4,
+                      "cleave": {
+                        "numeral": true,
+                        "numericOnly": true
+                      }
                     }
                   },
                   "city": {
@@ -188,7 +203,7 @@
                     }
                   },
                   "prev": {
-                    "type": "button",
+                    "format": "button",
                     "title": "Previous",
                     "options": {
                       "grid_columns": 6,
@@ -199,7 +214,7 @@
                     }
                   },
                   "submit": {
-                    "type": "button",
+                    "format": "button",
                     "title": "Submit",
                     "options": {
                       "grid_columns": 6,
@@ -239,6 +254,9 @@
     }
   },
   "config": {
+    "theme": "spectre",
+    "iconlib": "fontawesome5",
+    "object_layout": "grid",
     "template": "default",
     "show_errors": "interaction",
     "required_by_default": 0,
@@ -270,12 +288,12 @@
     "lib_flatpickr": 1,
     "lib_signaturepad": 0,
     "lib_mathjs": 0,
-    "lib_cleavejs": 0,
+    "lib_cleavejs": 1,
     "lib_jodit": 0,
     "lib_jquery": 0,
     "lib_dompurify": 1
   },
-  "code": "\nwindow.JSONEditor.defaults.callbacks.button = {\n  \"tab1\": function(jseditor,e) {\n    var idx = 0, obj = jseditor.parent.parent;\n    if (obj.format == 'categories') {\n      obj.active_tab = obj.rows[idx].tab;\n      obj.refreshTabs();\n    }\n  },\n  \"tab2\": function(jseditor,e) {\n    var idx = 1, obj = jseditor.parent.parent;\n    if (obj.format == 'categories') {\n      obj.active_tab = obj.rows[idx].tab;\n      obj.refreshTabs();\n    }\n  },\n  \"tab3\": function(jseditor,e) {\n    var idx = 2, obj = jseditor.parent.parent;\n    if (obj.format == 'categories') {\n      obj.active_tab = obj.rows[idx].tab;\n      obj.refreshTabs();\n    }\n  },\n  \"submitform\": function(jseditor,e) {\n    var res = jseditor.jsoneditor.getValue();\n    alert(JSON.stringify(res, null, 2));\n  }\n};\n\n\n// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",
-  "style": "",
-  "desc": "<p>This testcase shows the use of the <strong>button editor</strong>. The <strong>button editor</strong> is a special editor that leaves no footprint in the form results.</p>"
+  "code": "window.JSONEditor.defaults.callbacks.button = {\n  \"tab1\": function(jseditor,e) {\n    var idx = 0, obj = jseditor.parent.parent;\n    if (obj.format == 'categories') {\n      obj.active_tab = obj.rows[idx].tab;\n      obj.refreshTabs();\n    }\n  },\n  \"tab2\": function(jseditor,e) {\n    var idx = 1, obj = jseditor.parent.parent;\n    if (obj.format == 'categories') {\n      obj.active_tab = obj.rows[idx].tab;\n      obj.refreshTabs();\n    }\n  },\n  \"tab3\": function(jseditor,e) {\n    var idx = 2, obj = jseditor.parent.parent;\n    if (obj.format == 'categories') {\n      obj.active_tab = obj.rows[idx].tab;\n      obj.refreshTabs();\n    }\n  },\n  \"submitform\": function(jseditor,e) {\n    var res = jseditor.jsoneditor.getValue();\n    alert('The result of the form: \\n\\n' + JSON.stringify(res, null, 2));\n  }\n};\n\n\n// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",
+  "style": ".content {\n  border: .05rem solid #dadee4;\n}\n .content .je-panel>.container>div {\n  min-height: 12rem;\n  display: flex;\n  flex-direction: column;\n}\n.content .je-panel>.container>div .columns:last-child {\n  margin-top: auto;\n}",
+  "desc": "<p>This testcase shows the use of the <strong>Button editor</strong>. The <strong>Button editor</strong> is a special editor that leaves no footprint in the form results.</p>"
 }

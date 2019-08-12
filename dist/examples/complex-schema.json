@@ -1,0 +1,1595 @@
+{
+  "title": "Complex Schema",
+  "schema": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "default": "root"
+      },
+      "id": {
+        "type": "string",
+        "default": "root"
+      },
+      "desc": {
+        "type": "string"
+      },
+      "prop": {
+        "properties": {
+          "layout": {
+            "type": "object",
+            "$ref": "#/definitions/layout",
+            "default": {
+              "l": 0,
+              "t": 0,
+              "w": 900,
+              "h": 1600
+            }
+          },
+          "bgColor": {
+            "type": "object",
+            "$ref": "#/definitions/color"
+          },
+          "round": {
+            "type": "object",
+            "$ref": "#/definitions/round",
+            "format": "grid"
+          },
+          "visible": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "defaultProperties": [
+          "layout"
+        ]
+      },
+      "child": {
+        "items": {
+          "type": "object",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/labelComponent"
+            },
+            {
+              "$ref": "#/definitions/imageComponent"
+            },
+            {
+              "$ref": "#/definitions/viewComponent"
+            },
+            {
+              "$ref": "#/definitions/lottieComponent"
+            },
+            {
+              "$ref": "#/definitions/keyframeComponent"
+            },
+            {
+              "$ref": "#/definitions/seatViewComponent"
+            },
+            {
+              "$ref": "#/definitions/muteButtonComponent"
+            },
+            {
+              "$ref": "#/definitions/genderComponent"
+            },
+            {
+              "$ref": "#/definitions/followButtonComponent"
+            },
+            {
+              "$ref": "#/definitions/contributeComponent"
+            }
+          ]
+        },
+        "type": "array"
+      }
+    },
+    "type": "object",
+    "defaultProperties": [
+      "name",
+      "id",
+      "desc",
+      "prop",
+      "child"
+    ],
+    "definitions": {
+      "___": {
+        "patternProperties": {
+          "___.*": {
+            "type": "string",
+            "required": true,
+            "options": {
+              "hidden": true
+            }
+          }
+        }
+      },
+      "base": {
+        "$ref": "#/definitions/___",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "propertyOrder": 10
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]+$",
+            "minLength": 1,
+            "maxLength": 50,
+            "propertyOrder": 20
+          },
+          "desc": {
+            "type": "string",
+            "maxLength": 100,
+            "propertyOrder": 30
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "$ref": "#/definitions/layout",
+                "propertyOrder": 1
+              },
+              "bgColor": {
+                "$ref": "#/definitions/color",
+                "propertyOrder": 2000
+              },
+              "round": {
+                "$ref": "#/definitions/round",
+                "format": "grid",
+                "propertyOrder": 3000
+              },
+              "visible": {
+                "type": "boolean",
+                "propertyOrder": 4000
+              }
+            },
+            "type": "object",
+            "defaultProperties": [
+              "layout"
+            ],
+            "propertyOrder": 40
+          },
+          "data": {
+            "type": "object",
+            "propertyOrder": 50
+          }
+        },
+        "required": [
+          "name",
+          "id",
+          "desc",
+          "prop"
+        ],
+        "defaultProperties": [
+          "name",
+          "id",
+          "desc",
+          "prop"
+        ]
+      },
+      "layout": {
+        "$ref": "#/definitions/___",
+        "properties": {
+          "l": {
+            "type": "number",
+            "propertyOrder": 10
+          },
+          "r": {
+            "type": "number",
+            "propertyOrder": 20
+          },
+          "t": {
+            "type": "number",
+            "propertyOrder": 30
+          },
+          "b": {
+            "type": "number",
+            "propertyOrder": 40
+          },
+          "w": {
+            "type": "number",
+            "propertyOrder": 50
+          },
+          "h": {
+            "type": "number",
+            "propertyOrder": 60
+          },
+          "centerLand": {
+            "type": "boolean",
+            "propertyOrder": 70
+          },
+          "centerPort": {
+            "type": "boolean",
+            "propertyOrder": 80
+          },
+          "___layout": {}
+        },
+        "type": "object",
+        "format": "grid",
+        "defaultProperties": [
+          "l",
+          "t",
+          "w",
+          "h",
+          "___layout"
+        ]
+      },
+      "layoutSupportAutoWidthHeight": {
+        "$ref": "#/definitions/___",
+        "properties": {
+          "l": {
+            "type": "number",
+            "propertyOrder": 10
+          },
+          "r": {
+            "type": "number",
+            "propertyOrder": 20
+          },
+          "t": {
+            "type": "number",
+            "propertyOrder": 30
+          },
+          "b": {
+            "type": "number",
+            "propertyOrder": 40
+          },
+          "w": {
+            "type": "number",
+            "propertyOrder": 50
+          },
+          "h": {
+            "type": "number",
+            "propertyOrder": 60
+          },
+          "centerLand": {
+            "type": "boolean",
+            "propertyOrder": 70
+          },
+          "centerPort": {
+            "type": "boolean",
+            "propertyOrder": 80
+          },
+          "widthAuto": {
+            "type": "boolean",
+            "propertyOrder": 90
+          },
+          "heightAuto": {
+            "type": "boolean",
+            "propertyOrder": 100
+          },
+          "___layoutSupportAutoWidthHeight": {}
+        },
+        "type": "object",
+        "format": "grid",
+        "defaultProperties": [
+          "l",
+          "t",
+          "w",
+          "h",
+          "___layoutSupportAutoWidthHeight"
+        ]
+      },
+      "color": {
+        "$ref": "#/definitions/___",
+        "properties": {
+          "color": {
+            "type": "string",
+            "format": "color",
+            "default": "#000000"
+          },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
+          },
+          "___color": {}
+        },
+        "type": "object",
+        "format": "grid",
+        "defaultProperties": [
+          "color",
+          "___color"
+        ]
+      },
+      "round": {
+        "$ref": "#/definitions/___",
+        "properties": {
+          "radius": {
+            "type": "number"
+          },
+          "borderWidth": {
+            "type": "number"
+          },
+          "borderColor": {
+            "$ref": "#/definitions/color"
+          },
+          "___round": {}
+        },
+        "type": "object",
+        "defaultProperties": [
+          "radius",
+          "___round"
+        ]
+      },
+      "viewComponent": {
+        "$ref": "#/definitions/base",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponent1"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/seatViewComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponent": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponent"
+        ]
+      },
+      "viewComponent1": {
+        "$ref": "#/definitions/base",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponent2"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/seatViewComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponent1": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponent1"
+        ]
+      },
+      "viewComponent2": {
+        "$ref": "#/definitions/base",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponent3"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/seatViewComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponent2": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponent2"
+        ]
+      },
+      "viewComponent3": {
+        "$ref": "#/definitions/base",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponent4"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/seatViewComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponent3": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponent3"
+        ]
+      },
+      "viewComponent4": {
+        "$ref": "#/definitions/base",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponent5"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/seatViewComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponent4": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponent4"
+        ]
+      },
+      "viewComponent5": {
+        "$ref": "#/definitions/base",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/seatViewComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponent5": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponent5"
+        ]
+      },
+      "viewComponentWithoutSeat": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "type": "object",
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponentWithoutSeat1"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponentWithoutSeat": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponentWithoutSeat"
+        ]
+      },
+      "viewComponentWithoutSeat1": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "type": "object",
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponentWithoutSeat2"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponentWithoutSeat1": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponentWithoutSeat1"
+        ]
+      },
+      "viewComponentWithoutSeat2": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "type": "object",
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponentWithoutSeat3"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponentWithoutSeat2": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponentWithoutSeat2"
+        ]
+      },
+      "viewComponentWithoutSeat3": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "type": "object",
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponentWithoutSeat4"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponentWithoutSeat3": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponentWithoutSeat3"
+        ]
+      },
+      "viewComponentWithoutSeat4": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "type": "object",
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponentWithoutSeat5"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponentWithoutSeat4": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponentWithoutSeat4"
+        ]
+      },
+      "viewComponentWithoutSeat5": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "view",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "layout": {
+                "type": "object",
+                "$ref": "#/definitions/layoutSupportAutoWidthHeight"
+              }
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___viewComponentWithoutSeat5": {}
+        },
+        "defaultProperties": [
+          "child",
+          "___viewComponentWithoutSeat5"
+        ]
+      },
+      "labelComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "label",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "text": {
+                "type": "string",
+                "propertyOrder": 10
+              },
+              "textSize": {
+                "type": "number",
+                "propertyOrder": 20
+              },
+              "textColor": {
+                "type": "object",
+                "$ref": "#/definitions/color",
+                "propertyOrder": 30
+              },
+              "maxWidth": {
+                "type": "number",
+                "propertyOrder": 40
+              },
+              "ellipsize": {
+                "type": "number",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ],
+                "options": {
+                  "enum_titles": [
+                    "...",
+                    "truncate",
+                    "marquee"
+                  ]
+                },
+                "propertyOrder": 50
+              },
+              "maxLines": {
+                "type": "number",
+                "default": 1,
+                "propertyOrder": 60
+              },
+              "gravity": {
+                "type": "number",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ],
+                "default": 0,
+                "options": {
+                  "enum_titles": [
+                    "left",
+                    "right",
+                    "center"
+                  ]
+                },
+                "propertyOrder": 70
+              }
+            },
+            "defaultProperties": [
+              "text",
+              "textSize",
+              "gravity",
+              "textColor"
+            ]
+          },
+          "___labelComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "___labelComponent"
+        ]
+      },
+      "imageComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "image",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "src": {
+                "type": "string",
+                "format": "url"
+              },
+              "defaultSrc": {
+                "type": "string",
+                "format": "url"
+              },
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "centerCrop",
+                  "fit",
+                  "fill"
+                ]
+              }
+            },
+            "defaultProperties": [
+              "src",
+              "defaultSrc",
+              "mode"
+            ]
+          },
+          "___imageComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "___imageComponent"
+        ]
+      },
+      "lottieComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "lottie",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "url"
+              },
+              "status": {
+                "type": "boolean"
+              }
+            },
+            "type": "object",
+            "defaultProperties": [
+              "url",
+              "status"
+            ]
+          },
+          "___lottieComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "___lottieComponent"
+        ]
+      },
+      "keyframeComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "keyframe",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "url"
+              },
+              "status": {
+                "type": "boolean"
+              }
+            },
+            "defaultProperties": [
+              "url",
+              "status"
+            ]
+          },
+          "___keyframeComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "___keyframeComponent"
+        ]
+      },
+      "seatViewComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "seatView",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "seat": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 8
+              },
+              "seatInfo": {
+                "type": "object"
+              },
+              "states": {
+                "type": "object",
+                "properties": {
+                  "empty": {
+                    "$ref": "#/definitions/base",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "default": "emptyView",
+                        "readOnly": true
+                      },
+                      "child": {
+                        "items": {
+                          "type": "object",
+                          "anyOf": [
+                            {
+                              "$ref": "#/definitions/labelComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/imageComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/viewComponentWithoutSeat"
+                            },
+                            {
+                              "$ref": "#/definitions/lottieComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/keyframeComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/muteButtonComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/genderComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/followButtonComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/contributeComponent"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "defaultProperties": [
+                      "child"
+                    ]
+                  },
+                  "audio": {
+                    "$ref": "#/definitions/base",
+                    "properties": {
+                      "name": {
+                        "default": "audioView",
+                        "readOnly": true
+                      },
+                      "prop": {
+                        "properties": {
+                          "audioAnim": {
+                            "$ref": "#/definitions/lottieComponent"
+                          }
+                        },
+                        "defaultProperties": [
+                          "audioAnim"
+                        ]
+                      },
+                      "child": {
+                        "items": {
+                          "type": "object",
+                          "anyOf": [
+                            {
+                              "$ref": "#/definitions/labelComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/imageComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/viewComponentWithoutSeat"
+                            },
+                            {
+                              "$ref": "#/definitions/lottieComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/keyframeComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/muteButtonComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/genderComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/followButtonComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/contributeComponent"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "defaultProperties": [
+                      "child"
+                    ]
+                  },
+                  "video": {
+                    "$ref": "#/definitions/base",
+                    "properties": {
+                      "name": {
+                        "default": "videoView",
+                        "readOnly": true
+                      },
+                      "child": {
+                        "items": {
+                          "type": "object",
+                          "anyOf": [
+                            {
+                              "$ref": "#/definitions/labelComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/imageComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/viewComponentWithoutSeat"
+                            },
+                            {
+                              "$ref": "#/definitions/lottieComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/keyframeComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/muteButtonComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/genderComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/followButtonComponent"
+                            },
+                            {
+                              "$ref": "#/definitions/contributeComponent"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "defaultProperties": [
+                      "child"
+                    ]
+                  }
+                }
+              }
+            },
+            "defaultProperties": [
+              "seat",
+              "states"
+            ]
+          },
+          "data": {
+            "default": {
+              "seatInfo": "sync:p_user.users[position=1]"
+            }
+          },
+          "child": {
+            "items": {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/labelComponent"
+                },
+                {
+                  "$ref": "#/definitions/imageComponent"
+                },
+                {
+                  "$ref": "#/definitions/viewComponentWithoutSeat"
+                },
+                {
+                  "$ref": "#/definitions/lottieComponent"
+                },
+                {
+                  "$ref": "#/definitions/keyframeComponent"
+                },
+                {
+                  "$ref": "#/definitions/muteButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/genderComponent"
+                },
+                {
+                  "$ref": "#/definitions/followButtonComponent"
+                },
+                {
+                  "$ref": "#/definitions/contributeComponent"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "___seatViewComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "child",
+          "___seatViewComponent"
+        ]
+      },
+      "muteButtonComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "muteButton",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "onSrc": {
+                "type": "string",
+                "format": "url"
+              },
+              "offSrc": {
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "defaultProperties": [
+              "onSrc",
+              "offSrc"
+            ]
+          },
+          "___muteButtonComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "___muteButtonComponent"
+        ]
+      },
+      "genderComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "genderView",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "genderUrl": {
+                "type": "object",
+                "properties": {
+                  "M": {
+                    "type": "string",
+                    "format": "url"
+                  },
+                  "F": {
+                    "type": "string",
+                    "format": "url"
+                  },
+                  "N": {
+                    "type": "string",
+                    "format": "url"
+                  }
+                },
+                "defaultProperties": [
+                  "M",
+                  "F",
+                  "N"
+                ]
+              }
+            },
+            "defaultProperties": [
+              "genderUrl"
+            ]
+          },
+          "___genderComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "___genderComponent"
+        ]
+      },
+      "followButtonComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "followButton",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "src": {
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "type": "object",
+            "defaultProperties": [
+              "src"
+            ]
+          },
+          "___followButtonComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "___followButtonComponent"
+        ]
+      },
+      "contributeComponent": {
+        "$ref": "#/definitions/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "default": "contributeView",
+            "readOnly": true
+          },
+          "prop": {
+            "properties": {
+              "fansWidth": {
+                "type": "number"
+              },
+              "fansHeight": {
+                "type": "number"
+              },
+              "fansBorderWidth": {
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "___contributeComponent": {}
+        },
+        "defaultProperties": [
+          "data",
+          "___contributeComponent"
+        ]
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "interaction",
+    "required_by_default": 0,
+    "no_additional_properties": 0,
+    "display_required_only": 0,
+    "remove_empty_properties": 0,
+    "keep_oneof_values": 1,
+    "ajax": 0,
+    "ajaxCredentials": 0,
+    "show_opt_in": 0,
+    "disable_edit_json": 0,
+    "disable_collapse": 0,
+    "disable_properties": 0,
+    "disable_array_add": 0,
+    "disable_array_reorder": 0,
+    "disable_array_delete": 0,
+    "enable_array_copy": 0,
+    "array_controls_top": 0,
+    "disable_array_delete_all_rows": 0,
+    "disable_array_delete_last_row": 0,
+    "prompt_before_delete": 1,
+    "lib_aceeditor": 0,
+    "lib_autocomplete": 0,
+    "lib_sceditor": 0,
+    "lib_simplemde": 0,
+    "lib_select2": 0,
+    "lib_selectize": 0,
+    "lib_choices": 0,
+    "lib_flatpickr": 0,
+    "lib_signaturepad": 0,
+    "lib_mathjs": 0,
+    "lib_cleavejs": 0,
+    "lib_jodit": 0,
+    "lib_jquery": 0,
+    "lib_dompurify": 0
+  },
+  "code": "// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",
+  "style": "",
+  "desc": "<p><h3>A complex schema that express a node tree</h3><ul><li>it work well with anyOf. see #/definitions/___</li><li>it allows recursive. see #/definitions/viewComponent* (a low solution, but work)</li></ul></p>"
+}

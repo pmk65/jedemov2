@@ -31,6 +31,10 @@
         "file": "recursive"
       },
       {
+        "title": "Complex schema that express a node tree",
+        "file": "complex-schema"
+      },
+      {
         "title": "Payment Method (oneOf)",
         "file": "oneof-payment-method"
       },

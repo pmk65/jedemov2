@@ -198,8 +198,6 @@
     ]
   },
   "config": {
-    "theme": "bootstrap2",
-    "iconlib": "bootstrap2",
     "object_layout": "grid",
     "template": "default",
     "show_errors": "always",
