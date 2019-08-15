@@ -254,6 +254,10 @@
       {
         "title": "Spectre Theme",
         "file": "spectre-theme-tester"
+      },
+      {
+        "title": "Tailwind Theme",
+        "file": "tailwind-theme-tester"
       }
     ]
   },
