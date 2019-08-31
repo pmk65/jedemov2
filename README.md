@@ -25,6 +25,7 @@ Here you can try various predefined examples or create your own schema and JavaS
 
 ## Navigation
 <br>
+
 ### The Tabs
 
 * **Form** - The form generated from the schema. The form is created in an IFrame, isolated from the rest of the page.
