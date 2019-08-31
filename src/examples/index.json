@@ -212,6 +212,10 @@
       {
         "title": "Optgroup for select lists",
         "file": "optgroup-for-select-lists"
+      },
+      {
+        "title": "Detect/capture field changes",
+        "file": "detect-field-change"
       }
     ]
   },

@@ -67,6 +67,7 @@
     background-size: 10rem;
     color: transparent;
     background-clip: text;
+    -webkit-background-clip: text;
     background-position: -12rem;
     padding-bottom: .05rem;
   }

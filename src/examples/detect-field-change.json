@@ -1,0 +1,102 @@
+{
+  "title": "Detect field change",
+  "schema": {
+    "type": "object",
+    "title": "Car",
+    "properties": {
+      "make": {
+        "type": "string",
+        "enum": [
+          "Toyota",
+          "BMW",
+          "Honda",
+          "Ford",
+          "Chevy",
+          "VW"
+        ]
+      },
+      "model": {
+        "type": "string"
+      },
+      "year": {
+        "type": "integer",
+        "enum": [
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014
+        ],
+        "default": 2008
+      },
+      "safety": {
+        "type": "integer",
+        "format": "rating",
+        "maximum": "5",
+        "exclusiveMaximum": false,
+        "readonly": false
+      }
+    }
+  },
+  "startval": {
+    "make": "Toyota",
+    "model": "",
+    "year": 2008,
+    "safety": 1
+  },
+  "config": {
+    "template": "default",
+    "show_errors": "interaction",
+    "required_by_default": 1,
+    "no_additional_properties": 0,
+    "display_required_only": 0,
+    "remove_empty_properties": 0,
+    "keep_oneof_values": 1,
+    "ajax": 0,
+    "ajaxCredentials": 0,
+    "show_opt_in": 0,
+    "disable_edit_json": 0,
+    "disable_collapse": 0,
+    "disable_properties": 0,
+    "disable_array_add": 0,
+    "disable_array_reorder": 0,
+    "disable_array_delete": 0,
+    "enable_array_copy": 0,
+    "array_controls_top": 0,
+    "disable_array_delete_all_rows": 0,
+    "disable_array_delete_last_row": 0,
+    "prompt_before_delete": 1,
+    "lib_aceeditor": 0,
+    "lib_autocomplete": 0,
+    "lib_sceditor": 0,
+    "lib_simplemde": 0,
+    "lib_select2": 0,
+    "lib_selectize": 0,
+    "lib_choices": 0,
+    "lib_flatpickr": 0,
+    "lib_signaturepad": 0,
+    "lib_mathjs": 0,
+    "lib_cleavejs": 0,
+    "lib_jodit": 0,
+    "lib_jquery": 0,
+    "lib_dompurify": 1
+  },
+  "code": "// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);\n\n\n/*!\n * Find the differences between two objects and push to a new object\n * (c) 2019 Chris Ferdinandi & Jascha Brinkmann, MIT License, https://gomakethings.com & https://twitter.com/jaschaio\n * @param  {Object} obj1 The original object\n * @param  {Object} obj2 The object to compare against it\n * @return {Object}      An object of differences between the two\n */\nvar diff = function(obj1, obj2) {\n\n  // Make sure an object to compare is provided\n  if (!obj2 || Object.prototype.toString.call(obj2) !== '[object Object]') {\n    return obj1;\n  }\n\n  // Variables\n  var diffs = {}, key;\n\n  // Methods\n\n  /**\n  * Check if two arrays are equal\n  * @param  {Array}   arr1 The first array\n  * @param  {Array}   arr2 The second array\n  * @return {Boolean}      If true, both arrays are equal\n  */\n  var arraysMatch = function(arr1, arr2) {\n\n    // Check if the arrays are the same length\n    if (arr1.length !== arr2.length) return false;\n\n    // Check if all items exist and are in the same order\n    for (var i = 0; i < arr1.length; i++) {\n      if (arr1[i] !== arr2[i]) return false;\n    }\n\n    // Otherwise, return true\n    return true;\n\n  };\n\n  /**\n  * Compare two items and push non-matches to object\n  * @param  {*}      item1 The first item\n  * @param  {*}      item2 The second item\n  * @param  {String} key   The key in our object\n  */\n  var compare = function(item1, item2, key) {\n\n    // Get the object type\n    var type1 = Object.prototype.toString.call(item1);\n    var type2 = Object.prototype.toString.call(item2);\n\n    // If type2 is undefined it has been removed\n    if (type2 === '[object Undefined]') {\n      diffs[key] = null;\n      return;\n    }\n\n    // If items are different types\n    if (type1 !== type2) {\n      diffs[key] = item2;\n      return;\n    }\n\n    // If an object, compare recursively\n    if (type1 === '[object Object]') {\n      var objDiff = diff(item1, item2);\n      if (Object.keys(objDiff).length > 1) {\n        diffs[key] = objDiff;\n      }\n      return;\n    }\n\n    // If an array, compare\n    if (type1 === '[object Array]') {\n      if (!arraysMatch(item1, item2)) {\n        diffs[key] = item2;\n      }\n      return;\n    }\n\n    // Else if it's a function, convert to a string and compare\n    // Otherwise, just compare\n    if (type1 === '[object Function]') {\n      if (item1.toString() !== item2.toString()) {\n        diffs[key] = item2;\n      }\n    } else {\n      if (item1 !== item2) {\n        diffs[key] = item2;\n      }\n    }\n\n  };\n\n  // Compare our objects\n\n  // Loop through the first object\n  for (key in obj1) {\n    if (obj1.hasOwnProperty(key)) {\n      compare(obj1[key], obj2[key], key);\n    }\n  }\n\n  // Loop through the second object and find missing items\n  for (key in obj2) {\n    if (obj2.hasOwnProperty(key)) {\n      if (!obj1[key] && obj1[key] !== obj2[key]) {\n        diffs[key] = obj2[key];\n      }\n    }\n  }\n\n  // Return the object of differences\n  return diffs;\n\n};\n\n// Show output in textarea\nvar showOutput = function(text) {\n  if (!this.outputElement) {\n    // create test output textarea field\n    this.outputElement = document.createElement('textarea');\n    this.outputElement.setAttribute('readonly', true);\n    this.outputElement.style.minWidth = '100%';\n    this.outputElement.style.backgroundColor = '#ffffbe';\n    document.body.insertBefore(this.outputElement, document.body.firstChild);\n  }\n  this.outputElement.value += '\\n' + text;\n  this.outputElement.scrollTop = this.outputElement.scrollHeight;\n\n}.bind({\n    outputElement: null\n  });\n\n// JSON-Editor 'change' event handler\nvar changeFunc = function() {\n\n  if (this.getCount() == 1) this.previousValue = jseditor.getValue(); // Store the initial value\n  else {\n    var value = jseditor.getValue(), result = diff(this.previousValue, value);\n    this.previousValue = value;\n    var res = 'Changed key/value: ' + JSON.stringify(result);\n    console.log(res);\n    showOutput(res);\n  }\n\n}.bind({\n    count: 0,\n    previousValue: null,\n    getCount: function() {\n      return ++this.count;\n    }\n  });\n\n// JSON-Editor 'ready' event handler\nvar readyFunc = function() {\n  console.log('JSON-Editor Ready');\n  // Attach 'change' event handler\n  jseditor.on('change', changeFunc);\n};\n\n// Attach 'ready' event handler\njseditor.on('ready', readyFunc);",
+  "style": "",
+  "desc": "<p>This example shows how you can detect/capture the property changed.</p>"
+}
