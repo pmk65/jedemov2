@@ -256,6 +256,10 @@
         "file": "selectize-test"
       },
       {
+        "title": "Bootstrap4 Theme",
+        "file": "bootstrap4-theme-tester"
+      },
+      {
         "title": "Spectre Theme",
         "file": "spectre-theme-tester"
       },
