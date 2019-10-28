@@ -113,6 +113,10 @@
       },
       {
         "title": "Jodit WYSIWYG Editor",
+        "file": "imask"
+      },
+      {
+        "title": "IMask.js",
         "file": "jodit"
       },
       {

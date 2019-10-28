@@ -1,0 +1,180 @@
+{
+  "title": "imask",
+  "schema": {
+    "title": "Imask.js editor examples",
+    "id": "test",
+    "type": "object",
+    "format": "grid",
+    "options": {
+      "disable_edit_json": false,
+      "disable_properties": false
+    },
+    "properties": {
+      "_header": {
+        "type": "info",
+        "title": "Example showing how to use Imask.js to format your &lt;input/&gt; content when you are typing.",
+        "description": "<p>For documentation on the Imask.js options, look at <a href=\"https://imask.js.org/\" target=\"_blank\" title=\"Imask.js Homepage\">IMask.js</a> homepage.</p>",
+        "options": {
+          "compact": true,
+          "grid_columns": 12
+        }
+      },
+      "phone": {
+        "type": "string",
+        "title": "Phone number",
+        "description": "Phone number formatting with prefix and placeholder chars",
+        "options": {
+          "grid_columns": 6,
+          "imask": {
+            "returnUnmasked": true,
+            "mask": "+{7}(000)000-00-00",
+            "lazy": false,
+            "placeholderChar": "#"
+          }
+        }
+      },
+      "number": {
+        "type": "string",
+        "title": "Number",
+        "description": "Advanced number formatting",
+        "options": {
+          "grid_columns": 6,
+          "imask": {
+            "mask": "Number",
+            "scale": 2,
+            "signed": false,
+            "thousandsSeparator": "",
+            "padFractionalZeros": false,
+            "normalizeZeros": true,
+            "radix": ",",
+            "mapToRadix": [
+              "."
+            ]
+          }
+        }
+      },
+      "currency": {
+        "type": "string",
+        "title": "Currency",
+        "description": "Currency with prefix and thousands separator",
+        "options": {
+          "grid_columns": 6,
+          "imask": {
+            "mask": "$num",
+            "blocks": {
+              "num": {
+                "mask": "Number",
+                "thousandsSeparator": " "
+              }
+            }
+          }
+        }
+      },
+      "regex": {
+        "type": "string",
+        "title": "Regular Expression",
+        "description": "Numeric digits only",
+        "options": {
+          "grid_columns": 6,
+          "imask": {
+            "mask": "/^\\d+$/"
+          }
+        }
+      },
+      "func": {
+        "type": "string",
+        "title": "Callback Function",
+        "description": "Numeric digits only and next digit must be higher than previous",
+        "options": {
+          "grid_columns": 6,
+          "imask": {
+            "mask": "testFunction"
+          }
+        }
+      },
+      "range": {
+        "type": "string",
+        "title": "Masked Range",
+        "description": "Numeric value between 10 and 30",
+        "options": {
+          "grid_columns": 6,
+          "imask": {
+            "mask": "IMask.MaskedRange",
+            "from": 10,
+            "to": 30
+          }
+        }
+      },
+      "dynamic": {
+        "type": "string",
+        "title": "Dynamic Mask",
+        "description": "RGB - 3 numeric values between 0 and 255 separated by commas",
+        "options": {
+          "grid_columns": 6,
+          "imask": {
+            "mask": [
+              {
+                "mask": "RGB,RGB,RGB",
+                "blocks": {
+                  "RGB": {
+                    "mask": "IMask.MaskedRange",
+                    "from": 0,
+                    "to": 255
+                  }
+                }
+              },
+              {
+                "mask": "/^#[0-9a-f]{0,6}$/i"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "startval": {},
+  "config": {
+    "theme": "spectre",
+    "iconlib": "fontawesome4",
+    "object_layout": "normal",
+    "template": "default",
+    "show_errors": "always",
+    "required_by_default": 1,
+    "no_additional_properties": 0,
+    "display_required_only": 0,
+    "remove_empty_properties": 0,
+    "keep_oneof_values": 1,
+    "ajax": 0,
+    "ajaxCredentials": 0,
+    "show_opt_in": 0,
+    "disable_edit_json": 0,
+    "disable_collapse": 0,
+    "disable_properties": 0,
+    "disable_array_add": 0,
+    "disable_array_reorder": 0,
+    "disable_array_delete": 0,
+    "enable_array_copy": 0,
+    "array_controls_top": 0,
+    "disable_array_delete_all_rows": 0,
+    "disable_array_delete_last_row": 0,
+    "prompt_before_delete": 1,
+    "lib_aceeditor": 0,
+    "lib_autocomplete": 0,
+    "lib_sceditor": 0,
+    "lib_simplemde": 0,
+    "lib_select2": 0,
+    "lib_selectize": 0,
+    "lib_choices": 0,
+    "lib_flatpickr": 0,
+    "lib_signaturepad": 0,
+    "lib_mathjs": 0,
+    "lib_cleavejs": 0,
+    "lib_imaskjs": 1,
+    "lib_jodit": 0,
+    "lib_jquery": 0,
+    "lib_dompurify": 1
+  },
+  "code": "window.JSONEditor.defaults.callbacks.imask = {\n  \"testFunction\": function(jseditor, value) {\n    return /^\\d*$/.test(value) &&\n      value.split('').every(function(ch, i) {\n        var prevCh = value[i-1];\n        return !prevCh || prevCh < ch;\n      });\n  }\n};\n\n// The following lines are mandatory and readonly. You can add custom code above and below.\nif (jseditor instanceof window.JSONEditor) jseditor.destroy();\njseditor = new window.JSONEditor(document.querySelector(\"#json-editor-form\"), jedata);",
+  "style": "",
+  "desc": "Add optional description here. (HTML format)"
+}
