@@ -1,5 +1,5 @@
 {
-  "title": "imask",
+  "title": "IMask",
   "schema": {
     "title": "Imask.js editor examples",
     "id": "test",
@@ -77,7 +77,7 @@
         "options": {
           "grid_columns": 6,
           "imask": {
-            "mask": "/^\\d+$/"
+            "mask": "regex:/^\\d+$/"
           }
         }
       },
@@ -124,7 +124,7 @@
                 }
               },
               {
-                "mask": "/^#[0-9a-f]{0,6}$/i"
+                "mask": "regex:/^#[0-9a-f]{0,6}$/i"
               }
             ]
           }
